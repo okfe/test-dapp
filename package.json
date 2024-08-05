@@ -1,6 +1,6 @@
 {
   "private": true,
-  "author": "shaowei.zhou <shaowei.zhou@okg.com>",
+  "author": "OKX Developers",
   "scripts": {
     "build": "max build",
     "dev": "max dev",
