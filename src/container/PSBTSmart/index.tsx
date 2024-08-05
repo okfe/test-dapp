@@ -5,6 +5,7 @@ import {
   UnisatWallet,
   XverseWallet,
 } from '@ant-design/web3-bitcoin';
+import { WalletColorful } from '@ant-design/web3-icons';
 import { Layout, Row, Typography } from 'antd';
 import React from 'react';
 import styles from './index.less';
@@ -29,7 +30,7 @@ const PSBTSmart: React.FC = () => {
               mode: 'simple',
             }}
           >
-            <ConnectButton />
+            <ConnectButton icon={<WalletColorful />} />
           </Connector>
         </BitcoinWeb3ConfigProvider>
       </Row>
