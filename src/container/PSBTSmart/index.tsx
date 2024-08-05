@@ -7,20 +7,15 @@ import {
 } from '@ant-design/web3-bitcoin';
 import { Layout, Row, Typography } from 'antd';
 import React from 'react';
-import styles from './Guide.less';
-
-interface Props {
-  name: string;
-}
+import styles from './index.less';
 
 // 脚手架示例组件
-const Guide: React.FC<Props> = (props) => {
-  const { name } = props;
+const PSBTSmart: React.FC = () => {
   return (
     <Layout>
       <Row>
         <Typography.Title level={3} className={styles.title}>
-          欢迎使用 <strong>{name}</strong> ！
+          快速构建 PSBT!
         </Typography.Title>
       </Row>
       <Row>
@@ -42,4 +37,4 @@ const Guide: React.FC<Props> = (props) => {
   );
 };
 
-export default Guide;
+export default PSBTSmart;
