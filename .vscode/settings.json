@@ -4,10 +4,14 @@
     "packagejson",
     "psbt",
     "tanstack",
+    "txid",
     "umijs",
     "Unisat",
+    "utxo",
+    "UTXOs",
     "valibot",
     "viem",
+    "vout",
     "wagmi",
     "Xverse"
   ]
