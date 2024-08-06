@@ -1,4 +1,4 @@
-import generatePsbt from '@/utils/BTC/Psbt/generatePsbt';
+import generatePsbt from '@/utils/BTC/psbt/generatePsbt';
 import { getTxDetail, getTxHex } from '@/utils/mempool/transaction';
 import * as bitcoin from 'bitcoinjs-lib';
 
