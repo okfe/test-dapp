@@ -1,8 +1,10 @@
 {
   "cSpell.words": [
     "antd",
+    "bitcoinjs",
     "packagejson",
     "psbt",
+    "scriptpubkey",
     "tanstack",
     "txid",
     "umijs",

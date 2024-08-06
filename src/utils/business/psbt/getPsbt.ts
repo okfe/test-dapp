@@ -1,6 +1,6 @@
+import generatePsbt from '@/utils/BTC/Psbt/generatePsbt';
 import { getTxDetail, getTxHex } from '@/utils/mempool/transaction';
 import * as bitcoin from 'bitcoinjs-lib';
-import generatePsbt from '../../BTC/Psbt/generatePsbt';
 
 export const getPsbt = async (
   inputs = [],
