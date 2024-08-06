@@ -1,7 +1,7 @@
 import extractPsbt from '@/utils/BTC/Psbt/extractPsbt';
-import generatePsbt from '@/utils/BTC/Psbt/generatePsbt';
 import { ConnectButton, Connector } from '@ant-design/web3';
 
+import getPsbt from '@/utils/temporaryFunc/getPsbt';
 import {
   BitcoinWeb3ConfigProvider,
   OkxWallet,
@@ -38,7 +38,7 @@ const PSBTSmart: React.FC = () => {
         </BitcoinWeb3ConfigProvider>
         <Button
           onClick={async () => {
-            const psbt = await generatePsbt(
+            const psbt = await getPsbt(
               [
                 {
                   txid: 'a88608dec3ab35aa55461eb85f557d0a622f64fe6ecbe96bf14e37e5075b64fd',
