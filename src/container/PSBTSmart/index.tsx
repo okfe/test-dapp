@@ -1,5 +1,5 @@
-import extractPsbt from '@/temporaryFunc/extractPsbt';
-import generatePsbt from '@/temporaryFunc/generatePsbt';
+import extractPsbt from '@/utils/BTC/Psbt/extractPsbt';
+import generatePsbt from '@/utils/BTC/Psbt/generatePsbt';
 import { ConnectButton, Connector } from '@ant-design/web3';
 
 import {
