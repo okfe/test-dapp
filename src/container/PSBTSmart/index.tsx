@@ -1,7 +1,7 @@
 import extractPsbt from '@/utils/BTC/psbt/extractPsbt';
 import { ConnectButton, Connector } from '@ant-design/web3';
 
-import getPsbt from '@/utils/business/BTC/psbt/getPsbt';
+import { getPsbt } from '@/utils/business/BTC/psbt';
 import {
   BitcoinWeb3ConfigProvider,
   OkxWallet,
