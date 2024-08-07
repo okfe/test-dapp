@@ -1,5 +1,6 @@
 import { ConnectButton, Connector } from '@ant-design/web3';
 
+import { formatTxHash } from '@/utils/business/Common';
 import { WalletColorful } from '@ant-design/web3-icons';
 import {
   Button,
@@ -64,7 +65,7 @@ const PSBTSmart: React.FC = () => {
   const utxoOptions = useMemo(() => {
     const options = utxoList.map((item, index) => {
       return {
-        label: `${item.value}sats`,
+        label: `${formatTxHash(item.txid)} index${item.vout} ${item.value}sats`,
         value: index,
       };
     });
