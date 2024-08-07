@@ -12,7 +12,7 @@ export const generatePsbt = (
     psbt.addInput(input);
   });
   psbt.setVersion(2);
-  outputs.forEach((output) => {
+  outputs.forEach((output: any) => {
     psbt.addOutput({
       address: output.address,
       value: output.value,

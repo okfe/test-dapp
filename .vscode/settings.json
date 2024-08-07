@@ -2,6 +2,8 @@
   "cSpell.words": [
     "antd",
     "bitcoinjs",
+    "ecpair",
+    "okxwallet",
     "packagejson",
     "psbt",
     "scriptpubkey",
