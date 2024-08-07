@@ -57,7 +57,7 @@ const PSBTSmart: React.FC = () => {
     signedPsbt,
     getSignedPsbt,
     psbt,
-    boardcastTx,
+    broadcastTx,
   } = usePsbt();
 
   const utxoOptions = useMemo(() => {
@@ -136,7 +136,7 @@ const PSBTSmart: React.FC = () => {
         <Typography.Title level={4} className={styles.subTitle}>
           4.广播PSBT
         </Typography.Title>
-        <Button onClick={boardcastTx}>广播</Button>
+        <Button onClick={broadcastTx}>广播</Button>
       </Row>
     </Layout>
   );

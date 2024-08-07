@@ -1,12 +1,15 @@
 {
   "cSpell.words": [
     "antd",
+    "bitcoinerlab",
     "bitcoinjs",
     "ecpair",
     "okxwallet",
     "packagejson",
     "psbt",
     "scriptpubkey",
+    "scure",
+    "secp",
     "tanstack",
     "txid",
     "umijs",

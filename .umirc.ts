@@ -26,15 +26,31 @@ export default defineConfig({
       component: './Tools/PSBT',
     },
     {
-      name: '权限演示',
-      path: '/access',
-      component: './Access',
+      name: 'Wallet API',
+      path: '/wallet-api',
+      routes: [
+        {
+          name: 'connect',
+          path: '/wallet-api/connect',
+          component: './WalletAPI/Connect',
+        },
+        {
+          name: 'getBalance',
+          path: '/wallet-api/getBalance',
+          // component: './WalletAPI/GetBalance',
+        },
+      ],
     },
-    {
-      name: ' CRUD 示例',
-      path: '/table',
-      component: './Table',
-    },
+    // {
+    //   name: '权限演示',
+    //   path: '/access',
+    //   component: './Access',
+    // },
+    // {
+    //   name: ' CRUD 示例',
+    //   path: '/table',
+    //   component: './Table',
+    // },
   ],
   npmClient: 'pnpm',
   chainWebpack(config, args) {
@@ -44,11 +60,10 @@ export default defineConfig({
     });
 
     // Plugins
-    config.plugin('provide')
-      .use(args.webpack.ProvidePlugin, [
-        {
-          process: 'process/browser.js',
-        },
-      ]);
+    config.plugin('provide').use(args.webpack.ProvidePlugin, [
+      {
+        process: 'process/browser.js',
+      },
+    ]);
   },
 });

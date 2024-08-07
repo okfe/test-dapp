@@ -68,7 +68,7 @@ const usePsbt = () => {
     return;
   }, [psbt]);
 
-  const boardcastTx = useCallback(async () => {
+  const broadcastTx = useCallback(async () => {
     if (signPsbt) {
       const txId = await pushPsbt(signedPsbt);
       notification.success({
@@ -89,7 +89,7 @@ const usePsbt = () => {
     psbt,
     signedPsbt,
     getSignedPsbt,
-    boardcastTx,
+    broadcastTx,
   };
 };
 export default usePsbt;

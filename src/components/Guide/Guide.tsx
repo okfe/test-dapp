@@ -1,10 +1,5 @@
 import { ConnectButton, Connector } from '@ant-design/web3';
-import {
-  BitcoinWeb3ConfigProvider,
-  OkxWallet,
-  UnisatWallet,
-  XverseWallet,
-} from '@ant-design/web3-bitcoin';
+import { BitcoinWeb3ConfigProvider, OkxWallet } from '@ant-design/web3-bitcoin';
 import { Layout, Row, Typography } from 'antd';
 import React from 'react';
 import styles from './Guide.less';
@@ -24,10 +19,7 @@ const Guide: React.FC<Props> = (props) => {
         </Typography.Title>
       </Row>
       <Row>
-        <BitcoinWeb3ConfigProvider
-          autoConnect
-          wallets={[OkxWallet(), XverseWallet(), UnisatWallet()]}
-        >
+        <BitcoinWeb3ConfigProvider autoConnect wallets={[OkxWallet()]}>
           <Connector
             modalProps={{
               group: false,
