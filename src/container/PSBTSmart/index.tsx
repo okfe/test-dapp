@@ -32,16 +32,19 @@ const OutputItem = ({ outputItem, updateOutput, index }) => {
   };
   return (
     <Row>
+      {index + 1}.
       <Input
         value={outputItem.address}
         onChange={onAddressChange}
         placeholder="填写地址"
+        className={styles.input}
       />
       <InputNumber
         value={outputItem.value}
         onChange={onValueChange}
-        placeholder="填写value"
+        placeholder="填写数量(sats)"
         controls={false}
+        className={styles.input}
       />
     </Row>
   );
@@ -67,10 +70,18 @@ const PSBTSmart: React.FC = () => {
       return {
         label: `${formatTxHash(item.txid)} index${item.vout} ${item.value}sats`,
         value: index,
+        current: item,
       };
     });
     return options;
   }, [utxoList]);
+
+  const searchUtxo = (input, option) => {
+    const included =
+      option.current.txid.includes(input) ||
+      option.current.value.toString().includes(input);
+    return included;
+  };
 
   const onSelect = (value: number[]) => {
     const selectedUtxo = value.map((index) => {
@@ -116,6 +127,7 @@ const PSBTSmart: React.FC = () => {
                 placeholder="Please select"
                 onChange={onSelect}
                 options={utxoOptions}
+                filterOption={searchUtxo}
               />
             </Col>
             <Col span={24}>
