@@ -1,32 +1,49 @@
-import extractPsbt from '@/utils/BTC/psbt/extractPsbt';
 import { ConnectButton, Connector } from '@ant-design/web3';
 
 import { WalletColorful } from '@ant-design/web3-icons';
-import { Button, Input, InputNumber, Layout, Row, Select, Typography } from 'antd';
+import {
+  Button,
+  Input,
+  InputNumber,
+  Layout,
+  Row,
+  Select,
+  Typography,
+} from 'antd';
 import React, { useMemo } from 'react';
-import styles from './index.less';
 import usePsbt from './hooks/usePsbt';
-import { value } from 'valibot';
+import styles from './index.less';
 
 const OutputItem = ({ outputItem, updateOutput, index }) => {
   const onAddressChange = (e) => {
     const address = e.target.value;
     updateOutput(index, {
       ...outputItem,
-      address
+      address,
     });
-  }
+  };
   const onValueChange = (value) => {
     updateOutput(index, {
       ...outputItem,
-      value
+      value,
     });
-  }
-  return <Row>
-    <Input value={outputItem.address} onChange={onAddressChange} placeholder='填写地址' />
-    <InputNumber value={outputItem.value} onChange={onValueChange} placeholder='填写value' />
-  </Row>
-}
+  };
+  return (
+    <Row>
+      <Input
+        value={outputItem.address}
+        onChange={onAddressChange}
+        placeholder="填写地址"
+      />
+      <InputNumber
+        value={outputItem.value}
+        onChange={onValueChange}
+        placeholder="填写value"
+        controls={false}
+      />
+    </Row>
+  );
+};
 
 // 脚手架示例组件
 const PSBTSmart: React.FC = () => {
@@ -37,7 +54,10 @@ const PSBTSmart: React.FC = () => {
     addOutput,
     subOutput,
     updateOutput,
+    signedPsbt,
+    getSignedPsbt,
     psbt,
+    boardcastTx,
   } = usePsbt();
 
   const utxoOptions = useMemo(() => {
@@ -45,17 +65,17 @@ const PSBTSmart: React.FC = () => {
       return {
         label: `${item.value}sats`,
         value: index,
-      }
-    })
+      };
+    });
     return options;
-  }, [utxoList])
+  }, [utxoList]);
 
   const onSelect = (value: number[]) => {
     const selectedUtxo = value.map((index) => {
-      return utxoList[index]
-    })
+      return utxoList[index];
+    });
     setSelectedUtxo(selectedUtxo);
-  }
+  };
 
   return (
     <Layout>
@@ -95,10 +115,28 @@ const PSBTSmart: React.FC = () => {
         <Button onClick={subOutput}>减少</Button>
       </Row>
       {outputList.map((outputItem, index) => {
-        return <OutputItem outputItem={outputItem} updateOutput={updateOutput} index={index} key={index} />
+        return (
+          <OutputItem
+            outputItem={outputItem}
+            updateOutput={updateOutput}
+            index={index}
+            key={index}
+          />
+        );
       })}
+      <Row>{`PSBT: ${psbt}`}</Row>
       <Row>
-        {`PSBT: ${psbt}`}
+        <Typography.Title level={4} className={styles.subTitle}>
+          3.签名PSBT
+        </Typography.Title>
+        <Button onClick={getSignedPsbt}>签名</Button>
+      </Row>
+      <Row>{`signedPsbt: ${signedPsbt}`}</Row>
+      <Row>
+        <Typography.Title level={4} className={styles.subTitle}>
+          4.广播PSBT
+        </Typography.Title>
+        <Button onClick={boardcastTx}>广播</Button>
       </Row>
     </Layout>
   );
