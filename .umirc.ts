@@ -37,4 +37,18 @@ export default defineConfig({
     },
   ],
   npmClient: 'pnpm',
+  chainWebpack(config, args) {
+    // Experiments
+    config.experiments({
+      asyncWebAssembly: true,
+    });
+
+    // Plugins
+    config.plugin('provide')
+      .use(args.webpack.ProvidePlugin, [
+        {
+          process: 'process/browser.js',
+        },
+      ]);
+  },
 });

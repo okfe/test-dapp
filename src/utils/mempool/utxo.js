@@ -3,7 +3,7 @@ import mempoolJS from '@mempool/mempool.js';
 // import axios from 'axios';
 // import getUTXOs from './__mocks__/getUTXOs.js';
 
-const getUTXOsFrom = async (address, after_txid, limit) => {
+export const getUTXOsFrom = async (address, after_txid, limit) => {
   try {
     const {
       bitcoin: { addresses },
@@ -22,5 +22,3 @@ const getUTXOsFrom = async (address, after_txid, limit) => {
     return [];
   }
 };
-
-export { getUTXOsFrom };
