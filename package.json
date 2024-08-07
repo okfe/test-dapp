@@ -22,6 +22,7 @@
     "@mempool/mempool.js": "^2.3.0",
     "@scure/bip39": "^1.3.0",
     "@tanstack/react-query": "^5.51.21",
+    "@uiw/react-json-view": "^2.0.0-alpha.26",
     "@umijs/max": "^4.3.11",
     "antd": "^5.20.0",
     "babel-loader": "^9.1.3",

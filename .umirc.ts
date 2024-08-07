@@ -37,7 +37,7 @@ export default defineConfig({
         {
           name: 'getBalance',
           path: '/wallet-api/getBalance',
-          // component: './WalletAPI/GetBalance',
+          component: './WalletAPI/GetBalance',
         },
       ],
     },

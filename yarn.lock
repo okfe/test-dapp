@@ -2667,6 +2667,11 @@
     "@typescript-eslint/types" "5.62.0"
     eslint-visitor-keys "^3.3.0"
 
+"@uiw/react-json-view@^2.0.0-alpha.26":
+  version "2.0.0-alpha.26"
+  resolved "https://registry.yarnpkg.com/@uiw/react-json-view/-/react-json-view-2.0.0-alpha.26.tgz#6c2027ee7e1bfda9012cfd8ff0acad1903dd86b1"
+  integrity sha512-i3uph/hjjT+RwUMjC3lpQUFwWWP+/muipo5Hj22XlhreFrcnhgydorq3PFBnmu4nZxNzkwGar07M6/f6+5b+XQ==
+
 "@umijs/ast@4.3.11":
   version "4.3.11"
   resolved "https://registry.npmjs.org/@umijs/ast/-/ast-4.3.11.tgz"
