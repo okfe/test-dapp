@@ -2,11 +2,7 @@ import generatePsbt from '@/utils/BTC/psbt/generatePsbt';
 import { getTxDetail, getTxHex } from '@/utils/mempool/transaction';
 import * as bitcoin from 'bitcoinjs-lib';
 
-export const getPsbt = async (
-  inputs = [],
-  outputs = [],
-  network = bitcoin.networks.bitcoin,
-) => {
+export const getCurInputs = async (inputs) => {
   const curInputs = [];
   await Promise.all(
     inputs.map(async (input) => {
@@ -25,8 +21,14 @@ export const getPsbt = async (
       });
     }),
   );
+  return curInputs;
+}
+
+export const getPsbt = async (
+  curInputs = [],
+  outputs = [],
+  network = bitcoin.networks.bitcoin,
+) => {
   const psbt = generatePsbt(curInputs, outputs, network);
   return psbt;
 };
-
-export default getPsbt;

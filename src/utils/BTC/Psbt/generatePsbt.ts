@@ -1,10 +1,12 @@
 import * as bitcoin from 'bitcoinjs-lib';
+import * as ecc from '@bitcoinerlab/secp256k1'
 
 export const generatePsbt = (
   inputs = [],
   outputs = [],
   network = bitcoin.networks.bitcoin,
 ) => {
+  bitcoin.initEccLib(ecc);
   const psbt = new bitcoin.Psbt({
     network,
   });
