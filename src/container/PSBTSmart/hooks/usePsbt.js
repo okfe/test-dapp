@@ -2,7 +2,7 @@ import { useBitcoinWallet } from "@ant-design/web3-bitcoin";
 import { useEffect, useMemo, useState } from "react";
 import { getUTXOsFrom } from '@/utils/mempool/utxo';
 import { getCurInputs } from '@/utils/business/BTC/psbt/index'
-import generatePsbt from "@/utils/BTC/Psbt/generatePsbt";
+import generatePsbt from "@/utils/BTC/psbt/generatePsbt";
 
 const usePsbt = () => {
   const { account } = useBitcoinWallet();

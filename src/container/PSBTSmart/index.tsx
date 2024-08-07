@@ -1,4 +1,4 @@
-import extractPsbt from '@/utils/BTC/Psbt/extractPsbt';
+import extractPsbt from '@/utils/BTC/psbt/extractPsbt';
 import { ConnectButton, Connector } from '@ant-design/web3';
 
 import { WalletColorful } from '@ant-design/web3-icons';
