@@ -1,8 +1,10 @@
 import { ConnectButton, Connector } from '@ant-design/web3';
 
+import { formatTxHash } from '@/utils/business/Common';
 import { WalletColorful } from '@ant-design/web3-icons';
 import {
   Button,
+  Col,
   Input,
   InputNumber,
   Layout,
@@ -63,7 +65,7 @@ const PSBTSmart: React.FC = () => {
   const utxoOptions = useMemo(() => {
     const options = utxoList.map((item, index) => {
       return {
-        label: `${item.value}sats`,
+        label: `${formatTxHash(item.txid)} index${item.vout} ${item.value}sats`,
         value: index,
       };
     });
@@ -76,6 +78,10 @@ const PSBTSmart: React.FC = () => {
     });
     setSelectedUtxo(selectedUtxo);
   };
+
+  const signAble = !!psbt;
+
+  const broadcastAble = !!signedPsbt;
 
   return (
     <Layout>
@@ -94,49 +100,88 @@ const PSBTSmart: React.FC = () => {
           <ConnectButton icon={<WalletColorful />} />
         </Connector>
       </Row>
-      <Row>
-        <Typography.Title level={4} className={styles.subTitle}>
-          1.选择UTXO
-        </Typography.Title>
-      </Row>
-      <Select
-        mode="multiple"
-        allowClear
-        style={{ width: '100%' }}
-        placeholder="Please select"
-        onChange={onSelect}
-        options={utxoOptions}
-      />
-      <Row>
-        <Typography.Title level={4} className={styles.subTitle}>
-          2.设置输出UTXO
-        </Typography.Title>
-        <Button onClick={addOutput}>添加</Button>
-        <Button onClick={subOutput}>减少</Button>
-      </Row>
-      {outputList.map((outputItem, index) => {
-        return (
-          <OutputItem
-            outputItem={outputItem}
-            updateOutput={updateOutput}
-            index={index}
-            key={index}
-          />
-        );
-      })}
-      <Row>{`PSBT: ${psbt}`}</Row>
-      <Row>
-        <Typography.Title level={4} className={styles.subTitle}>
-          3.签名PSBT
-        </Typography.Title>
-        <Button onClick={getSignedPsbt}>签名</Button>
-      </Row>
-      <Row>{`signedPsbt: ${signedPsbt}`}</Row>
-      <Row>
-        <Typography.Title level={4} className={styles.subTitle}>
-          4.广播PSBT
-        </Typography.Title>
-        <Button onClick={broadcastTx}>广播</Button>
+      <Row gutter={[16, 24]}>
+        <Col span={12}>
+          <Row gutter={[0, 12]}>
+            <Col span={24}>
+              <Typography.Title level={4} className={styles.subTitle}>
+                1.选择UTXO
+              </Typography.Title>
+            </Col>
+            <Col span={24}>
+              <Select
+                mode="multiple"
+                allowClear
+                style={{ width: '100%' }}
+                placeholder="Please select"
+                onChange={onSelect}
+                options={utxoOptions}
+              />
+            </Col>
+            <Col span={24}>
+              <Typography.Title level={4} className={styles.subTitle}>
+                2.设置输出UTXO
+              </Typography.Title>
+              <Button onClick={addOutput}>添加</Button>
+              <Button onClick={subOutput}>减少</Button>
+            </Col>
+            <Col span={24}>
+              {outputList.map((outputItem, index) => {
+                return (
+                  <OutputItem
+                    outputItem={outputItem}
+                    updateOutput={updateOutput}
+                    index={index}
+                    key={index}
+                  />
+                );
+              })}
+            </Col>
+            <Col span={24}>
+              <Typography.Title level={4} className={styles.subTitle}>
+                3.签名PSBT
+              </Typography.Title>
+              <Button onClick={getSignedPsbt} disabled={!signAble}>
+                签名
+              </Button>
+            </Col>
+            <Col span={24}>
+              <Typography.Title level={4} className={styles.subTitle}>
+                4.广播PSBT
+              </Typography.Title>
+              <Button onClick={broadcastTx} disabled={!broadcastAble}>
+                广播
+              </Button>
+            </Col>
+          </Row>
+        </Col>
+        <Col span={12}>
+          <Typography.Title level={4} className={styles.subTitle}>
+            预览结果
+          </Typography.Title>
+          <Col span={24}>
+            <Typography.Title level={5} className={styles.subTitle}>
+              PSBT:
+            </Typography.Title>
+            <Typography.Paragraph
+              copyable
+              ellipsis={{ rows: 2, expandable: true, symbol: 'more' }}
+            >
+              {psbt}
+            </Typography.Paragraph>
+          </Col>
+          <Col span={24}>
+            <Typography.Title level={5} className={styles.subTitle}>
+              signedPsbt:
+            </Typography.Title>
+            <Typography.Paragraph
+              copyable
+              ellipsis={{ rows: 2, expandable: true, symbol: 'more' }}
+            >
+              {signedPsbt}
+            </Typography.Paragraph>
+          </Col>
+        </Col>
       </Row>
     </Layout>
   );
