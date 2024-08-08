@@ -108,7 +108,7 @@ const PSBTSmart: React.FC = () => {
           快速构建 PSBT!
         </Typography.Title>
       </Row>
-      <Row>
+      <Row className={styles.connector}>
         <Connector
           modalProps={{
             group: false,
@@ -125,8 +125,6 @@ const PSBTSmart: React.FC = () => {
               <Typography.Title level={4} className={styles.subTitle}>
                 1.选择UTXO
               </Typography.Title>
-            </Col>
-            <Col span={24}>
               <Select
                 mode="multiple"
                 allowClear
@@ -143,8 +141,6 @@ const PSBTSmart: React.FC = () => {
               </Typography.Title>
               <Button onClick={addOutput}>添加</Button>
               <Button onClick={subOutput}>减少</Button>
-            </Col>
-            <Col span={24}>
               {outputList.map((outputItem, index) => {
                 return (
                   <OutputItem
