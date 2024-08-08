@@ -120,7 +120,7 @@ const PSBTSmart: React.FC = () => {
       </Row>
       <Row gutter={[16, 24]}>
         <Col span={12}>
-          <Row gutter={[0, 12]}>
+          <Row gutter={[0, 10]}>
             <Col span={24}>
               <Typography.Title level={4} className={styles.subTitle}>
                 1.选择UTXO
