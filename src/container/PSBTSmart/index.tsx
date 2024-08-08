@@ -175,10 +175,10 @@ const PSBTSmart: React.FC = () => {
           </Row>
         </Col>
         <Col span={12}>
-          <Typography.Title level={4} className={styles.subTitle}>
-            预览结果
-          </Typography.Title>
           <PreviewBox value={previewData} />
+          {/* <Typography.Title level={4} className={styles.subTitle}>
+            预览结果
+          </Typography.Title> */}
           {/* <Col span={24}>
             <Typography.Title level={5} className={styles.subTitle}>
               PSBT:
