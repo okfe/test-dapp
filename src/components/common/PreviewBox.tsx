@@ -15,7 +15,7 @@ const PreviewBox: React.FC<PreviewBoxProps> = (props) => {
       <JsonView
         value={value}
         displayDataTypes={false}
-        shortenTextAfterLength={80}
+        shortenTextAfterLength={50}
         // style={monokaiTheme}
       />
     </>
