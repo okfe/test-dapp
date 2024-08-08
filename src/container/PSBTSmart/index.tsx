@@ -1,6 +1,6 @@
-import { ConnectButton, Connector } from '@ant-design/web3';
-
+import PreviewBox from '@/components/common/PreviewBox';
 import { formatTxHash } from '@/utils/business/Common';
+import { ConnectButton, Connector } from '@ant-design/web3';
 import { WalletColorful } from '@ant-design/web3-icons';
 import {
   Button,
@@ -94,6 +94,13 @@ const PSBTSmart: React.FC = () => {
 
   const broadcastAble = !!signedPsbt;
 
+  const previewData = useMemo(() => {
+    return {
+      psbt,
+      signedPsbt,
+    };
+  }, [psbt, signedPsbt]);
+
   return (
     <Layout>
       <Row>
@@ -171,7 +178,8 @@ const PSBTSmart: React.FC = () => {
           <Typography.Title level={4} className={styles.subTitle}>
             预览结果
           </Typography.Title>
-          <Col span={24}>
+          <PreviewBox value={previewData} />
+          {/* <Col span={24}>
             <Typography.Title level={5} className={styles.subTitle}>
               PSBT:
             </Typography.Title>
@@ -192,7 +200,7 @@ const PSBTSmart: React.FC = () => {
             >
               {signedPsbt}
             </Typography.Paragraph>
-          </Col>
+          </Col> */}
         </Col>
       </Row>
     </Layout>
