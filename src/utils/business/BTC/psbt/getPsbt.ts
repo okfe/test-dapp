@@ -8,21 +8,21 @@ export const getCurInputs = async (inputs) => {
     inputs.map(async (input) => {
       const txDetail = await getTxDetail(input.txid);
       const txHex = await getTxHex(input.txid);
-      const vout = txDetail.vout[input.vout];
+      const output = txDetail.vout[input.vout];
       curInputs.push({
         hash: input.txid,
         index: input.vout,
         sequence: input.sequence,
         nonWitnessUtxo: Buffer.from(txHex, 'hex'),
         witnessUtxo: {
-          script: Buffer.from(vout.scriptpubkey, 'hex'),
-          value: vout.value,
+          script: Buffer.from(output.scriptpubkey, 'hex'),
+          value: output.value,
         },
       });
     }),
   );
   return curInputs;
-}
+};
 
 export const getPsbt = async (
   curInputs = [],
