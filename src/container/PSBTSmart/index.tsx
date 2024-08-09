@@ -31,7 +31,7 @@ const InputItem = ({ inputItem, updateInput, addInput, subInput, index }) => {
   };
   return (
     <Row>
-      <div className={styles.flexBox}>
+      <div className={styles.itemBox}>
         {index + 1}.
         <Input
           value={inputItem.txid}
@@ -87,7 +87,7 @@ const OutputItem = ({
   };
   return (
     <Row>
-      <div className={styles.flexBox}>
+      <div className={styles.itemBox}>
         {index + 1}.
         <Input
           value={outputItem.address}
@@ -188,26 +188,24 @@ const PSBTSmart: React.FC = () => {
       </Row>
       <Row gutter={[16, 24]}>
         <Col span={12}>
-          <Row gutter={[0, 10]}>
+          <Row>
             <Col span={24}>
-              <Typography.Title level={4} className={styles.subTitle}>
-                1.选择UTXO
-              </Typography.Title>
-              <Select
-                mode="multiple"
-                allowClear
-                style={{ width: '100%' }}
-                placeholder="Please select"
-                onChange={onSelect}
-                options={utxoOptions}
-                filterOption={searchUtxo}
-              />
+              <div className={styles.subTitle}>1.选择UTXO</div>
+              <div className={styles.itemBox}>
+                <Select
+                  mode="multiple"
+                  allowClear
+                  style={{ width: '100%' }}
+                  placeholder="Please select"
+                  onChange={onSelect}
+                  options={utxoOptions}
+                  filterOption={searchUtxo}
+                />
+              </div>
             </Col>
             <Col span={24}>
-              <div className={styles.flexBox}>
-                <Typography.Title level={4} className={styles.subTitle}>
-                  2.手动选择输入（可选）
-                </Typography.Title>
+              <div className={styles.subTitle}>
+                2.手动选择输入（可选）
                 <Button onClick={addInput}>+</Button>
               </div>
               {addedInput.map((inputItem, index) => {
@@ -224,10 +222,8 @@ const PSBTSmart: React.FC = () => {
               })}
             </Col>
             <Col span={24}>
-              <div className={styles.flexBox}>
-                <Typography.Title level={4} className={styles.subTitle}>
-                  3.设置输出UTXO
-                </Typography.Title>
+              <div className={styles.subTitle}>
+                3.设置输出UTXO
                 <Button onClick={addOutput}>+</Button>
               </div>
               {outputList.map((outputItem, index) => {
@@ -244,50 +240,25 @@ const PSBTSmart: React.FC = () => {
               })}
             </Col>
             <Col span={24}>
-              <Typography.Title level={4} className={styles.subTitle}>
-                4.签名PSBT
-              </Typography.Title>
-              <Button onClick={getSignedPsbt} disabled={!signAble}>
-                签名
-              </Button>
+              <div className={styles.subTitle}>4.签名PSBT</div>
+              <div className={styles.itemBox}>
+                <Button onClick={getSignedPsbt} disabled={!signAble}>
+                  签名
+                </Button>
+              </div>
             </Col>
             <Col span={24}>
-              <Typography.Title level={4} className={styles.subTitle}>
-                5.广播PSBT
-              </Typography.Title>
-              <Button onClick={broadcastTx} disabled={!broadcastAble}>
-                广播
-              </Button>
+              <div className={styles.subTitle}>5.广播PSBT</div>
+              <div className={styles.itemBox}>
+                <Button onClick={broadcastTx} disabled={!broadcastAble}>
+                  广播
+                </Button>
+              </div>
             </Col>
           </Row>
         </Col>
         <Col span={12}>
           <PreviewBox value={previewData} />
-          {/* <Typography.Title level={4} className={styles.subTitle}>
-            预览结果
-          </Typography.Title> */}
-          {/* <Col span={24}>
-            <Typography.Title level={5} className={styles.subTitle}>
-              PSBT:
-            </Typography.Title>
-            <Typography.Paragraph
-              copyable
-              ellipsis={{ rows: 2, expandable: true, symbol: 'more' }}
-            >
-              {psbt}
-            </Typography.Paragraph>
-          </Col>
-          <Col span={24}>
-            <Typography.Title level={5} className={styles.subTitle}>
-              signedPsbt:
-            </Typography.Title>
-            <Typography.Paragraph
-              copyable
-              ellipsis={{ rows: 2, expandable: true, symbol: 'more' }}
-            >
-              {signedPsbt}
-            </Typography.Paragraph>
-          </Col> */}
         </Col>
       </Row>
     </Layout>
