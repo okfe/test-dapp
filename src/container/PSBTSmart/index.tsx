@@ -1,16 +1,8 @@
 import Connector from '@/components/common/Connector';
 import PreviewBox from '@/components/common/PreviewBox';
 import { formatTxHash } from '@/utils/business/Common';
-import {
-  Button,
-  Col,
-  Input,
-  InputNumber,
-  Layout,
-  Row,
-  Select,
-  Typography,
-} from 'antd';
+import { MinusCircleTwoTone, PlusCircleTwoTone } from '@ant-design/icons';
+import { Button, Col, Flex, Input, InputNumber, Row, Select } from 'antd';
 import React, { useMemo } from 'react';
 import usePsbt from './hooks/usePsbt';
 import styles from './index.less';
@@ -30,38 +22,38 @@ const InputItem = ({ inputItem, updateInput, addInput, subInput, index }) => {
     });
   };
   return (
-    <Row>
-      <div className={styles.itemBox}>
-        {index + 1}.
+    <Flex gap="small" align="center">
+      {/* {index + 1}. */}
+      <Col flex="auto">
         <Input
           value={inputItem.txid}
           onChange={onTxidChange}
-          placeholder="填写txid"
+          placeholder="填写 txid"
           className={styles.input}
         />
+      </Col>
+      <Col flex="30%">
         <InputNumber
           value={inputItem.vout}
           onChange={onVoutChange}
-          placeholder="填写vout"
+          placeholder="填写 vout"
           controls={false}
           className={styles.input}
         />
-        <Button
-          onClick={() => {
-            addInput(index);
-          }}
-        >
-          +
-        </Button>
-        <Button
-          onClick={() => {
-            subInput(index);
-          }}
-        >
-          -
-        </Button>
-      </div>
-    </Row>
+      </Col>
+      <PlusCircleTwoTone
+        className={styles.action}
+        onClick={() => {
+          addInput(index);
+        }}
+      />
+      <MinusCircleTwoTone
+        className={styles.action}
+        onClick={() => {
+          subInput(index);
+        }}
+      />
+    </Flex>
   );
 };
 
@@ -86,38 +78,37 @@ const OutputItem = ({
     });
   };
   return (
-    <Row>
-      <div className={styles.itemBox}>
-        {index + 1}.
+    <Flex gap="small">
+      <Col flex="auto">
         <Input
           value={outputItem.address}
           onChange={onAddressChange}
           placeholder="填写地址"
           className={styles.input}
         />
+      </Col>
+      <Col flex="30%">
         <InputNumber
           value={outputItem.value}
           onChange={onValueChange}
-          placeholder="填写数量(sats)"
+          placeholder="填写数量 sats"
           controls={false}
           className={styles.input}
         />
-        <Button
-          onClick={() => {
-            addOutput(index);
-          }}
-        >
-          +
-        </Button>
-        <Button
-          onClick={() => {
-            subOutput(index);
-          }}
-        >
-          -
-        </Button>
-      </div>
-    </Row>
+      </Col>
+      <PlusCircleTwoTone
+        className={styles.action}
+        onClick={() => {
+          addOutput(index);
+        }}
+      />
+      <MinusCircleTwoTone
+        className={styles.action}
+        onClick={() => {
+          subOutput(index);
+        }}
+      />
+    </Flex>
   );
 };
 
@@ -177,91 +168,86 @@ const PSBTSmart: React.FC = () => {
   }, [psbt, signedPsbt]);
 
   return (
-    <Layout>
-      <Row>
-        <Typography.Title level={3} className={styles.title}>
-          快速构建 PSBT!
-        </Typography.Title>
-      </Row>
-      <Row className={styles.connector}>
-        <Connector />
-      </Row>
-      <Row gutter={[16, 24]}>
-        <Col span={12}>
-          <Row>
-            <Col span={24}>
-              <div className={styles.subTitle}>1.选择UTXO</div>
-              <div className={styles.itemBox}>
-                <Select
-                  mode="multiple"
-                  allowClear
-                  style={{ width: '100%' }}
-                  placeholder="Please select"
-                  onChange={onSelect}
-                  options={utxoOptions}
-                  filterOption={searchUtxo}
+    <Row justify="space-between">
+      <Col span={10}>
+        <Flex gap="large" vertical>
+          <Flex>
+            <Connector />
+          </Flex>
+          <Flex gap="middle" vertical>
+            <div className={styles.subTitle}>1. 选择 UTXO</div>
+            <Select
+              mode="multiple"
+              allowClear
+              style={{ width: '100%' }}
+              placeholder="Please select"
+              onChange={onSelect}
+              options={utxoOptions}
+              filterOption={searchUtxo}
+            />
+          </Flex>
+          <Flex gap="middle" vertical>
+            <Flex gap="small">
+              <div className={styles.subTitle}>2. 手动选择输入(可选)</div>
+              <PlusCircleTwoTone className={styles.action} onClick={addInput} />
+            </Flex>
+
+            {addedInput.map((inputItem, index) => {
+              return (
+                <InputItem
+                  inputItem={inputItem}
+                  updateInput={updateInput}
+                  index={index}
+                  key={`${inputItem.txid}${inputItem.vout}${index}`}
+                  addInput={addInput}
+                  subInput={subInput}
                 />
-              </div>
-            </Col>
-            <Col span={24}>
-              <div className={styles.subTitle}>
-                2.手动选择输入（可选）
-                <Button onClick={addInput}>+</Button>
-              </div>
-              {addedInput.map((inputItem, index) => {
-                return (
-                  <InputItem
-                    inputItem={inputItem}
-                    updateInput={updateInput}
-                    index={index}
-                    key={`${inputItem.txid}${inputItem.vout}${index}`}
-                    addInput={addInput}
-                    subInput={subInput}
-                  />
-                );
-              })}
-            </Col>
-            <Col span={24}>
-              <div className={styles.subTitle}>
-                3.设置输出UTXO
-                <Button onClick={addOutput}>+</Button>
-              </div>
-              {outputList.map((outputItem, index) => {
-                return (
-                  <OutputItem
-                    outputItem={outputItem}
-                    updateOutput={updateOutput}
-                    addOutput={addOutput}
-                    subOutput={subOutput}
-                    index={index}
-                    key={`${outputItem.address}${outputItem.value}${index}`}
-                  />
-                );
-              })}
-            </Col>
-            <Col span={24}>
-              <div className={styles.subTitle}>4.签名PSBT</div>
-              <div className={styles.itemBox}>
-                <Button onClick={getSignedPsbt} disabled={!signAble}>
-                  签名
-                </Button>
-              </div>
-            </Col>
-            <Col span={24}>
-              <div className={styles.subTitle}>5.广播PSBT</div>
-              <div className={styles.itemBox}>
-                <Button onClick={broadcastTx} disabled={!broadcastAble}>
-                  广播
-                </Button>
-              </div>
-            </Col>
-          </Row>
-        </Col>
-        <Col span={12}>
-          <PreviewBox value={previewData} />
-        </Col>
-      </Row>
-    </Layout>
+              );
+            })}
+          </Flex>
+          <Flex gap="middle" vertical>
+            <Flex gap="small">
+              <div className={styles.subTitle}>3. 设置输出 UTXO</div>
+              <PlusCircleTwoTone
+                className={styles.action}
+                onClick={addOutput}
+              />
+            </Flex>
+            {outputList.map((outputItem, index) => {
+              return (
+                <OutputItem
+                  outputItem={outputItem}
+                  updateOutput={updateOutput}
+                  addOutput={addOutput}
+                  subOutput={subOutput}
+                  index={index}
+                  key={`${outputItem.address}${outputItem.value}${index}`}
+                />
+              );
+            })}
+          </Flex>
+          <Flex gap="middle" vertical>
+            <div className={styles.subTitle}>4. 签名 PSBT</div>
+            <div>
+              <Button onClick={getSignedPsbt} disabled={!signAble}>
+                签名
+              </Button>
+            </div>
+          </Flex>
+          <Flex gap="middle" vertical>
+            <div className={styles.subTitle}>5. 广播 PSBT</div>
+            <div>
+              <Button onClick={broadcastTx} disabled={!broadcastAble}>
+                广播
+              </Button>
+            </div>
+          </Flex>
+        </Flex>
+      </Col>
+      <Col span={12}>
+        <PreviewBox value={previewData} />
+      </Col>
+    </Row>
   );
 };
 

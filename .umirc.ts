@@ -21,7 +21,7 @@ export default defineConfig({
       component: './Home',
     },
     {
-      name: 'PSBT',
+      name: 'PSBT Builder',
       path: '/psbt',
       component: './Tools/PSBT',
     },
