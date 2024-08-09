@@ -32,12 +32,12 @@ export default defineConfig({
         {
           name: 'connect',
           path: '/wallet-btc-api/connect',
-          component: './WalletAPI/Connect',
+          component: './WalletAPI/BTC/Connect',
         },
         {
           name: 'getBalance',
           path: '/wallet-btc-api/getBalance',
-          component: './WalletAPI/GetBalance',
+          component: './WalletAPI/BTC/GetBalance',
         },
         {
           name: 'pushPsbt',

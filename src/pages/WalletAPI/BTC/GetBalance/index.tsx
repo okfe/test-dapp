@@ -1,4 +1,4 @@
-import GetBalanceSmart from '@/container/WalletAPI/getBalance';
+import GetBalanceSmart from '@/container/WalletAPI/BTC/getBalance';
 import { PageContainer } from '@ant-design/pro-components';
 
 const ConnectPage: React.FC = () => {
