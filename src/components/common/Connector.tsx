@@ -17,6 +17,10 @@ type useNetworkModel = {
   connect: (network: Network) => Promise<void>;
 };
 
+/**
+ * Antd web3 connector has not callback on disconnect.
+ * And just has mainnet. Not enough for business.
+ */
 const Connector: React.FC<ConnectorProps> = (props) => {
   const { networkName = BITCOIN, onError } = props;
   const { network, connect } = useModel(

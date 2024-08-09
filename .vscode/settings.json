@@ -11,6 +11,7 @@
     "okxwallet",
     "packagejson",
     "psbt",
+    "sats",
     "scriptpubkey",
     "scure",
     "secp",
