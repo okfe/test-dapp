@@ -26,17 +26,17 @@ export default defineConfig({
       component: './Tools/PSBT',
     },
     {
-      name: 'Wallet API',
-      path: '/wallet-api',
+      name: 'Wallet BTC API',
+      path: '/wallet-btc-api',
       routes: [
         {
           name: 'connect',
-          path: '/wallet-api/connect',
+          path: '/wallet-btc-api/connect',
           component: './WalletAPI/Connect',
         },
         {
           name: 'getBalance',
-          path: '/wallet-api/getBalance',
+          path: '/wallet-btc-api/getBalance',
           component: './WalletAPI/GetBalance',
         },
       ],

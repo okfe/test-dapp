@@ -1,12 +1,12 @@
-import type { BTCNetwork } from '@/constants/network';
-import { MAINNET, PROVIDER } from '@/constants/network';
+import { BITCOIN, PROVIDER } from '@/constants/network';
+import type { Network } from '@/types/network';
 import { SmileOutlined } from '@ant-design/icons';
 import { Button, Typography } from 'antd';
 import { useCallback } from 'react';
 
 // import { monokaiTheme } from '@uiw/react-json-view/monokai';
 interface APIButtonProps {
-  network?: BTCNetwork;
+  network?: Network;
   apiName: string;
   title?: string;
   onClick?: () => void;
@@ -14,7 +14,7 @@ interface APIButtonProps {
 }
 
 const APIButton: React.FC<APIButtonProps> = (props) => {
-  const { network = MAINNET, apiName, title, onClick, onCallback } = props;
+  const { network = BITCOIN, apiName, title, onClick, onCallback } = props;
 
   const onClickBtn = useCallback(async () => {
     if (onClick) {

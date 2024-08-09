@@ -1,11 +1,11 @@
-export type BTCNetwork = 'mainnet' | 'testnet' | 'signet';
+import type { Network } from '@/types/network';
 
-export const MAINNET: BTCNetwork = 'mainnet';
-export const TESTNET: BTCNetwork = 'testnet';
-export const SIGNET: BTCNetwork = 'signet';
+export const BITCOIN: Network = 'bitcoin';
+export const BITCOINTESTNET: Network = 'bitcointestnet';
+export const BITCOINSIGNET: Network = 'bitcoinsignet';
 
 export const PROVIDER = {
-  [MAINNET]: 'bitcoin',
-  [TESTNET]: 'bitcoinTestnet',
-  [SIGNET]: 'bitcoinSignet',
+  [BITCOIN]: 'bitcoin',
+  [BITCOINTESTNET]: 'bitcoinTestnet',
+  [BITCOINSIGNET]: 'bitcoinSignet',
 };
