@@ -6,12 +6,12 @@ import React, { useState } from 'react';
 
 const SignMessageSmart: React.FC = () => {
   const [result, setResult] = useState({});
-  const [signedPsbt, setSignedPsbt] = useState('');
+  const [message, setMessage] = useState('');
   const onCallback = async (result: object) => {
     setResult(result);
   };
   const onChange = (e) => {
-    setSignedPsbt(e.target.value);
+    setMessage(e.target.value);
   };
 
   return (
@@ -20,11 +20,11 @@ const SignMessageSmart: React.FC = () => {
         <Row>
           <Connector onError={onCallback} />
         </Row>
-        <Input value={signedPsbt} onChange={onChange} placeholder="填写PSBT" />
+        <Input value={message} onChange={onChange} placeholder="填写Message" />
         <APIButton
-          apiName="pushPsbt"
+          apiName="signMessage"
           onCallback={onCallback}
-          params={signedPsbt}
+          params={message}
         />
       </Col>
       <Col span={12}>
