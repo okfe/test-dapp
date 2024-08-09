@@ -1,16 +1,20 @@
+import { BITCOIN } from '@/constants/network';
 import generatePsbt from '@/utils/BTC/psbt/generatePsbt';
+
 import {
   getCurInputs,
   pushPsbt,
   signPsbt,
 } from '@/utils/business/BTC/psbt/index';
 import { getUTXOsFrom } from '@/utils/mempool/utxo';
-import { useBitcoinWallet } from '@ant-design/web3-bitcoin';
+import { useModel } from '@umijs/max';
 import { notification } from 'antd';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 const usePsbt = () => {
-  const { account } = useBitcoinWallet();
+  const { network } = useModel('useNetwork', (model) => ({
+    network: model.networks[BITCOIN],
+  }));
   const [utxoList, setUtxoList] = useState([]);
   const [selectedUtxo, setSelectedUtxo] = useState([]);
   const [addedInput, setAddedInput] = useState([]);
@@ -20,13 +24,13 @@ const usePsbt = () => {
 
   useEffect(() => {
     const getUtxoList = async () => {
-      if (account) {
-        const utxos = await getUTXOsFrom(account.address);
+      if (network && network.address) {
+        const utxos = await getUTXOsFrom(network.address);
         setUtxoList(utxos);
       }
     };
     getUtxoList();
-  }, [account]);
+  }, [network]);
 
   useEffect(() => {
     getCurInputs(selectedUtxo.concat(addedInput)).then((inputs) => {
