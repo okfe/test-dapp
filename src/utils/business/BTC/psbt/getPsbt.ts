@@ -6,19 +6,21 @@ export const getCurInputs = async (inputs) => {
   const curInputs = [];
   await Promise.all(
     inputs.map(async (input) => {
-      const txDetail = await getTxDetail(input.txid);
-      const txHex = await getTxHex(input.txid);
-      const output = txDetail.vout[input.vout];
-      curInputs.push({
-        hash: input.txid,
-        index: input.vout,
-        sequence: input.sequence,
-        nonWitnessUtxo: Buffer.from(txHex, 'hex'),
-        witnessUtxo: {
-          script: Buffer.from(output.scriptpubkey, 'hex'),
-          value: output.value,
-        },
-      });
+      if (input.txid && input.vout !== undefined && input.vout !== '') {
+        const txDetail = await getTxDetail(input.txid);
+        const txHex = await getTxHex(input.txid);
+        const output = txDetail.vout[input.vout];
+        curInputs.push({
+          hash: input.txid,
+          index: input.vout,
+          sequence: input.sequence,
+          nonWitnessUtxo: Buffer.from(txHex, 'hex'),
+          witnessUtxo: {
+            script: Buffer.from(output.scriptpubkey, 'hex'),
+            value: output.value,
+          },
+        });
+      }
     }),
   );
   return curInputs;
