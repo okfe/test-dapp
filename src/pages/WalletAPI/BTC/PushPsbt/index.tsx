@@ -1,4 +1,4 @@
-import PushPsbtSmart from '@/container/WalletAPI/pushPsbt';
+import PushPsbtSmart from '@/container/WalletAPI/BTC/pushPsbt';
 import { PageContainer } from '@ant-design/pro-components';
 
 const PushPsbtPage: React.FC = () => {

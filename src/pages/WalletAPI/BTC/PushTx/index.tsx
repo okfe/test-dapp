@@ -1,4 +1,4 @@
-import PushTxSmart from '@/container/WalletAPI/pushTx';
+import PushTxSmart from '@/container/WalletAPI/BTC/pushTx';
 import { PageContainer } from '@ant-design/pro-components';
 
 const PushTxPage: React.FC = () => {
