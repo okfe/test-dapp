@@ -13,6 +13,7 @@ const usePsbt = () => {
   const { account } = useBitcoinWallet();
   const [utxoList, setUtxoList] = useState([]);
   const [selectedUtxo, setSelectedUtxo] = useState([]);
+  const [addedInput, setAddedInput] = useState([]);
   const [outputList, setOutputList] = useState([]);
   const [curInputs, setCurInputs] = useState([]);
   const [signedPsbt, setSignedPsbt] = useState('');
@@ -28,17 +29,47 @@ const usePsbt = () => {
   }, [account]);
 
   useEffect(() => {
-    getCurInputs(selectedUtxo).then((inputs) => {
+    getCurInputs(selectedUtxo.concat(addedInput)).then((inputs) => {
       setCurInputs(inputs);
     });
-  }, [selectedUtxo]);
+  }, [selectedUtxo, addedInput]);
 
-  const addOutput = () => {
+  const addInput = (index) => {
+    if (index) {
+      //在index的下标后添加一个空对象
+      const newAddedInput = [...addedInput];
+      newAddedInput.splice(index, 0, {});
+      setAddedInput(newAddedInput);
+      return;
+    }
+    setAddedInput([...addedInput, {}]);
+  };
+
+  const subInput = (index) => {
+    const newAddedInput = [...addedInput];
+    newAddedInput.splice(index, 1);
+    setAddedInput(newAddedInput);
+  };
+
+  const updateInput = (index, input) => {
+    const newAddedInput = [...addedInput];
+    newAddedInput[index] = input;
+    setAddedInput(newAddedInput);
+  };
+
+  const addOutput = (index) => {
+    if (index) {
+      //在index的下标后添加一个空对象
+      const newOutputList = [...outputList];
+      newOutputList.splice(index, 0, {});
+      setOutputList(newOutputList);
+      return;
+    }
     setOutputList([...outputList, {}]);
   };
-  const subOutput = () => {
+  const subOutput = (index) => {
     const newOutputList = [...outputList];
-    newOutputList.pop();
+    newOutputList.splice(index, 1);
     setOutputList(newOutputList);
   };
   const updateOutput = (index, output) => {
@@ -83,6 +114,10 @@ const usePsbt = () => {
     selectedUtxo,
     setSelectedUtxo,
     outputList,
+    addedInput,
+    addInput,
+    subInput,
+    updateInput,
     addOutput,
     subOutput,
     updateOutput,

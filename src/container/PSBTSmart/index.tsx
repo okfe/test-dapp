@@ -16,7 +16,63 @@ import React, { useMemo } from 'react';
 import usePsbt from './hooks/usePsbt';
 import styles from './index.less';
 
-const OutputItem = ({ outputItem, updateOutput, index }) => {
+const InputItem = ({ inputItem, updateInput, addInput, subInput, index }) => {
+  const onTxidChange = (e) => {
+    const txid = e.target.value;
+    updateInput(index, {
+      ...inputItem,
+      txid,
+    });
+  };
+  const onVoutChange = (vout) => {
+    updateInput(index, {
+      ...inputItem,
+      vout,
+    });
+  };
+  return (
+    <Row>
+      <div className={styles.flexBox}>
+        {index + 1}.
+        <Input
+          value={inputItem.txid}
+          onChange={onTxidChange}
+          placeholder="填写txid"
+          className={styles.input}
+        />
+        <InputNumber
+          value={inputItem.vout}
+          onChange={onVoutChange}
+          placeholder="填写vout"
+          controls={false}
+          className={styles.input}
+        />
+        <Button
+          onClick={() => {
+            addInput(index);
+          }}
+        >
+          +
+        </Button>
+        <Button
+          onClick={() => {
+            subInput(index);
+          }}
+        >
+          -
+        </Button>
+      </div>
+    </Row>
+  );
+};
+
+const OutputItem = ({
+  outputItem,
+  updateOutput,
+  index,
+  addOutput,
+  subOutput,
+}) => {
   const onAddressChange = (e) => {
     const address = e.target.value;
     updateOutput(index, {
@@ -32,20 +88,36 @@ const OutputItem = ({ outputItem, updateOutput, index }) => {
   };
   return (
     <Row>
-      {index + 1}.
-      <Input
-        value={outputItem.address}
-        onChange={onAddressChange}
-        placeholder="填写地址"
-        className={styles.input}
-      />
-      <InputNumber
-        value={outputItem.value}
-        onChange={onValueChange}
-        placeholder="填写数量(sats)"
-        controls={false}
-        className={styles.input}
-      />
+      <div className={styles.flexBox}>
+        {index + 1}.
+        <Input
+          value={outputItem.address}
+          onChange={onAddressChange}
+          placeholder="填写地址"
+          className={styles.input}
+        />
+        <InputNumber
+          value={outputItem.value}
+          onChange={onValueChange}
+          placeholder="填写数量(sats)"
+          controls={false}
+          className={styles.input}
+        />
+        <Button
+          onClick={() => {
+            addOutput(index);
+          }}
+        >
+          +
+        </Button>
+        <Button
+          onClick={() => {
+            subOutput(index);
+          }}
+        >
+          -
+        </Button>
+      </div>
     </Row>
   );
 };
@@ -55,6 +127,10 @@ const PSBTSmart: React.FC = () => {
   const {
     utxoList,
     setSelectedUtxo,
+    addedInput,
+    addInput,
+    subInput,
+    updateInput,
     outputList,
     addOutput,
     subOutput,
@@ -136,25 +212,48 @@ const PSBTSmart: React.FC = () => {
               />
             </Col>
             <Col span={24}>
-              <Typography.Title level={4} className={styles.subTitle}>
-                2.设置输出UTXO
-              </Typography.Title>
-              <Button onClick={addOutput}>添加</Button>
-              <Button onClick={subOutput}>减少</Button>
+              <div className={styles.flexBox}>
+                <Typography.Title level={4} className={styles.subTitle}>
+                  2.手动选择输入（可选）
+                </Typography.Title>
+                <Button onClick={addInput}>+</Button>
+              </div>
+              {addedInput.map((inputItem, index) => {
+                return (
+                  <InputItem
+                    inputItem={inputItem}
+                    updateInput={updateInput}
+                    index={index}
+                    key={`${inputItem.txid}${inputItem.vout}${index}`}
+                    addInput={addInput}
+                    subInput={subInput}
+                  />
+                );
+              })}
+            </Col>
+            <Col span={24}>
+              <div className={styles.flexBox}>
+                <Typography.Title level={4} className={styles.subTitle}>
+                  3.设置输出UTXO
+                </Typography.Title>
+                <Button onClick={addOutput}>+</Button>
+              </div>
               {outputList.map((outputItem, index) => {
                 return (
                   <OutputItem
                     outputItem={outputItem}
                     updateOutput={updateOutput}
+                    addOutput={addOutput}
+                    subOutput={subOutput}
                     index={index}
-                    key={index}
+                    key={`${outputItem.address}${outputItem.value}${index}`}
                   />
                 );
               })}
             </Col>
             <Col span={24}>
               <Typography.Title level={4} className={styles.subTitle}>
-                3.签名PSBT
+                4.签名PSBT
               </Typography.Title>
               <Button onClick={getSignedPsbt} disabled={!signAble}>
                 签名
@@ -162,7 +261,7 @@ const PSBTSmart: React.FC = () => {
             </Col>
             <Col span={24}>
               <Typography.Title level={4} className={styles.subTitle}>
-                4.广播PSBT
+                5.广播PSBT
               </Typography.Title>
               <Button onClick={broadcastTx} disabled={!broadcastAble}>
                 广播
