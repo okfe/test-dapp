@@ -1,5 +1,5 @@
-import JsonView from '@uiw/react-json-view';
 import { Typography } from 'antd';
+import JsonView from 'react-json-view';
 
 // import { monokaiTheme } from '@uiw/react-json-view/monokai';
 interface PreviewBoxProps {
@@ -13,9 +13,12 @@ const PreviewBox: React.FC<PreviewBoxProps> = (props) => {
     <>
       <Typography.Title level={4}>{title || '预览区'}</Typography.Title>
       <JsonView
-        value={value}
+        style={{
+          wordBreak: 'break-all',
+        }}
+        src={value}
         displayDataTypes={false}
-        shortenTextAfterLength={50}
+        collapseStringsAfterLength={20}
         // style={monokaiTheme}
       />
     </>

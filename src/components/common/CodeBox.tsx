@@ -7,10 +7,9 @@ import {
   SyntaxHighlighterProps,
 } from 'react-syntax-highlighter';
 
-interface CodeBoxProps extends SyntaxHighlighterProps {
+interface CodeBoxProps extends Partial<SyntaxHighlighterProps> {
   language?: string;
   text?: string;
-  children?: any;
 }
 
 const CodeBox: React.FC<CodeBoxProps> = (props) => {

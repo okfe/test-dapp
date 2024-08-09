@@ -5,7 +5,7 @@ import { Address } from '@ant-design/web3';
 import { OkxWalletColorful } from '@ant-design/web3-icons';
 import { useModel } from '@umijs/max';
 import { Button, Typography } from 'antd';
-import { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 interface ConnectorProps {
   networkName?: Network;
