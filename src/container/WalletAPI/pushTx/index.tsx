@@ -6,12 +6,12 @@ import React, { useState } from 'react';
 
 const PushTxSmart: React.FC = () => {
   const [result, setResult] = useState({});
-  const [signedPsbt, setSignedPsbt] = useState('');
+  const [rawTx, setRawTx] = useState('');
   const onCallback = async (result: object) => {
     setResult(result);
   };
   const onChange = (e) => {
-    setSignedPsbt(e.target.value);
+    setRawTx(e.target.value);
   };
 
   return (
@@ -20,12 +20,8 @@ const PushTxSmart: React.FC = () => {
         <Row>
           <Connector onError={onCallback} />
         </Row>
-        <Input value={signedPsbt} onChange={onChange} placeholder="填写PSBT" />
-        <APIButton
-          apiName="pushPsbt"
-          onCallback={onCallback}
-          params={signedPsbt}
-        />
+        <Input value={rawTx} onChange={onChange} placeholder="填写RawTx" />
+        <APIButton apiName="pushTx" onCallback={onCallback} params={rawTx} />
       </Col>
       <Col span={12}>
         <PreviewBox value={result} />

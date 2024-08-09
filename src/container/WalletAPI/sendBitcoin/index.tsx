@@ -1,18 +1,35 @@
 import APIButton from '@/components/common/APIButton';
 import Connector from '@/components/common/Connector';
 import PreviewBox from '@/components/common/PreviewBox';
-import { Col, Input, Row } from 'antd';
-import React, { useState } from 'react';
+import { Col, Input, InputNumber, Row } from 'antd';
+import React, { useMemo, useState } from 'react';
 
 const SendBitcoinSmart: React.FC = () => {
   const [result, setResult] = useState({});
-  const [signedPsbt, setSignedPsbt] = useState('');
+  const [address, setAddress] = useState('');
+  const [value, setValue] = useState(undefined);
+  const [feeRate, setFeeRate] = useState(undefined);
+
   const onCallback = async (result: object) => {
     setResult(result);
   };
-  const onChange = (e) => {
-    setSignedPsbt(e.target.value);
+  const onChangeAddress = (e) => {
+    setAddress(e.target.value);
   };
+  const onChangeValue = (value) => {
+    setValue(value);
+  };
+  const onChangeFeeRate = (feeRate) => {
+    setFeeRate(feeRate);
+  };
+
+  const curParams = useMemo(() => {
+    if (feeRate) {
+      return [address, value, { feeRate }];
+    } else {
+      return [address, value];
+    }
+  }, [address, value, feeRate]);
 
   return (
     <Row>
@@ -20,11 +37,27 @@ const SendBitcoinSmart: React.FC = () => {
         <Row>
           <Connector onError={onCallback} />
         </Row>
-        <Input value={signedPsbt} onChange={onChange} placeholder="填写PSBT" />
+        <Input
+          value={address}
+          onChange={onChangeAddress}
+          placeholder="填写address"
+        />
+        <InputNumber
+          controls={false}
+          placeholder="填写Value"
+          onChange={onChangeValue}
+          value={value}
+        />
+        <InputNumber
+          controls={false}
+          placeholder="填写FeeRate"
+          onChange={onChangeFeeRate}
+          value={feeRate}
+        />
         <APIButton
-          apiName="pushPsbt"
+          apiName="sendBitcoin"
           onCallback={onCallback}
-          params={signedPsbt}
+          params={curParams}
         />
       </Col>
       <Col span={12}>
