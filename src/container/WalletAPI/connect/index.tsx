@@ -1,7 +1,6 @@
 import APIButton from '@/components/common/APIButton';
+import Connector from '@/components/common/Connector';
 import PreviewBox from '@/components/common/PreviewBox';
-import { ConnectButton, Connector } from '@ant-design/web3';
-import { WalletColorful } from '@ant-design/web3-icons';
 import { Col, Row } from 'antd';
 import React, { useState } from 'react';
 
@@ -15,13 +14,7 @@ const ConnectSmart: React.FC = () => {
     <Row>
       <Col span={12}>
         <Row>
-          <Connector
-            modalProps={{
-              mode: 'simple',
-            }}
-          >
-            <ConnectButton icon={<WalletColorful />} />
-          </Connector>
+          <Connector onError={onCallback} />
         </Row>
         <APIButton apiName="connect" onCallback={onCallback} />
       </Col>

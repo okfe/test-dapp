@@ -1,13 +1,17 @@
 {
   "cSpell.words": [
+    "ahooks",
     "antd",
     "bitcoinerlab",
     "bitcoinjs",
+    "BITCOINSIGNET",
+    "bitcointestnet",
     "ecpair",
     "monokai",
     "okxwallet",
     "packagejson",
     "psbt",
+    "sats",
     "scriptpubkey",
     "scure",
     "secp",

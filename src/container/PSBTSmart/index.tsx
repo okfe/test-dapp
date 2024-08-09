@@ -1,7 +1,6 @@
+import Connector from '@/components/common/Connector';
 import PreviewBox from '@/components/common/PreviewBox';
 import { formatTxHash } from '@/utils/business/Common';
-import { ConnectButton, Connector } from '@ant-design/web3';
-import { WalletColorful } from '@ant-design/web3-icons';
 import {
   Button,
   Col,
@@ -185,14 +184,7 @@ const PSBTSmart: React.FC = () => {
         </Typography.Title>
       </Row>
       <Row className={styles.connector}>
-        <Connector
-          modalProps={{
-            group: false,
-            mode: 'simple',
-          }}
-        >
-          <ConnectButton icon={<WalletColorful />} />
-        </Connector>
+        <Connector />
       </Row>
       <Row gutter={[16, 24]}>
         <Col span={12}>
