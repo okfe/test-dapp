@@ -21,7 +21,7 @@ const PushTxSmart: React.FC = () => {
           <Connector onError={onCallback} />
         </Row>
         <Input value={rawTx} onChange={onChange} placeholder="填写RawTx" />
-        <APIButton apiName="pushTx" onCallback={onCallback} params={rawTx} />
+        <APIButton apiName="pushTx" onCallback={onCallback} params={[rawTx]} />
       </Col>
       <Col span={12}>
         <PreviewBox value={result} />

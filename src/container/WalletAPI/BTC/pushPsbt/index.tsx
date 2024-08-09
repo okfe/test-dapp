@@ -27,7 +27,7 @@ const PushPsbtSmart: React.FC = () => {
           <APIButton
             apiName="pushPsbt"
             onCallback={onCallback}
-            params={signedPsbt}
+            params={[signedPsbt]}
           />
         </Space>
       </Col>

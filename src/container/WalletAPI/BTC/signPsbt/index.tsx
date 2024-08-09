@@ -21,7 +21,7 @@ const SignPsbtSmart: React.FC = () => {
           <Connector onError={onCallback} />
         </Row>
         <Input value={psbt} onChange={onChange} placeholder="填写PSBT" />
-        <APIButton apiName="signPsbt" onCallback={onCallback} params={psbt} />
+        <APIButton apiName="signPsbt" onCallback={onCallback} params={[psbt]} />
       </Col>
       <Col span={12}>
         <PreviewBox value={result} />

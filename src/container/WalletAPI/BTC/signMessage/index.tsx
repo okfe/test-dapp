@@ -24,7 +24,7 @@ const SignMessageSmart: React.FC = () => {
         <APIButton
           apiName="signMessage"
           onCallback={onCallback}
-          params={message}
+          params={[message]}
         />
       </Col>
       <Col span={12}>

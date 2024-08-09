@@ -11,7 +11,7 @@ interface APIButtonProps {
   title?: string;
   onClick?: () => void;
   onCallback: (result: object) => any;
-  params?: any;
+  params?: any[];
 }
 
 const APIButton: React.FC<APIButtonProps> = (props) => {
@@ -24,8 +24,6 @@ const APIButton: React.FC<APIButtonProps> = (props) => {
     params = [],
   } = props;
 
-  const curParams = Array.isArray(params) ? params : [params];
-
   const onClickBtn = useCallback(async () => {
     if (onClick) {
       onClick();
@@ -33,7 +31,7 @@ const APIButton: React.FC<APIButtonProps> = (props) => {
     }
     try {
       const result = await window.okxwallet[PROVIDER[network]][apiName](
-        ...curParams,
+        ...params,
       );
       if (Object.prototype.toString.call(result) === '[object Object]') {
         onCallback(result);
