@@ -1,4 +1,4 @@
-import SignPsbtsSmart from '@/container/WalletAPI/signPsbts';
+import SignPsbtsSmart from '@/container/WalletAPI/BTC/signPsbts';
 import { PageContainer } from '@ant-design/pro-components';
 
 const SignPsbtsPage: React.FC = () => {

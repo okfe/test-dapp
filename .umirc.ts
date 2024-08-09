@@ -42,32 +42,32 @@ export default defineConfig({
         {
           name: 'pushPsbt',
           path: '/wallet-btc-api/pushPsbt',
-          component: './WalletAPI/PushPsbt',
+          component: './WalletAPI/BTC/PushPsbt',
         },
         {
           name: 'pushTx',
           path: '/wallet-btc-api/pushTx',
-          component: './WalletAPI/PushTx',
+          component: './WalletAPI/BTC/PushTx',
         },
         {
           name: 'sendBitcoin',
           path: '/wallet-btc-api/sendBitcoin',
-          component: './WalletAPI/SendBitcoin',
+          component: './WalletAPI/BTC/SendBitcoin',
         },
         {
           name: 'signMessage',
           path: '/wallet-btc-api/signMessage',
-          component: './WalletAPI/SignMessage',
+          component: './WalletAPI/BTC/SignMessage',
         },
         {
           name: 'signPsbt',
           path: '/wallet-btc-api/signPsbt',
-          component: './WalletAPI/SignPsbt',
+          component: './WalletAPI/BTC/SignPsbt',
         },
         {
           name: 'signPsbts',
           path: '/wallet-btc-api/signPsbts',
-          component: './WalletAPI/SignPsbts',
+          component: './WalletAPI/BTC/SignPsbts',
         },
       ],
     },
