@@ -1,7 +1,7 @@
 import APIButton from '@/components/common/APIButton';
 import Connector from '@/components/common/Connector';
 import PreviewBox from '@/components/common/PreviewBox';
-import { Col, Input, Row } from 'antd';
+import { Col, Input, Row, Space } from 'antd';
 import React, { useState } from 'react';
 
 const PushPsbtSmart: React.FC = () => {
@@ -15,17 +15,21 @@ const PushPsbtSmart: React.FC = () => {
   };
 
   return (
-    <Row>
-      <Col span={12}>
-        <Row>
+    <Row justify="space-between">
+      <Col span={10}>
+        <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
           <Connector onError={onCallback} />
-        </Row>
-        <Input value={signedPsbt} onChange={onChange} placeholder="填写PSBT" />
-        <APIButton
-          apiName="pushPsbt"
-          onCallback={onCallback}
-          params={signedPsbt}
-        />
+          <Input
+            value={signedPsbt}
+            onChange={onChange}
+            placeholder="填写PSBT"
+          />
+          <APIButton
+            apiName="pushPsbt"
+            onCallback={onCallback}
+            params={signedPsbt}
+          />
+        </Space>
       </Col>
       <Col span={12}>
         <PreviewBox value={result} />

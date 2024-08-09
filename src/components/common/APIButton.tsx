@@ -47,7 +47,7 @@ const APIButton: React.FC<APIButtonProps> = (props) => {
 
   return (
     <>
-      <Typography.Title level={4}>{title}</Typography.Title>
+      {title ? <Typography.Title level={4}>{title}</Typography.Title> : null}
       <Button title={apiName} onClick={onClickBtn} icon={<SmileOutlined />}>
         Test {apiName}
       </Button>

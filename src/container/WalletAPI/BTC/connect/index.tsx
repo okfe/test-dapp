@@ -5,7 +5,12 @@ import PreviewBox from '@/components/common/PreviewBox';
 import { Col, Row } from 'antd';
 import React, { useState } from 'react';
 
-const demo = 'const result = await okxwallet.bitcoin.connect()';
+const demo = `try {
+  let res = await okxwallet.bitcoin.connect();
+  console.log(res)
+} catch (e) {
+  console.log(e);
+}`;
 
 const ConnectSmart: React.FC = () => {
   const [data, setData] = useState({});
