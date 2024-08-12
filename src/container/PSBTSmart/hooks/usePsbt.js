@@ -17,9 +17,9 @@ const usePsbt = () => {
   }));
   const [utxoList, setUtxoList] = useState([]);
   const [selectedUtxo, setSelectedUtxo] = useState([]);
-  const [addedInput, setAddedInput] = useState([]);
+  const [addedInput, setAddedInput] = useState([]); // manually edit
   const [outputList, setOutputList] = useState([]);
-  const [curInputs, setCurInputs] = useState([]);
+  const [curInputs, setCurInputs] = useState([]); // all inputs with data that psbt needs
   const [signedPsbt, setSignedPsbt] = useState('');
   const [finalized, setFinalized] = useState(false);
 
@@ -33,6 +33,7 @@ const usePsbt = () => {
     getUtxoList();
   }, [network]);
 
+  // addedInput: manually input, maybe other's input
   useEffect(() => {
     getCurInputs(selectedUtxo.concat(addedInput)).then((inputs) => {
       setCurInputs(inputs);
