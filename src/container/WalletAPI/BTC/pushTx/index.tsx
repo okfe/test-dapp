@@ -1,8 +1,9 @@
 import APIButton from '@/components/common/APIButton';
+import CodeBox from '@/components/common/CodeBox';
 import Connector from '@/components/common/Connector';
 import PreviewBox from '@/components/common/PreviewBox';
 import { Col, Input, Row, Space } from 'antd';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 const PushTxSmart: React.FC = () => {
   const [result, setResult] = useState({});
@@ -10,9 +11,18 @@ const PushTxSmart: React.FC = () => {
   const onCallback = async (result: object) => {
     setResult(result);
   };
-  const onChange = (e) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRawTx(e.target.value);
   };
+
+  const demo = useMemo(() => {
+    return `try {
+        let res = await okxwallet.bitcoin.pushTx('${rawTx ? rawTx : '0200000000010135bd7d...'}');
+          console.log(res);
+        } catch (e) {
+          console.log(e);
+        }`;
+  }, [rawTx]);
 
   return (
     <Row justify="space-between">
@@ -21,12 +31,13 @@ const PushTxSmart: React.FC = () => {
           <Row>
             <Connector onError={onCallback} />
           </Row>
-          <Input value={rawTx} onChange={onChange} placeholder="填写RawTx" />
+          <Input value={rawTx} onChange={onChange} placeholder="填写 RawTx" />
           <APIButton
             apiName="pushTx"
             onCallback={onCallback}
             params={[rawTx]}
           />
+          <CodeBox text={demo} />
         </Space>
       </Col>
       <Col span={12}>

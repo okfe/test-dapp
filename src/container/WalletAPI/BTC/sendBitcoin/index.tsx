@@ -1,7 +1,8 @@
 import APIButton from '@/components/common/APIButton';
+import CodeBox from '@/components/common/CodeBox';
 import Connector from '@/components/common/Connector';
 import PreviewBox from '@/components/common/PreviewBox';
-import { Col, Input, InputNumber, Row, Space } from 'antd';
+import { Col, Flex, Input, InputNumber, Row } from 'antd';
 import React, { useMemo, useState } from 'react';
 
 const SendBitcoinSmart: React.FC = () => {
@@ -31,36 +32,56 @@ const SendBitcoinSmart: React.FC = () => {
     }
   }, [address, value, feeRate]);
 
+  const demo = useMemo(() => {
+    return `try {
+      const txid = await okxwallet.bitcoin.sendBitcoin(
+        '${address ? address : 'tb1qrn7tvhdf6wnh790384ahj56u0xaa0kqgautnnz'}',
+        ${value || 1000},
+        {
+          feeRate: ${feeRate || 0}
+        }
+      );
+      console.log(txid);
+    } catch (e) {
+      console.log(e);
+    }`;
+  }, [address, value, feeRate]);
+
   return (
     <Row justify="space-between">
       <Col span={10}>
-        <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
-          <Row>
+        <Flex vertical gap="middle">
+          <Flex>
             <Connector onError={onCallback} />
-          </Row>
+          </Flex>
           <Input
             value={address}
             onChange={onChangeAddress}
-            placeholder="填写address"
+            placeholder="填写 address"
           />
           <InputNumber
+            style={{ width: '100%' }}
             controls={false}
-            placeholder="填写Value"
+            placeholder="填写 value"
             onChange={onChangeValue}
             value={value}
           />
           <InputNumber
+            style={{ width: '100%' }}
             controls={false}
-            placeholder="填写FeeRate"
+            placeholder="填写 feeRate"
             onChange={onChangeFeeRate}
             value={feeRate}
           />
-          <APIButton
-            apiName="sendBitcoin"
-            onCallback={onCallback}
-            params={curParams}
-          />
-        </Space>
+          <Flex>
+            <APIButton
+              apiName="sendBitcoin"
+              onCallback={onCallback}
+              params={curParams}
+            />
+          </Flex>
+          <CodeBox text={demo} />
+        </Flex>
       </Col>
       <Col span={12}>
         <PreviewBox value={result} />
