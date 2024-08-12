@@ -3,11 +3,19 @@ import PreviewBox from '@/components/common/PreviewBox';
 import { formatTxHash } from '@/utils/business/Common';
 import { MinusCircleTwoTone, PlusCircleTwoTone } from '@ant-design/icons';
 import { Button, Col, Flex, Input, InputNumber, Row, Select } from 'antd';
-import React, { useMemo } from 'react';
+import { debounce } from 'lodash-es';
+import React, { useCallback, useMemo } from 'react';
 import usePsbt from './hooks/usePsbt';
 import styles from './index.less';
 
 const InputItem = ({ inputItem, updateInput, addInput, subInput, index }) => {
+  const txIdCheckStatus = () => {
+    if (inputItem.txid !== undefined && inputItem.txid.length !== 64) {
+      return 'error';
+    }
+    return undefined;
+  };
+
   const onTxidChange = (e) => {
     const txid = e.target.value;
     updateInput(index, {
@@ -22,38 +30,44 @@ const InputItem = ({ inputItem, updateInput, addInput, subInput, index }) => {
     });
   };
   return (
-    <Flex gap="small" align="center">
-      {/* {index + 1}. */}
-      <Col flex="auto">
-        <Input
-          value={inputItem.txid}
-          onChange={onTxidChange}
-          placeholder="填写 txid"
-          className={styles.input}
+    <div>
+      <Flex gap="small" align="center">
+        {/* {index + 1}. */}
+        <Col flex="auto">
+          <Input
+            value={inputItem.txid}
+            onChange={onTxidChange}
+            placeholder="填写 txid"
+            className={styles.input}
+            status={txIdCheckStatus()}
+          />
+        </Col>
+        <Col flex="30%">
+          <InputNumber
+            value={inputItem.vout}
+            onChange={onVoutChange}
+            placeholder="填写 vout"
+            controls={false}
+            className={styles.input}
+          />
+        </Col>
+        <PlusCircleTwoTone
+          className={styles.action}
+          onClick={() => {
+            addInput(index);
+          }}
         />
-      </Col>
-      <Col flex="30%">
-        <InputNumber
-          value={inputItem.vout}
-          onChange={onVoutChange}
-          placeholder="填写 vout"
-          controls={false}
-          className={styles.input}
+        <MinusCircleTwoTone
+          className={styles.action}
+          onClick={() => {
+            subInput(index);
+          }}
         />
-      </Col>
-      <PlusCircleTwoTone
-        className={styles.action}
-        onClick={() => {
-          addInput(index);
-        }}
-      />
-      <MinusCircleTwoTone
-        className={styles.action}
-        onClick={() => {
-          subInput(index);
-        }}
-      />
-    </Flex>
+      </Flex>
+      {txIdCheckStatus() === 'error' && (
+        <div className={styles.error}>txid 长度不正确</div>
+      )}
+    </div>
   );
 };
 
@@ -158,6 +172,10 @@ const PSBTSmart: React.FC = () => {
     setSelectedUtxo(selectedUtxo);
   };
 
+  const debounceUpdateInput = useCallback(debounce(updateInput, 300), []);
+
+  const debounceUpdateOutput = useCallback(debounce(updateOutput, 300), []);
+
   const signAble = !!psbt;
 
   const broadcastAble = !!signedPsbt && finalized;
@@ -203,7 +221,7 @@ const PSBTSmart: React.FC = () => {
               return (
                 <InputItem
                   inputItem={inputItem}
-                  updateInput={updateInput}
+                  updateInput={debounceUpdateInput}
                   index={index}
                   key={inputItem.key}
                   addInput={addInput}
@@ -226,7 +244,7 @@ const PSBTSmart: React.FC = () => {
               return (
                 <OutputItem
                   outputItem={outputItem}
-                  updateOutput={updateOutput}
+                  updateOutput={debounceUpdateOutput}
                   addOutput={addOutput}
                   subOutput={subOutput}
                   index={index}
