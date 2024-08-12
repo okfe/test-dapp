@@ -1,8 +1,21 @@
 import APIButton from '@/components/common/APIButton';
+import CodeBox from '@/components/common/CodeBox';
 import Connector from '@/components/common/Connector';
 import PreviewBox from '@/components/common/PreviewBox';
 import { Button, Col, Input, Row, Space } from 'antd';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
+
+const PsbtItem = ({ index, onChange, psbts }) => {
+  return (
+    <Input
+      value={psbts[index]}
+      onChange={(e) => {
+        onChange(e, index);
+      }}
+      placeholder="填写PSBT"
+    />
+  );
+};
 
 const SignPsbtsSmart: React.FC = () => {
   const [result, setResult] = useState({});
@@ -18,23 +31,27 @@ const SignPsbtsSmart: React.FC = () => {
     setPsbts(newPsbts);
   };
 
-  const PsbtItem = ({ index }) => {
-    return (
-      <Input
-        value={psbts[index]}
-        onChange={(e) => {
-          onChange(e, index);
-        }}
-        placeholder="填写PSBT"
-      />
-    );
-  };
   const onAdd = () => {
     setPsbts([...psbts, '']);
   };
   const onSub = () => {
     setPsbts(psbts.slice(0, psbts.length - 1));
   };
+
+  const demo = useMemo(() => {
+    const needSignPsbts = psbts.length
+      ? psbts
+      : ['70736274ff01007d...', '70736274ff01007d...'];
+    return `try {
+      let res = await okxwallet.bitcoin.signPsbts(
+        ${JSON.stringify(needSignPsbts)}
+      );
+      console.log(res)
+    } catch (e) {
+      console.log(e);
+    }`;
+  }, [psbts]);
+
   return (
     <Row justify="space-between">
       <Col span={10}>
@@ -47,13 +64,21 @@ const SignPsbtsSmart: React.FC = () => {
             <Button onClick={onSub}>减少</Button>
           </Row>
           {psbts.map((_, index) => {
-            return <PsbtItem key={index} index={index} />;
+            return (
+              <PsbtItem
+                key={index}
+                index={index}
+                onChange={onChange}
+                psbts={psbts}
+              />
+            );
           })}
           <APIButton
             apiName="signPsbts"
             onCallback={onCallback}
             params={[psbts]}
           />
+          <CodeBox text={demo} />
         </Space>
       </Col>
       <Col span={12}>
