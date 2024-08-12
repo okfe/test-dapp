@@ -1,1 +1,1 @@
-export type Network = 'bitcoin' | 'bitcointestnet' | 'bitcoinsignet';
+export type Network = 'bitcoin' | 'bitcointestnet' | 'bitcoinsignet' | 'solana';

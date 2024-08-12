@@ -1,5 +1,5 @@
 import { BITCOIN } from '@/constants/network';
-import type { NetworkType } from '@/models/useNetwork';
+import type { NetworkType } from '@/models/NetworkModel';
 import type { Network } from '@/types/network';
 import { Address } from '@ant-design/web3';
 import { OkxWalletColorful } from '@ant-design/web3-icons';
@@ -24,7 +24,7 @@ type useNetworkModel = {
 const Connector: React.FC<ConnectorProps> = (props) => {
   const { networkName = BITCOIN, onError } = props;
   const { network, connect } = useModel(
-    'useNetwork',
+    'NetworkModel',
     (model): useNetworkModel => ({
       network: model.networks[networkName] || {},
       connect: model.connectNetwork,

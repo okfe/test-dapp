@@ -12,7 +12,7 @@ import { notification } from 'antd';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 const usePsbt = () => {
-  const { network } = useModel('useNetwork', (model) => ({
+  const { network } = useModel('NetworkModel', (model) => ({
     network: model.networks[BITCOIN],
   }));
   const [utxoList, setUtxoList] = useState([]);
