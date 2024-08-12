@@ -1,8 +1,8 @@
 import { BITCOIN } from '@/constants/network';
-import generatePsbt from '@/utils/BTC/psbt/generatePsbt';
 
 import {
   getCurInputs,
+  getPsbt,
   pushPsbt,
   signPsbt,
 } from '@/utils/business/BTC/psbt/index';
@@ -21,6 +21,7 @@ const usePsbt = () => {
   const [outputList, setOutputList] = useState([]);
   const [curInputs, setCurInputs] = useState([]);
   const [signedPsbt, setSignedPsbt] = useState('');
+  const [finalized, setFinalized] = useState(false);
 
   useEffect(() => {
     const getUtxoList = async () => {
@@ -39,14 +40,12 @@ const usePsbt = () => {
   }, [selectedUtxo, addedInput]);
 
   const addInput = (index) => {
-    if (index) {
-      //在index的下标后添加一个空对象
-      const newAddedInput = [...addedInput];
-      newAddedInput.splice(index, 0, {});
-      setAddedInput(newAddedInput);
-      return;
-    }
-    setAddedInput([...addedInput, {}]);
+    const pointer = index === undefined ? addedInput.length - 1 : index;
+    const newAddedInput = [...addedInput];
+    newAddedInput.splice(pointer + 1, 0, {
+      key: new Date().getTime(),
+    });
+    setAddedInput(newAddedInput);
   };
 
   const subInput = (index) => {
@@ -62,14 +61,12 @@ const usePsbt = () => {
   };
 
   const addOutput = (index) => {
-    if (index) {
-      //在index的下标后添加一个空对象
-      const newOutputList = [...outputList];
-      newOutputList.splice(index, 0, {});
-      setOutputList(newOutputList);
-      return;
-    }
-    setOutputList([...outputList, {}]);
+    const pointer = index === undefined ? outputList.length - 1 : index;
+    const newOutputList = [...outputList];
+    newOutputList.splice(pointer + 1, 0, {
+      key: new Date().getTime(),
+    });
+    setOutputList(newOutputList);
   };
   const subOutput = (index) => {
     const newOutputList = [...outputList];
@@ -83,12 +80,9 @@ const usePsbt = () => {
   };
 
   const psbt = useMemo(() => {
-    const outputValid = outputList.every((output) => {
-      return output.address && output.value;
-    });
     const inputValid = curInputs.length > 0;
-    if (outputValid && inputValid) {
-      return generatePsbt(curInputs, outputList);
+    if (inputValid) {
+      return getPsbt(curInputs, outputList);
     } else {
       return '';
     }
@@ -100,7 +94,16 @@ const usePsbt = () => {
 
   const getSignedPsbt = useCallback(async () => {
     setSignedPsbt(await signPsbt(psbt));
-    return;
+    setFinalized(true);
+  }, [psbt]);
+
+  const getSignedPsbtWithoutFinalize = useCallback(async () => {
+    setSignedPsbt(
+      await signPsbt(psbt, {
+        autoFinalized: false,
+      }),
+    );
+    setFinalized(false);
   }, [psbt]);
 
   const broadcastTx = useCallback(async () => {
@@ -129,6 +132,8 @@ const usePsbt = () => {
     signedPsbt,
     getSignedPsbt,
     broadcastTx,
+    getSignedPsbtWithoutFinalize,
+    finalized,
   };
 };
 export default usePsbt;

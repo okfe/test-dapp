@@ -2,7 +2,7 @@ import APIButton from '@/components/common/APIButton';
 import CodeBox from '@/components/common/CodeBox';
 import Connector from '@/components/common/Connector';
 import PreviewBox from '@/components/common/PreviewBox';
-import { Col, Row } from 'antd';
+import { Col, Row, Space } from 'antd';
 import React, { useState } from 'react';
 
 const demo = `try {
@@ -19,13 +19,15 @@ const GetBalanceSmart: React.FC = () => {
   };
 
   return (
-    <Row>
-      <Col span={12}>
-        <Row>
-          <Connector onError={onCallback} />
-        </Row>
-        <APIButton apiName="getBalance" onCallback={onCallback} />
-        <CodeBox text={demo} />
+    <Row justify="space-between">
+      <Col span={10}>
+        <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
+          <Row>
+            <Connector onError={onCallback} />
+          </Row>
+          <APIButton apiName="getBalance" onCallback={onCallback} />
+          <CodeBox text={demo} />
+        </Space>
       </Col>
       <Col span={12}>
         <PreviewBox value={data} />

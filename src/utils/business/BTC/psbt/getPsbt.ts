@@ -26,11 +26,14 @@ export const getCurInputs = async (inputs) => {
   return curInputs;
 };
 
-export const getPsbt = async (
+export const getPsbt = (
   curInputs = [],
   outputs = [],
   network = bitcoin.networks.bitcoin,
 ) => {
-  const psbt = generatePsbt(curInputs, outputs, network);
+  const curOutputs = outputs.filter((output) => {
+    return output.address && output.value;
+  });
+  const psbt = generatePsbt(curInputs, curOutputs, network);
   return psbt;
 };

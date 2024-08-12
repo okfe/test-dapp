@@ -127,6 +127,8 @@ const PSBTSmart: React.FC = () => {
     updateOutput,
     signedPsbt,
     getSignedPsbt,
+    getSignedPsbtWithoutFinalize,
+    finalized,
     psbt,
     broadcastTx,
   } = usePsbt();
@@ -158,7 +160,7 @@ const PSBTSmart: React.FC = () => {
 
   const signAble = !!psbt;
 
-  const broadcastAble = !!signedPsbt;
+  const broadcastAble = !!signedPsbt && finalized;
 
   const previewData = useMemo(() => {
     return {
@@ -189,7 +191,12 @@ const PSBTSmart: React.FC = () => {
           <Flex gap="middle" vertical>
             <Flex gap="small">
               <div className={styles.subTitle}>2. 手动选择输入(可选)</div>
-              <PlusCircleTwoTone className={styles.action} onClick={addInput} />
+              <PlusCircleTwoTone
+                className={styles.action}
+                onClick={() => {
+                  addInput();
+                }}
+              />
             </Flex>
 
             {addedInput.map((inputItem, index) => {
@@ -198,7 +205,7 @@ const PSBTSmart: React.FC = () => {
                   inputItem={inputItem}
                   updateInput={updateInput}
                   index={index}
-                  key={`${inputItem.txid}${inputItem.vout}${index}`}
+                  key={inputItem.key}
                   addInput={addInput}
                   subInput={subInput}
                 />
@@ -210,7 +217,9 @@ const PSBTSmart: React.FC = () => {
               <div className={styles.subTitle}>3. 设置输出 UTXO</div>
               <PlusCircleTwoTone
                 className={styles.action}
-                onClick={addOutput}
+                onClick={() => {
+                  addOutput();
+                }}
               />
             </Flex>
             {outputList.map((outputItem, index) => {
@@ -221,7 +230,7 @@ const PSBTSmart: React.FC = () => {
                   addOutput={addOutput}
                   subOutput={subOutput}
                   index={index}
-                  key={`${outputItem.address}${outputItem.value}${index}`}
+                  key={outputItem.key}
                 />
               );
             })}
@@ -231,6 +240,13 @@ const PSBTSmart: React.FC = () => {
             <div>
               <Button onClick={getSignedPsbt} disabled={!signAble}>
                 签名
+              </Button>
+              <Button
+                onClick={getSignedPsbtWithoutFinalize}
+                disabled={!signAble}
+                className={styles.btnGap}
+              >
+                签名(no finalized)
               </Button>
             </div>
           </Flex>
