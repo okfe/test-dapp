@@ -39,9 +39,12 @@ const SignPsbtsSmart: React.FC = () => {
   };
 
   const demo = useMemo(() => {
+    const needSignPsbts = psbts.length
+      ? psbts
+      : ['70736274ff01007d...', '70736274ff01007d...'];
     return `try {
       let res = await okxwallet.bitcoin.signPsbts(
-        ${JSON.stringify(psbts)}
+        ${JSON.stringify(needSignPsbts)}
       );
       console.log(res)
     } catch (e) {

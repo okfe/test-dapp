@@ -16,9 +16,10 @@ const SignMessageSmart: React.FC = () => {
   };
 
   const demo = useMemo(() => {
+    const needSignStr = message ? `${message}` : 'need sign string';
     return `try {
   let res = await okxwallet.bitcoin.signMessage(
-  '${message}'
+  '${needSignStr}'
   );
   console.log(res)
 } catch (e) {
