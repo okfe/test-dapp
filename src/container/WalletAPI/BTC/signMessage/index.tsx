@@ -1,8 +1,9 @@
 import APIButton from '@/components/common/APIButton';
+import CodeBox from '@/components/common/CodeBox';
 import Connector from '@/components/common/Connector';
 import PreviewBox from '@/components/common/PreviewBox';
 import { Col, Input, Row, Space } from 'antd';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 const SignMessageSmart: React.FC = () => {
   const [result, setResult] = useState({});
@@ -14,6 +15,16 @@ const SignMessageSmart: React.FC = () => {
     setMessage(e.target.value);
   };
 
+  const demo = useMemo(() => {
+    return `try {
+  let res = await okxwallet.bitcoin.signMessage(
+  '${message}'
+  );
+  console.log(res)
+} catch (e) {
+  console.log(e);
+}`;
+  }, [message]);
   return (
     <Row justify="space-between">
       <Col span={10}>
@@ -31,6 +42,7 @@ const SignMessageSmart: React.FC = () => {
             onCallback={onCallback}
             params={[message]}
           />
+          <CodeBox text={demo} />
         </Space>
       </Col>
       <Col span={12}>

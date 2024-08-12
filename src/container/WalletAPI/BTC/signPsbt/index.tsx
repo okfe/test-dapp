@@ -1,8 +1,9 @@
 import APIButton from '@/components/common/APIButton';
+import CodeBox from '@/components/common/CodeBox';
 import Connector from '@/components/common/Connector';
 import PreviewBox from '@/components/common/PreviewBox';
 import { Col, Input, Row, Space } from 'antd';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 const SignPsbtSmart: React.FC = () => {
   const [result, setResult] = useState({});
@@ -14,6 +15,16 @@ const SignPsbtSmart: React.FC = () => {
     setPsbt(e.target.value);
   };
 
+  const demo = useMemo(() => {
+    return `try {
+  let res = await okxwallet.bitcoin.signPsbt(
+  '${psbt}'
+  );
+  console.log(res)
+} catch (e) {
+  console.log(e);
+}`;
+  }, [psbt]);
   return (
     <Row justify="space-between">
       <Col span={10}>
@@ -27,6 +38,7 @@ const SignPsbtSmart: React.FC = () => {
             onCallback={onCallback}
             params={[psbt]}
           />
+          <CodeBox text={demo} />
         </Space>
       </Col>
       <Col span={12}>
