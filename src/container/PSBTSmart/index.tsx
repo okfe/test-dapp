@@ -7,15 +7,28 @@ import React, { useMemo } from 'react';
 import usePsbt from './hooks/usePsbt';
 import styles from './index.less';
 
-const InputItem = ({ inputItem, updateInput, addInput, subInput, index }) => {
-  const onTxidChange = (e) => {
+const InputItem = ({
+  inputItem,
+  updateInput,
+  addInput,
+  subInput,
+  index,
+}: {
+  inputItem: any;
+  updateInput: (index: any, input: any) => void;
+  addInput: (index: any) => void;
+  subInput: (index: any) => void;
+  index: any;
+}) => {
+  const onTxidChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const txid = e.target.value;
     updateInput(index, {
       ...inputItem,
       txid,
     });
   };
-  const onVoutChange = (vout) => {
+
+  const onVoutChange = (vout: any) => {
     updateInput(index, {
       ...inputItem,
       vout,
@@ -63,15 +76,21 @@ const OutputItem = ({
   index,
   addOutput,
   subOutput,
+}: {
+  outputItem: any;
+  updateOutput: (index: any, output: any) => void;
+  index: any;
+  addOutput: (index: any) => void;
+  subOutput: (index: any) => void;
 }) => {
-  const onAddressChange = (e) => {
+  const onAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const address = e.target.value;
     updateOutput(index, {
       ...outputItem,
       address,
     });
   };
-  const onValueChange = (value) => {
+  const onValueChange = (value: any) => {
     updateOutput(index, {
       ...outputItem,
       value,
@@ -134,7 +153,7 @@ const PSBTSmart: React.FC = () => {
   } = usePsbt();
 
   const utxoOptions = useMemo(() => {
-    const options = utxoList.map((item, index) => {
+    const options = utxoList.map((item: any, index) => {
       return {
         label: `${formatTxHash(item.txid)} index${item.vout} ${item.value}sats`,
         value: index,
@@ -144,7 +163,7 @@ const PSBTSmart: React.FC = () => {
     return options;
   }, [utxoList]);
 
-  const searchUtxo = (input, option) => {
+  const searchUtxo = (input: any, option: any) => {
     const included =
       option.current.txid.includes(input) ||
       option.current.value.toString().includes(input);
@@ -191,15 +210,10 @@ const PSBTSmart: React.FC = () => {
           <Flex gap="middle" vertical>
             <Flex gap="small">
               <div className={styles.subTitle}>2. 手动选择输入(可选)</div>
-              <PlusCircleTwoTone
-                className={styles.action}
-                onClick={() => {
-                  addInput();
-                }}
-              />
+              <PlusCircleTwoTone className={styles.action} onClick={addInput} />
             </Flex>
 
-            {addedInput.map((inputItem, index) => {
+            {addedInput.map((inputItem: any, index) => {
               return (
                 <InputItem
                   inputItem={inputItem}
@@ -217,12 +231,10 @@ const PSBTSmart: React.FC = () => {
               <div className={styles.subTitle}>3. 设置输出 UTXO</div>
               <PlusCircleTwoTone
                 className={styles.action}
-                onClick={() => {
-                  addOutput();
-                }}
+                onClick={addOutput}
               />
             </Flex>
-            {outputList.map((outputItem, index) => {
+            {outputList.map((outputItem: any, index) => {
               return (
                 <OutputItem
                   outputItem={outputItem}

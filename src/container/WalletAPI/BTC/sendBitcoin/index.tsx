@@ -14,13 +14,13 @@ const SendBitcoinSmart: React.FC = () => {
   const onCallback = async (result: object) => {
     setResult(result);
   };
-  const onChangeAddress = (e) => {
+  const onChangeAddress = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAddress(e.target.value);
   };
-  const onChangeValue = (value) => {
+  const onChangeValue = (value: any) => {
     setValue(value);
   };
-  const onChangeFeeRate = (feeRate) => {
+  const onChangeFeeRate = (feeRate: any) => {
     setFeeRate(feeRate);
   };
 

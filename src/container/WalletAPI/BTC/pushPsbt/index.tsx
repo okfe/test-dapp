@@ -13,7 +13,7 @@ const PushPsbtSmart: React.FC = () => {
   const onCallback = async (result: object) => {
     setResult(result);
   };
-  const onChange = (e) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSignedPsbt(e.target.value);
   };
 

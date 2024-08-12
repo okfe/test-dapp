@@ -18,14 +18,15 @@ const SignPsbtSmart: React.FC = () => {
   const demo = useMemo(() => {
     const needSignPsbt = psbt ? `${psbt}` : '70736274ff01007d....';
     return `try {
-  let res = await okxwallet.bitcoin.signPsbt(
-  '${needSignPsbt}'
-  );
-  console.log(res)
-} catch (e) {
-  console.log(e);
-}`;
+      let res = await okxwallet.bitcoin.signPsbt(
+        '${needSignPsbt}'
+      );
+      console.log(res)
+    } catch (e) {
+        console.log(e);
+    }`;
   }, [psbt]);
+
   return (
     <Row justify="space-between">
       <Col span={10}>
