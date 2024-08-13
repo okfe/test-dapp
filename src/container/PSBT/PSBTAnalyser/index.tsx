@@ -11,12 +11,33 @@ const PSBTAnalyser: React.FC = () => {
 
   const [previewData, setPreviewData] = useState({});
 
+  function makePropertiesVisible(obj) {
+    const properties = Object.getOwnPropertyNames(obj);
+
+    properties.forEach((prop) => {
+      const descriptor = Object.getOwnPropertyDescriptor(obj, prop);
+
+      if (descriptor && !descriptor.enumerable) {
+        Object.defineProperty(obj, prop, {
+          ...descriptor,
+          enumerable: true,
+        });
+      }
+    });
+
+    return obj;
+  }
+
   const analyzePsbt = () => {
     try {
       const data = analyzePSBT(psbt);
-      setPreviewData(data);
+      const visibleData = makePropertiesVisible(data);
+      setPreviewData(visibleData);
     } catch (err) {
-      setPreviewData(err);
+      console.log(err);
+      setPreviewData({
+        error: err.toString(),
+      });
     }
   };
 
