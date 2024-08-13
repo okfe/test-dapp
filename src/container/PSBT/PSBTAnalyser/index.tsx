@@ -1,8 +1,9 @@
 import Connector from '@/components/common/Connector';
 import PreviewBox from '@/components/common/PreviewBox';
+import { analyzePsbt } from '@/utils/business/BTC/psbt/analyzePsbt';
 import { Button, Col, Flex, Input, Row } from 'antd';
 import React, { useState } from 'react';
-import analyzePSBT from '../../../utils/BTC/psbt/analyzePsbt';
+import parsePsbt from '../../../utils/BTC/psbt/parsePsbt';
 import styles from './index.less';
 
 // 脚手架示例组件
@@ -11,30 +12,12 @@ const PSBTAnalyser: React.FC = () => {
 
   const [previewData, setPreviewData] = useState({});
 
-  function makePropertiesVisible(obj) {
-    const properties = Object.getOwnPropertyNames(obj);
-
-    properties.forEach((prop) => {
-      const descriptor = Object.getOwnPropertyDescriptor(obj, prop);
-
-      if (descriptor && !descriptor.enumerable) {
-        Object.defineProperty(obj, prop, {
-          ...descriptor,
-          enumerable: true,
-        });
-      }
-    });
-
-    return obj;
-  }
-
-  const analyzePsbt = () => {
+  const getPsbtData = () => {
     try {
-      const data = analyzePSBT(psbt);
-      const visibleData = makePropertiesVisible(data);
-      setPreviewData(visibleData);
+      const PSBTInstance = parsePsbt(psbt);
+      const visiblePsbt = analyzePsbt(PSBTInstance);
+      setPreviewData(visiblePsbt);
     } catch (err) {
-      console.log(err);
       setPreviewData({
         error: err.toString(),
       });
@@ -58,7 +41,7 @@ const PSBTAnalyser: React.FC = () => {
           </Flex>
           <Flex gap="middle" vertical>
             <div className={styles.subTitle}>2. 解析PSBT</div>
-            <Button type="primary" onClick={analyzePsbt}>
+            <Button type="primary" onClick={getPsbtData}>
               解析
             </Button>
           </Flex>

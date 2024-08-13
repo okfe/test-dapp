@@ -21,6 +21,13 @@ const InputItem = ({
   subInput: (index: any) => void;
   index: any;
 }) => {
+  const txIdCheckStatus = () => {
+    if (inputItem.txid !== undefined && inputItem.txid.length !== 64) {
+      return 'error';
+    }
+    return undefined;
+  };
+
   const onTxidChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const txid = e.target.value;
     updateInput(index, {
