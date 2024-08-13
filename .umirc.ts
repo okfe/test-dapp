@@ -23,7 +23,13 @@ export default defineConfig({
     {
       name: 'PSBT Builder',
       path: '/psbt',
-      component: './Tools/PSBT',
+      routes: [
+        {
+          name: 'builder',
+          path: '/psbt/builder',
+          component: './Tools/PSBT/PSBTBuilder',
+        },
+      ],
     },
     {
       name: 'Wallet BTC API',
