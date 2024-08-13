@@ -1,10 +1,10 @@
-import PsbtBuilder from '@/container/PSBT/PSBTBuilder';
+import PSBTAnalyser from '@/container/PSBT/PSBTAnalyser';
 import { PageContainer } from '@ant-design/pro-components';
 
 const PSBTPage: React.FC = () => {
   return (
     <PageContainer ghost>
-      <PsbtBuilder />
+      <PSBTAnalyser />
     </PageContainer>
   );
 };

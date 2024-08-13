@@ -22,13 +22,18 @@ export default defineConfig({
       component: './Home',
     },
     {
-      name: 'PSBT Builder',
+      name: 'PSBT',
       path: '/psbt',
       routes: [
         {
           name: 'builder',
           path: '/psbt/builder',
           component: './Tools/PSBT/PSBTBuilder',
+        },
+        {
+          name: 'analyser',
+          path: '/psbt/analyser',
+          component: './Tools/PSBT/PSBTAnalyser',
         },
       ],
     },

@@ -139,7 +139,7 @@ const OutputItem = ({
 };
 
 // 脚手架示例组件
-const PSBTSmart: React.FC = () => {
+const PSBTBuilder: React.FC = () => {
   const {
     utxoList,
     setSelectedUtxo,
@@ -290,4 +290,4 @@ const PSBTSmart: React.FC = () => {
   );
 };
 
-export default PSBTSmart;
+export default PSBTBuilder;
