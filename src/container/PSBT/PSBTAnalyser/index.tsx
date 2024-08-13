@@ -54,7 +54,7 @@ const PSBTAnalyser: React.FC = () => {
           </Flex>
           <Flex gap="middle" vertical>
             <div className={styles.subTitle}>1. 输入PSBT (HEX)</div>
-            <Input.TextArea rows={4} value={psbt} onChange={onChange} />
+            <Input.TextArea rows={18} value={psbt} onChange={onChange} />
           </Flex>
           <Flex gap="middle" vertical>
             <div className={styles.subTitle}>2. 解析PSBT</div>
