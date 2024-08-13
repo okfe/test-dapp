@@ -28,7 +28,6 @@ rm -rf docs/
 git stash pop
 
 git add .
-npx lint-staged
 git commit -m "Deploy for $package_name"
 
 echo "Start push $package_name"
