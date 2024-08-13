@@ -28,12 +28,12 @@ rm -rf docs/
 git stash pop
 
 git add .
-git commit -m "Deploy for $package_name"
+git commit -m "build: Deploy for $package_name"
 
 echo "Start push $package_name"
 
 git push
 git checkout main
 
-clean
-rimraf docs
+# clean
+rm -rf docs/
