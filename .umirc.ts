@@ -10,6 +10,7 @@ export default defineConfig({
   layout: {
     title: 'OKX Wallet Demo',
   },
+  jsMinifier: 'terser',
   routes: [
     {
       path: '/',
