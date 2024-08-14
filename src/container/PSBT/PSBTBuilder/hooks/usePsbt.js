@@ -8,7 +8,6 @@ import {
 } from '@/utils/business/BTC/psbt/index';
 import { getUTXOsFrom } from '@/utils/mempool/utxo';
 import { useModel } from '@umijs/max';
-import { notification } from 'antd';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 const usePsbt = () => {
@@ -22,6 +21,7 @@ const usePsbt = () => {
   const [curInputs, setCurInputs] = useState([]); // all inputs with data that psbt needs
   const [signedPsbt, setSignedPsbt] = useState('');
   const [finalized, setFinalized] = useState(false);
+  const [txId, setTxid] = useState('');
 
   useEffect(() => {
     const getUtxoList = async () => {
@@ -117,11 +117,8 @@ const usePsbt = () => {
 
   const broadcastTx = useCallback(async () => {
     if (signPsbt) {
-      const txId = await pushPsbt(signedPsbt);
-      notification.success({
-        message: '广播成功',
-        description: txId,
-      });
+      const curTxId = await pushPsbt(signedPsbt);
+      setTxid(curTxId);
     }
   }, [signedPsbt]);
 
@@ -143,6 +140,7 @@ const usePsbt = () => {
     broadcastTx,
     getSignedPsbtWithoutFinalize,
     finalized,
+    txId,
   };
 };
 export default usePsbt;

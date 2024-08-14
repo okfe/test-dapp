@@ -164,6 +164,7 @@ const PSBTBuilder: React.FC = () => {
     finalized,
     psbt,
     broadcastTx,
+    txId,
   } = usePsbt();
 
   const utxoOptions = useMemo(() => {
@@ -207,8 +208,9 @@ const PSBTBuilder: React.FC = () => {
     return {
       psbt,
       signedPsbt,
+      txId,
     };
-  }, [psbt, signedPsbt]);
+  }, [psbt, signedPsbt, txId]);
 
   return (
     <Row justify="space-between">
