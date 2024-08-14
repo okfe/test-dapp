@@ -228,7 +228,12 @@ const PSBTBuilder: React.FC = () => {
           <Flex gap="middle" vertical>
             <Flex gap="small">
               <div className={styles.subTitle}>2. 手动选择输入(可选)</div>
-              <PlusCircleTwoTone className={styles.action} onClick={addInput} />
+              <PlusCircleTwoTone
+                className={styles.action}
+                onClick={() => {
+                  addInput();
+                }}
+              />
             </Flex>
 
             {addedInput.map((inputItem: any, index) => {
@@ -249,7 +254,9 @@ const PSBTBuilder: React.FC = () => {
               <div className={styles.subTitle}>3. 设置输出 UTXO</div>
               <PlusCircleTwoTone
                 className={styles.action}
-                onClick={addOutput}
+                onClick={() => {
+                  addOutput();
+                }}
               />
             </Flex>
             {outputList.map((outputItem: any, index) => {
