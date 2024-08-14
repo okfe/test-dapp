@@ -35,15 +35,19 @@ const usePsbt = () => {
 
   // addedInput: manually input, maybe other's input
   useEffect(() => {
-    getCurInputs(selectedUtxo.concat(addedInput)).then((inputs) => {
-      setCurInputs(inputs);
-    });
+    try {
+      getCurInputs(selectedUtxo.concat(addedInput)).then((inputs) => {
+        setCurInputs(inputs);
+      });
+    } catch (err) {
+      console.error(err);
+    }
   }, [selectedUtxo, addedInput]);
 
   const addInput = (index) => {
-    const pointer = index === undefined ? addedInput.length - 1 : index;
+    const pointer = index === undefined ? addedInput.length : index + 1;
     const newAddedInput = [...addedInput];
-    newAddedInput.splice(pointer + 1, 0, {
+    newAddedInput.splice(pointer, 0, {
       key: new Date().getTime(),
     });
     setAddedInput(newAddedInput);
@@ -83,7 +87,11 @@ const usePsbt = () => {
   const psbt = useMemo(() => {
     const inputValid = curInputs.length > 0;
     if (inputValid) {
-      return getPsbt(curInputs, outputList);
+      try {
+        return getPsbt(curInputs, outputList);
+      } catch (err) {
+        return err;
+      }
     } else {
       return '';
     }

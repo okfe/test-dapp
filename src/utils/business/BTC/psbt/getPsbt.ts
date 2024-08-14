@@ -7,27 +7,32 @@ import * as bitcoin from 'bitcoinjs-lib';
  * @param inputs []
  */
 export const getCurInputs = async (inputs: Array<any>) => {
-  const curInputs: Array<any> = [];
-  await Promise.all(
-    inputs.map(async (input) => {
-      if (input.txid && input.vout !== undefined && input.vout !== '') {
-        const txDetail = await getTxDetail(input.txid);
-        const txHex = await getTxHex(input.txid);
-        const output = txDetail.vout[input.vout];
-        curInputs.push({
-          hash: input.txid,
-          index: input.vout,
-          sequence: input.sequence,
-          nonWitnessUtxo: Buffer.from(txHex, 'hex'),
-          witnessUtxo: {
-            script: Buffer.from(output.scriptpubkey, 'hex'),
-            value: output.value,
-          },
-        });
-      }
-    }),
-  );
-  return curInputs;
+  try {
+    const curInputs: Array<any> = [];
+    await Promise.all(
+      inputs.map(async (input) => {
+        if (input.txid && input.vout !== undefined && input.vout !== '') {
+          const txDetail = await getTxDetail(input.txid);
+          const txHex = await getTxHex(input.txid);
+          const output = txDetail.vout[input.vout];
+          curInputs.push({
+            hash: input.txid,
+            index: input.vout,
+            sequence: input.sequence,
+            nonWitnessUtxo: Buffer.from(txHex, 'hex'),
+            witnessUtxo: {
+              script: Buffer.from(output.scriptpubkey, 'hex'),
+              value: output.value,
+            },
+          });
+        }
+      }),
+    );
+    return curInputs;
+  } catch (err) {
+    console.error(err);
+    return [];
+  }
 };
 
 export const getPsbt = (
