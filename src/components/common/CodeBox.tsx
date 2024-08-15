@@ -1,3 +1,5 @@
+import { CopyTwoTone } from '@ant-design/icons';
+import { Typography } from 'antd';
 import parserBabel from 'prettier/plugins/babel';
 import * as prettierPluginEstree from 'prettier/plugins/estree';
 import * as prettier from 'prettier/standalone';
@@ -6,6 +8,7 @@ import {
   Prism as SyntaxHighlighter,
   SyntaxHighlighterProps,
 } from 'react-syntax-highlighter';
+import styles from './CodeBox.less';
 
 interface CodeBoxProps extends Partial<SyntaxHighlighterProps> {
   language?: string;
@@ -36,9 +39,17 @@ const CodeBox: React.FC<CodeBoxProps> = (props) => {
     formatCode();
   }, [text]);
   return (
-    <SyntaxHighlighter language={language} wrapLines={true}>
-      {code}
-    </SyntaxHighlighter>
+    <div className={styles.relative}>
+      <SyntaxHighlighter language={language} wrapLines={true}>
+        {code}
+      </SyntaxHighlighter>
+
+      <div className={styles.copy}>
+        <Typography.Text
+          copyable={{ text: code, icon: <CopyTwoTone /> }}
+        ></Typography.Text>
+      </div>
+    </div>
   );
 };
 
