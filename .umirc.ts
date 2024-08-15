@@ -10,6 +10,7 @@ export default defineConfig({
   layout: {
     title: 'OKX Wallet Demo',
   },
+  favicons: ['https://static.okx.com/cdn/assets/imgs/248/0125BBCCBD2DB8E0.png'],
   jsMinifier: 'terser',
   routes: [
     {
