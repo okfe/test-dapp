@@ -1,6 +1,6 @@
 {
   "private": true,
-  "author": "OKX Developers",
+  "author": "Developers",
   "scripts": {
     "build": "max build",
     "dev": "max dev",
