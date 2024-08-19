@@ -2,6 +2,7 @@ import { BITCOIN } from '@/constants/network';
 
 import {
   getCurInputs,
+  getExtractTx,
   getPsbt,
   pushPsbt,
   signPsbt,
@@ -21,6 +22,7 @@ const usePsbt = () => {
   const [curInputs, setCurInputs] = useState([]); // all inputs with data that psbt needs
   const [signedPsbt, setSignedPsbt] = useState('');
   const [finalized, setFinalized] = useState(false);
+  const [rawTx, setRawTx] = useState('');
   const [txId, setTxid] = useState('');
 
   useEffect(() => {
@@ -115,6 +117,13 @@ const usePsbt = () => {
     setFinalized(false);
   }, [psbt]);
 
+  const extractTx = useCallback(async () => {
+    if (signPsbt) {
+      const rawTx = await getExtractTx(signedPsbt);
+      setRawTx(rawTx);
+    }
+  }, [signedPsbt]);
+
   const broadcastTx = useCallback(async () => {
     if (signPsbt) {
       const curTxId = await pushPsbt(signedPsbt);
@@ -137,6 +146,8 @@ const usePsbt = () => {
     psbt,
     signedPsbt,
     getSignedPsbt,
+    rawTx,
+    extractTx,
     broadcastTx,
     getSignedPsbtWithoutFinalize,
     finalized,

@@ -163,6 +163,8 @@ const PSBTBuilder: React.FC = () => {
     getSignedPsbtWithoutFinalize,
     finalized,
     psbt,
+    rawTx,
+    extractTx,
     broadcastTx,
     txId,
   } = usePsbt();
@@ -202,15 +204,17 @@ const PSBTBuilder: React.FC = () => {
 
   const signAble = !!psbt;
 
-  const broadcastAble = !!signedPsbt && finalized;
+  const extractAble = !!signedPsbt && finalized;
+  const broadcastAble = extractAble;
 
   const previewData = useMemo(() => {
     return {
       psbt,
       signedPsbt,
+      rawTx,
       txId,
     };
-  }, [psbt, signedPsbt, txId]);
+  }, [psbt, signedPsbt, txId, rawTx]);
 
   return (
     <Row justify="space-between">
@@ -294,7 +298,15 @@ const PSBTBuilder: React.FC = () => {
             </div>
           </Flex>
           <Flex gap="middle" vertical>
-            <div className={styles.subTitle}>5. 广播 PSBT</div>
+            <div className={styles.subTitle}>5. 导出tx(可选)</div>
+            <div>
+              <Button onClick={extractTx} disabled={!extractAble}>
+                导出
+              </Button>
+            </div>
+          </Flex>
+          <Flex gap="middle" vertical>
+            <div className={styles.subTitle}>6. 广播 PSBT</div>
             <div>
               <Button onClick={broadcastTx} disabled={!broadcastAble}>
                 广播

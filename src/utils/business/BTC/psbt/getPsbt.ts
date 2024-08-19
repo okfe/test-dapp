@@ -1,3 +1,4 @@
+import extractPsbt from '@/utils/BTC/psbt/extractPsbt';
 import generatePsbt from '@/utils/BTC/psbt/generatePsbt';
 import { getTxDetail, getTxHex } from '@/utils/mempool/transaction';
 import * as bitcoin from 'bitcoinjs-lib';
@@ -46,4 +47,12 @@ export const getPsbt = (
   });
   const psbt = generatePsbt(curInputs, curOutputs, network);
   return psbt;
+};
+
+export const getExtractTx = (psbt = '', network = bitcoin.networks.bitcoin) => {
+  try {
+    return extractPsbt(psbt, network);
+  } catch (err) {
+    return err;
+  }
 };
