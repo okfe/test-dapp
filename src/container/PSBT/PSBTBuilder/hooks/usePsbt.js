@@ -1,4 +1,4 @@
-import { BITCOIN } from '@/constants/network';
+import { BTC_SWITCH } from '@/constants/network';
 
 import {
   getCurInputs,
@@ -12,9 +12,13 @@ import { useModel } from '@umijs/max';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 const usePsbt = () => {
-  const { network } = useModel('NetworkModel', (model) => ({
-    network: model.networks[BITCOIN],
+  const { switchNetworkName } = useModel('SwitchNetworkModel', (model) => ({
+    switchNetworkName: model.networkSwitches[BTC_SWITCH],
   }));
+  const { network } = useModel('NetworkModel', (model) => ({
+    network: model.networks[switchNetworkName],
+  }));
+
   const [utxoList, setUtxoList] = useState([]);
   const [selectedUtxo, setSelectedUtxo] = useState([]);
   const [addedInput, setAddedInput] = useState([]); // manually edit
@@ -28,7 +32,7 @@ const usePsbt = () => {
   useEffect(() => {
     const getUtxoList = async () => {
       if (network && network.address) {
-        const utxos = await getUTXOsFrom(network.address);
+        const utxos = await getUTXOsFrom(network.network, network.address);
         setUtxoList(utxos);
       }
     };
@@ -38,9 +42,11 @@ const usePsbt = () => {
   // addedInput: manually input, maybe other's input
   useEffect(() => {
     try {
-      getCurInputs(selectedUtxo.concat(addedInput)).then((inputs) => {
-        setCurInputs(inputs);
-      });
+      getCurInputs(network?.network, selectedUtxo.concat(addedInput)).then(
+        (inputs) => {
+          setCurInputs(inputs);
+        },
+      );
     } catch (err) {
       console.error(err);
     }

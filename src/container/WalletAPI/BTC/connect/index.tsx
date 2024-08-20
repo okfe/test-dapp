@@ -2,22 +2,30 @@ import APIButton from '@/components/common/APIButton';
 import CodeBox from '@/components/common/CodeBox';
 import Connector from '@/components/common/Connector';
 import PreviewBox from '@/components/common/PreviewBox';
+import { BTC_SWITCH, PROVIDER } from '@/constants/network';
+import { useModel } from '@umijs/max';
 import { Col, Row } from 'antd';
 import { Space } from 'antd/lib';
-import React, { useState } from 'react';
-
-const demo = `try {
-  let res = await okxwallet.bitcoin.connect();
-  console.log(res)
-} catch (e) {
-  console.log(e);
-}`;
+import React, { useMemo, useState } from 'react';
 
 const ConnectSmart: React.FC = () => {
   const [data, setData] = useState({});
   const onCallback = (result: object) => {
     setData(result);
   };
+
+  const { network } = useModel('SwitchNetworkModel', (model) => ({
+    network: model.networkSwitches[BTC_SWITCH],
+  }));
+
+  const demo = useMemo(() => {
+    return `try {
+      let res = await okxwallet.${PROVIDER[network]}.connect();
+      console.log(res)
+    } catch (e) {
+      console.log(e);
+    }`;
+  }, [network]);
 
   return (
     <Row justify="space-between">

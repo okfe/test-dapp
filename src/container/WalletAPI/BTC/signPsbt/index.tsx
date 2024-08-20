@@ -2,6 +2,8 @@ import APIButton from '@/components/common/APIButton';
 import CodeBox from '@/components/common/CodeBox';
 import Connector from '@/components/common/Connector';
 import PreviewBox from '@/components/common/PreviewBox';
+import { BTC_SWITCH, PROVIDER } from '@/constants/network';
+import { useModel } from '@umijs/max';
 import { Col, Input, Row, Space } from 'antd';
 import React, { useMemo, useState } from 'react';
 
@@ -11,21 +13,25 @@ const SignPsbtSmart: React.FC = () => {
   const onCallback = async (result: object) => {
     setResult(result);
   };
-  const onChange = (e) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPsbt(e.target.value);
   };
+
+  const { network } = useModel('SwitchNetworkModel', (model) => ({
+    network: model.networkSwitches[BTC_SWITCH],
+  }));
 
   const demo = useMemo(() => {
     const needSignPsbt = psbt ? `${psbt}` : '70736274ff01007d....';
     return `try {
-      let res = await okxwallet.bitcoin.signPsbt(
+      let res = await okxwallet.${PROVIDER[network]}.signPsbt(
         '${needSignPsbt}'
       );
       console.log(res)
     } catch (e) {
         console.log(e);
     }`;
-  }, [psbt]);
+  }, [network, psbt]);
 
   return (
     <Row justify="space-between">

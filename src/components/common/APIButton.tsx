@@ -1,12 +1,13 @@
-import { BITCOIN, PROVIDER } from '@/constants/network';
-import type { Network } from '@/types/network';
+import { BTC_SWITCH, PROVIDER } from '@/constants/network';
+import type { NetworkSwitch } from '@/types/network';
 import { SmileOutlined } from '@ant-design/icons';
+import { useModel } from '@umijs/max';
 import { Button, Typography } from 'antd';
 import { useCallback } from 'react';
 
 // import { monokaiTheme } from '@uiw/react-json-view/monokai';
 interface APIButtonProps {
-  network?: Network;
+  networkSwitch?: NetworkSwitch;
   apiName: string;
   title?: string;
   onClick?: () => void;
@@ -16,13 +17,17 @@ interface APIButtonProps {
 
 const APIButton: React.FC<APIButtonProps> = (props) => {
   const {
-    network = BITCOIN,
+    networkSwitch = BTC_SWITCH,
     apiName,
     title,
     onClick,
     onCallback,
     params = [],
   } = props;
+
+  const { network } = useModel('SwitchNetworkModel', (model) => ({
+    network: model.networkSwitches[networkSwitch],
+  }));
 
   const onClickBtn = useCallback(async () => {
     if (onClick) {

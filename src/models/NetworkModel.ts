@@ -14,7 +14,7 @@ export type NetworkMapType = {
   [key in Network]: NetworkType;
 };
 
-// default network is bitcoin. if there is not provider, means no connected
+// default network from caller is bitcoin. if there is not provider, means no connected
 const NetworkModel = () => {
   const [networks, setNetwork] = useState<NetworkMapType>({} as NetworkMapType);
 

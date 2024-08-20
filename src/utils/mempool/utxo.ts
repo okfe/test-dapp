@@ -1,15 +1,20 @@
-// Don't use cloudVp to avoid timeout
+import { Network } from '@/types/network';
+// Don't use cloudVpn to avoid timeout
 import mempoolJS from '@mempool/mempool.js';
-// import axios from 'axios';
-// import getUTXOs from './__mocks__/getUTXOs.js';
+import { getMempoolConfig } from './config';
 
-export const getUTXOsFrom = async (address, after_txid, limit) => {
+export const getUTXOsFrom = async (
+  network: Network,
+  address: any,
+  after_txid: any,
+  limit: number,
+) => {
+  const config = getMempoolConfig(network);
+
   try {
     const {
       bitcoin: { addresses },
-    } = mempoolJS({
-      hostname: 'mempool.space',
-    });
+    } = mempoolJS(config);
 
     // commitid d875bc250de0f110830042763554200fafcb0b41 上有第二个属性
     const addressTxsUtxo = await addresses.getAddressTxsUtxo({ address });

@@ -2,6 +2,8 @@ import APIButton from '@/components/common/APIButton';
 import CodeBox from '@/components/common/CodeBox';
 import Connector from '@/components/common/Connector';
 import PreviewBox from '@/components/common/PreviewBox';
+import { BTC_SWITCH, PROVIDER } from '@/constants/network';
+import { useModel } from '@umijs/max';
 import { Col, Flex, Input, InputNumber, Row } from 'antd';
 import React, { useMemo, useState } from 'react';
 
@@ -32,9 +34,13 @@ const SendBitcoinSmart: React.FC = () => {
     }
   }, [address, value, feeRate]);
 
+  const { network } = useModel('SwitchNetworkModel', (model) => ({
+    network: model.networkSwitches[BTC_SWITCH],
+  }));
+
   const demo = useMemo(() => {
     return `try {
-      const txid = await okxwallet.bitcoin.sendBitcoin(
+      const txid = await okxwallet.${PROVIDER[network]}.sendBitcoin(
         '${address ? address : 'tb1qrn7tvhdf6wnh790384ahj56u0xaa0kqgautnnz'}',
         ${value || 1000},
         {
@@ -45,7 +51,7 @@ const SendBitcoinSmart: React.FC = () => {
     } catch (e) {
       console.log(e);
     }`;
-  }, [address, value, feeRate]);
+  }, [network, address, value, feeRate]);
 
   return (
     <Row justify="space-between">

@@ -1,14 +1,15 @@
-import { BITCOIN } from '@/constants/network';
+import { BTC_SWITCH, SWITCH_NETWORK_LIST } from '@/constants/network';
 import type { NetworkType } from '@/models/NetworkModel';
-import type { Network } from '@/types/network';
+import type { Network, NetworkSwitch } from '@/types/network';
+import { DownOutlined } from '@ant-design/icons';
 import { Address } from '@ant-design/web3';
 import { OkxWalletColorful } from '@ant-design/web3-icons';
 import { useModel } from '@umijs/max';
-import { Button, Typography } from 'antd';
-import React, { useEffect, useMemo } from 'react';
+import { Button, Dropdown, MenuProps, Space, Typography } from 'antd';
+import React, { useCallback, useEffect, useMemo } from 'react';
 
 interface ConnectorProps {
-  networkName?: Network;
+  networkSwitch?: NetworkSwitch;
   onError?: (err: any) => void;
 }
 
@@ -22,11 +23,19 @@ type useNetworkModel = {
  * And just has mainnet. Not enough for business.
  */
 const Connector: React.FC<ConnectorProps> = (props) => {
-  const { networkName = BITCOIN, onError } = props;
+  const { networkSwitch = BTC_SWITCH, onError } = props;
+  const { switchNetworkName, setSwitchNetwork } = useModel(
+    'SwitchNetworkModel',
+    (model) => ({
+      switchNetworkName: model.networkSwitches[networkSwitch],
+      setSwitchNetwork: model.setSwitchNetwork,
+    }),
+  );
+
   const { network, connect } = useModel(
     'NetworkModel',
     (model): useNetworkModel => ({
-      network: model.networks[networkName] || {},
+      network: model.networks[switchNetworkName] || {},
       connect: model.connectNetwork,
     }),
   );
@@ -41,19 +50,14 @@ const Connector: React.FC<ConnectorProps> = (props) => {
 
   // auto connect once
   useEffect(() => {
-    connect(networkName);
+    setSwitchNetwork(networkSwitch, switchNetworkName);
+    connect(switchNetworkName);
   }, []);
 
-  const onClickConnector = () => {
-    connect(networkName);
-  };
-
-  const buttonTitle = useMemo(() => {
-    return !address ? (
-      `Connect to ${networkName}`
-    ) : (
+  const connectedDetail = useMemo(() => {
+    return (
       <>
-        {`${networkName}: `}
+        {`${switchNetworkName}: `}
         <Address
           ellipsis
           addressPrefix={false}
@@ -68,14 +72,21 @@ const Connector: React.FC<ConnectorProps> = (props) => {
     );
   }, [address]);
 
+  const dropdownItem = SWITCH_NETWORK_LIST[networkSwitch];
+  const onMenuClick: MenuProps['onClick'] = useCallback((e: any) => {
+    connect(e.key);
+    setSwitchNetwork(networkSwitch, e.key);
+  }, []);
+
   return (
-    <Button
-      icon={<OkxWalletColorful />}
-      iconPosition={'start'}
-      onClick={onClickConnector}
-    >
-      {buttonTitle}
-    </Button>
+    <Dropdown menu={{ items: dropdownItem, onClick: onMenuClick }}>
+      <Button icon={<OkxWalletColorful />} iconPosition={'start'}>
+        <Space>
+          Connect to{!address ? '' : connectedDetail}
+          <DownOutlined />
+        </Space>
+      </Button>
+    </Dropdown>
   );
 };
 
