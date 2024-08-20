@@ -1,4 +1,5 @@
 import { BTC_SWITCH } from '@/constants/network';
+import { convertBTCLibNetwork } from '@/utils/business/BTC/network';
 
 import {
   getCurInputs,
@@ -96,7 +97,11 @@ const usePsbt = () => {
     const inputValid = curInputs.length > 0;
     if (inputValid) {
       try {
-        return getPsbt(curInputs, outputList);
+        return getPsbt(
+          curInputs,
+          outputList,
+          convertBTCLibNetwork(network.network),
+        );
       } catch (err) {
         return err;
       }
@@ -110,29 +115,32 @@ const usePsbt = () => {
   }, [psbt]);
 
   const getSignedPsbt = useCallback(async () => {
-    setSignedPsbt(await signPsbt(psbt));
+    setSignedPsbt(await signPsbt(network?.provider, psbt));
     setFinalized(true);
-  }, [psbt]);
+  }, [psbt, network?.provider]);
 
   const getSignedPsbtWithoutFinalize = useCallback(async () => {
     setSignedPsbt(
-      await signPsbt(psbt, {
+      await signPsbt(network?.provider, psbt, {
         autoFinalized: false,
       }),
     );
     setFinalized(false);
-  }, [psbt]);
+  }, [psbt, network?.provider]);
 
   const extractTx = useCallback(async () => {
-    if (signPsbt) {
-      const rawTx = await getExtractTx(signedPsbt);
+    if (signedPsbt) {
+      const rawTx = await getExtractTx(
+        signedPsbt,
+        convertBTCLibNetwork(network.network),
+      );
       setRawTx(rawTx);
     }
   }, [signedPsbt]);
 
   const broadcastTx = useCallback(async () => {
-    if (signPsbt) {
-      const curTxId = await pushPsbt(signedPsbt);
+    if (signedPsbt) {
+      const curTxId = await pushPsbt(network?.provider, signedPsbt);
       setTxid(curTxId);
     }
   }, [signedPsbt]);

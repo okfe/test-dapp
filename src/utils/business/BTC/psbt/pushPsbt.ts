@@ -1,6 +1,4 @@
-export const pushPsbt = async (signedPsbt: string) => {
-  //如果要支持多钱包就在这里传provider
-  const provider = window.okxwallet.bitcoin;
+export const pushPsbt = async (provider: any, signedPsbt: string) => {
   const txId = await provider.pushPsbt(signedPsbt);
   return txId;
 };
