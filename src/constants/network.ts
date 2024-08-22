@@ -35,7 +35,8 @@ export const SWITCH_NETWORK_LIST = {
     },
     {
       key: BITCOINFRACTAL,
-      label: BITCOINFRACTAL,
+      label: BITCOINFRACTAL + ' (coming soon)',
+      disabled: true,
     },
   ],
   [EVM_SWITCH]: [
