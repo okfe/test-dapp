@@ -3,6 +3,7 @@ export type Network =
   | 'bitcointestnet'
   | 'bitcoinsignet'
   | 'bitcoinfractal'
-  | 'solana';
+  | 'solana'
+  | 'ton';
 
 export type NetworkSwitch = 'btc' | 'evm';

@@ -2,7 +2,7 @@ import APIButton from '@/components/common/APIButton';
 import CodeBox from '@/components/common/CodeBox';
 import Connector from '@/components/common/Connector';
 import PreviewBox from '@/components/common/PreviewBox';
-import { BTC_SWITCH, PROVIDER } from '@/constants/network';
+import { BTC_SWITCH, getProviderCodeString } from '@/constants/network';
 import { useModel } from '@umijs/max';
 import { Col, Input, Row, Space } from 'antd';
 import React, { useMemo, useState } from 'react';
@@ -23,7 +23,7 @@ const PushTxSmart: React.FC = () => {
 
   const demo = useMemo(() => {
     return `try {
-        let res = await okxwallet.${PROVIDER[network]}.pushTx('${rawTx ? rawTx : '0200000000010135bd7d...'}');
+        let res = await ${getProviderCodeString(network)}.pushTx('${rawTx ? rawTx : '0200000000010135bd7d...'}');
           console.log(res);
         } catch (e) {
           console.log(e);

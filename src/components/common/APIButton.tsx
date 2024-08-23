@@ -1,4 +1,4 @@
-import { BTC_SWITCH, PROVIDER } from '@/constants/network';
+import { BTC_SWITCH, getProvider } from '@/constants/network';
 import type { NetworkSwitch } from '@/types/network';
 import { SmileOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
@@ -35,9 +35,8 @@ const APIButton: React.FC<APIButtonProps> = (props) => {
       return;
     }
     try {
-      const result = await window.okxwallet[PROVIDER[network]][apiName](
-        ...params,
-      );
+      const provider = getProvider(network);
+      const result = await provider[apiName](...params);
       if (Object.prototype.toString.call(result) === '[object Object]') {
         onCallback(result);
       } else {

@@ -2,7 +2,7 @@ import APIButton from '@/components/common/APIButton';
 import CodeBox from '@/components/common/CodeBox';
 import Connector from '@/components/common/Connector';
 import PreviewBox from '@/components/common/PreviewBox';
-import { BTC_SWITCH, PROVIDER } from '@/constants/network';
+import { BTC_SWITCH, getProviderCodeString } from '@/constants/network';
 import { useModel } from '@umijs/max';
 import { Col, Row } from 'antd';
 import { Space } from 'antd/lib';
@@ -20,7 +20,7 @@ const ConnectSmart: React.FC = () => {
 
   const demo = useMemo(() => {
     return `try {
-      let res = await okxwallet.${PROVIDER[network]}.connect();
+      let res = await ${getProviderCodeString(network)}.connect();
       console.log(res)
     } catch (e) {
       console.log(e);

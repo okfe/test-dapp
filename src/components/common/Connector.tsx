@@ -70,7 +70,7 @@ const Connector: React.FC<ConnectorProps> = (props) => {
         />
       </>
     );
-  }, [address]);
+  }, [address, switchNetworkName]);
 
   const dropdownItem = SWITCH_NETWORK_LIST[networkSwitch];
   const onMenuClick: MenuProps['onClick'] = useCallback((e: any) => {

@@ -2,7 +2,7 @@ import APIButton from '@/components/common/APIButton';
 import CodeBox from '@/components/common/CodeBox';
 import Connector from '@/components/common/Connector';
 import PreviewBox from '@/components/common/PreviewBox';
-import { BTC_SWITCH, PROVIDER } from '@/constants/network';
+import { BTC_SWITCH, getProviderCodeString } from '@/constants/network';
 import { useModel } from '@umijs/max';
 import { Col, Flex, Input, InputNumber, Row } from 'antd';
 import React, { useMemo, useState } from 'react';
@@ -40,7 +40,7 @@ const SendBitcoinSmart: React.FC = () => {
 
   const demo = useMemo(() => {
     return `try {
-      const txid = await okxwallet.${PROVIDER[network]}.sendBitcoin(
+      const txid = await ${getProviderCodeString(network)}.sendBitcoin(
         '${address ? address : 'tb1qrn7tvhdf6wnh790384ahj56u0xaa0kqgautnnz'}',
         ${value || 1000},
         {

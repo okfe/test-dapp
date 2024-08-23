@@ -2,7 +2,7 @@ import APIButton from '@/components/common/APIButton';
 import CodeBox from '@/components/common/CodeBox';
 import Connector from '@/components/common/Connector';
 import PreviewBox from '@/components/common/PreviewBox';
-import { BTC_SWITCH, PROVIDER } from '@/constants/network';
+import { BTC_SWITCH, getProviderCodeString } from '@/constants/network';
 import { useModel } from '@umijs/max';
 import { Button, Col, Input, Row, Space } from 'antd';
 import React, { useMemo, useState } from 'react';
@@ -49,7 +49,7 @@ const SignPsbtsSmart: React.FC = () => {
       ? psbts
       : ['70736274ff01007d...', '70736274ff01007d...'];
     return `try {
-      let res = await okxwallet.${PROVIDER[network]}.signPsbts(
+      let res = await ${getProviderCodeString(network)}.signPsbts(
         ${JSON.stringify(needSignPsbts)}
       );
       console.log(res)

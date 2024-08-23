@@ -2,7 +2,7 @@ import APIButton from '@/components/common/APIButton';
 import CodeBox from '@/components/common/CodeBox';
 import Connector from '@/components/common/Connector';
 import PreviewBox from '@/components/common/PreviewBox';
-import { BTC_SWITCH, PROVIDER } from '@/constants/network';
+import { BTC_SWITCH, getProviderCodeString } from '@/constants/network';
 import { useModel } from '@umijs/max';
 import { Col, Input, Row, Space } from 'antd';
 import React, { useMemo, useState } from 'react';
@@ -24,7 +24,7 @@ const SignMessageSmart: React.FC = () => {
   const demo = useMemo(() => {
     const needSignStr = message ? `${message}` : 'need sign string';
     return `try {
-      let res = await okxwallet.${PROVIDER[network]}.signMessage(
+      let res = await ${getProviderCodeString(network)}.signMessage(
       '${needSignStr}'
       );
       console.log(res)

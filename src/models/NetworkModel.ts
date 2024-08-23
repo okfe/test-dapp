@@ -1,4 +1,4 @@
-import { PROVIDER } from '@/constants/network';
+import { getProvider } from '@/constants/network';
 import type { Network } from '@/types/network';
 import { notification } from 'antd';
 import { useCallback, useState } from 'react';
@@ -21,6 +21,7 @@ const NetworkModel = () => {
   const [api] = notification.useNotification();
 
   const addDisconnectEvent = useCallback((network: Network) => {
+    const provider = getProvider(network);
     if (networks[network]?.onDisconnect) {
       return;
     }
@@ -34,7 +35,7 @@ const NetworkModel = () => {
       }));
       // window.okxwallet has not removeEventListener disconnect
     };
-    window.okxwallet[PROVIDER[network]].on('disconnect', onDisconnect);
+    provider.on('disconnect', onDisconnect);
     setNetwork((networks) => ({
       ...networks,
       [network]: {
@@ -46,18 +47,19 @@ const NetworkModel = () => {
 
   const connectNetwork = useCallback(
     async (network: Network) => {
+      const provider = getProvider(network);
       if (networks[network]?.address) {
         return;
       }
       try {
-        const result = await window.okxwallet[PROVIDER[network]].connect();
+        const result = await provider.connect();
         addDisconnectEvent(network);
         setNetwork((networks) => ({
           ...networks,
           [network]: {
             address: result.address,
             network,
-            provider: window.okxwallet[PROVIDER[network]],
+            provider: provider,
           },
         }));
       } catch (error) {
