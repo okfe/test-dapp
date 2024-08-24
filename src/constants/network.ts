@@ -1,23 +1,22 @@
-import type { Network, NetworkSwitch } from '@/types/network';
-
-export const BITCOIN: Network = 'bitcoin';
-export const BITCOINTESTNET: Network = 'bitcointestnet';
-export const BITCOINSIGNET: Network = 'bitcoinsignet';
-export const BITCOINFRACTAL: Network = 'bitcoinfractal';
-
-export const SOLANA: Network = 'solana';
-export const TON: Network = 'ton';
+export enum Network {
+  BITCOIN = 'bitcoin',
+  BITCOINTESTNET = 'bitcointestnet',
+  BITCOINSIGNET = 'bitcoinsignet',
+  BITCOINFRACTAL = 'bitcoinfractal',
+  SOLANA = 'solana',
+  TON = 'ton',
+}
 
 export const PROVIDER = {
-  [BITCOIN]: 'bitcoin',
-  [BITCOINTESTNET]: 'bitcoinTestnet',
-  [BITCOINSIGNET]: 'bitcoinSignet',
-  [BITCOINFRACTAL]: 'bitcoinFractal',
-  [SOLANA]: 'solana',
-  [TON]: 'okxTonWallet',
+  [Network.BITCOIN]: 'bitcoin',
+  [Network.BITCOINTESTNET]: 'bitcoinTestnet',
+  [Network.BITCOINSIGNET]: 'bitcoinSignet',
+  [Network.BITCOINFRACTAL]: 'bitcoinFractal',
+  [Network.SOLANA]: 'solana',
+  [Network.TON]: 'okxTonWallet',
 };
 
-const providerNotInOkxWallet = [TON];
+const providerNotInOkxWallet = [Network.TON];
 
 export const isProviderInOkxWallet = (network: any) => {
   return !providerNotInOkxWallet.includes(network);
@@ -36,33 +35,35 @@ export const getProviderCodeString = (network: Network) => {
 };
 
 // classify network for switch
-export const BTC_SWITCH: NetworkSwitch = 'btc';
-export const EVM_SWITCH: NetworkSwitch = 'evm';
+export enum NetworkSwitch {
+  BTC = 'btc',
+  EVM = 'evm',
+}
 
 export const SWITCH_NETWORK_LIST = {
-  [BTC_SWITCH]: [
+  [NetworkSwitch.BTC]: [
     {
-      key: BITCOIN,
-      label: BITCOIN,
+      key: Network.BITCOIN,
+      label: Network.BITCOIN,
     },
     {
-      key: BITCOINTESTNET,
-      label: BITCOINTESTNET,
+      key: Network.BITCOINTESTNET,
+      label: Network.BITCOINTESTNET,
     },
     {
-      key: BITCOINSIGNET,
-      label: BITCOINSIGNET,
+      key: Network.BITCOINSIGNET,
+      label: Network.BITCOINSIGNET,
     },
     {
-      key: BITCOINFRACTAL,
-      label: BITCOINFRACTAL + ' (coming soon)',
+      key: Network.BITCOINFRACTAL,
+      label: Network.BITCOINFRACTAL + ' (coming soon)',
       disabled: true,
     },
   ],
-  [EVM_SWITCH]: [
+  [NetworkSwitch.EVM]: [
     {
-      key: SOLANA,
-      label: SOLANA,
+      key: Network.SOLANA,
+      label: Network.SOLANA,
     },
   ],
 };

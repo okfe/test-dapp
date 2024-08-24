@@ -1,4 +1,4 @@
-import { BTC_SWITCH } from '@/constants/network';
+import { NetworkSwitch } from '@/constants/network';
 import { convertBTCLibNetwork } from '@/utils/business/BTC/network';
 
 import {
@@ -14,7 +14,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 
 const usePsbt = () => {
   const { switchNetworkName } = useModel('SwitchNetworkModel', (model) => ({
-    switchNetworkName: model.networkSwitches[BTC_SWITCH],
+    switchNetworkName: model.networkSwitches[NetworkSwitch.BTC],
   }));
   const { network } = useModel('NetworkModel', (model) => ({
     network: model.networks[switchNetworkName],

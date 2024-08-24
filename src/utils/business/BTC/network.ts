@@ -1,21 +1,15 @@
-import {
-  BITCOIN,
-  BITCOINFRACTAL,
-  BITCOINSIGNET,
-  BITCOINTESTNET,
-} from '@/constants/network';
-import { Network } from '@/types/network';
+import { Network } from '@/constants/network';
 import * as bitcoin from 'bitcoinjs-lib';
 
 export function convertBTCLibNetwork(network: Network) {
   switch (network) {
-    case BITCOIN:
+    case Network.BITCOIN:
       return bitcoin.networks.bitcoin;
-    case BITCOINTESTNET:
+    case Network.BITCOINTESTNET:
       return bitcoin.networks.testnet;
-    case BITCOINSIGNET:
+    case Network.BITCOINSIGNET:
       return bitcoin.networks.testnet;
-    case BITCOINFRACTAL:
+    case Network.BITCOINFRACTAL:
       return bitcoin.networks.bitcoin;
     default:
       return bitcoin.networks.bitcoin;

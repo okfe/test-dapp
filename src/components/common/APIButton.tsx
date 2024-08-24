@@ -1,5 +1,4 @@
-import { BTC_SWITCH, getProvider } from '@/constants/network';
-import type { NetworkSwitch } from '@/types/network';
+import { getProvider, NetworkSwitch } from '@/constants/network';
 import { SmileOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Button, Typography } from 'antd';
@@ -17,7 +16,7 @@ interface APIButtonProps {
 
 const APIButton: React.FC<APIButtonProps> = (props) => {
   const {
-    networkSwitch = BTC_SWITCH,
+    networkSwitch = NetworkSwitch.BTC,
     apiName,
     title,
     onClick,

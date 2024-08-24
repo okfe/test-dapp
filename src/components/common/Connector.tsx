@@ -1,6 +1,9 @@
-import { BTC_SWITCH, SWITCH_NETWORK_LIST } from '@/constants/network';
+import {
+  Network,
+  NetworkSwitch,
+  SWITCH_NETWORK_LIST,
+} from '@/constants/network';
 import type { NetworkType } from '@/models/NetworkModel';
-import type { Network, NetworkSwitch } from '@/types/network';
 import { DownOutlined } from '@ant-design/icons';
 import { Address } from '@ant-design/web3';
 import { OkxWalletColorful } from '@ant-design/web3-icons';
@@ -23,7 +26,7 @@ type useNetworkModel = {
  * And just has mainnet. Not enough for business.
  */
 const Connector: React.FC<ConnectorProps> = (props) => {
-  const { networkSwitch = BTC_SWITCH, onError } = props;
+  const { networkSwitch = NetworkSwitch.BTC, onError } = props;
   const { switchNetworkName, setSwitchNetwork } = useModel(
     'SwitchNetworkModel',
     (model) => ({

@@ -1,4 +1,4 @@
-import { Network } from '@/types/network';
+import { Network } from '@/constants/network';
 import extractPsbt from '@/utils/BTC/psbt/extractPsbt';
 import generatePsbt from '@/utils/BTC/psbt/generatePsbt';
 import { getTxDetail, getTxHex } from '@/utils/mempool/transaction';

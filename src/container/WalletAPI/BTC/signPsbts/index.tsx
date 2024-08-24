@@ -2,7 +2,7 @@ import APIButton from '@/components/common/APIButton';
 import CodeBox from '@/components/common/CodeBox';
 import Connector from '@/components/common/Connector';
 import PreviewBox from '@/components/common/PreviewBox';
-import { BTC_SWITCH, getProviderCodeString } from '@/constants/network';
+import { getProviderCodeString, NetworkSwitch } from '@/constants/network';
 import { useModel } from '@umijs/max';
 import { Button, Col, Input, Row, Space } from 'antd';
 import React, { useMemo, useState } from 'react';
@@ -41,7 +41,7 @@ const SignPsbtsSmart: React.FC = () => {
   };
 
   const { network } = useModel('SwitchNetworkModel', (model) => ({
-    network: model.networkSwitches[BTC_SWITCH],
+    network: model.networkSwitches[NetworkSwitch.BTC],
   }));
 
   const demo = useMemo(() => {

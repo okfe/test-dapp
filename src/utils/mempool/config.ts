@@ -1,28 +1,22 @@
-import {
-  BITCOIN,
-  BITCOINFRACTAL,
-  BITCOINSIGNET,
-  BITCOINTESTNET,
-} from '@/constants/network';
-import type { Network } from '@/types/network';
+import { Network } from '@/constants/network';
 
 export function getMempoolConfig(network: Network) {
   switch (network) {
-    case BITCOIN:
+    case Network.BITCOIN:
       return {
         hostname: 'mempool.space',
       };
-    case BITCOINSIGNET:
+    case Network.BITCOINSIGNET:
       return {
         hostname: 'mempool.space',
         network: 'signet',
       };
-    case BITCOINTESTNET:
+    case Network.BITCOINTESTNET:
       return {
         hostname: 'mempool.space',
         network: 'testnet',
       };
-    case BITCOINFRACTAL:
+    case Network.BITCOINFRACTAL:
       return {
         hostname: 'mempool.fractalbitcoin.io',
       };

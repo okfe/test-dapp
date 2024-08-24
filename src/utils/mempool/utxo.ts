@@ -1,4 +1,4 @@
-import { Network } from '@/types/network';
+import { Network } from '@/constants/network';
 // Don't use cloudVpn to avoid timeout
 import mempoolJS from '@mempool/mempool.js';
 import { getMempoolConfig } from './config';

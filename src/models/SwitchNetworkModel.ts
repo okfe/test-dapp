@@ -1,5 +1,4 @@
-import { BITCOIN, BTC_SWITCH, EVM_SWITCH, SOLANA } from '@/constants/network';
-import type { Network, NetworkSwitch } from '@/types/network';
+import { Network, NetworkSwitch } from '@/constants/network';
 import { useCallback, useState } from 'react';
 
 export type SwitchNetworkType = Network;
@@ -14,8 +13,8 @@ export type SwitchNetworkMapType = {
  */
 const SwitchNetworkModel = () => {
   const [networkSwitches, setSwitchNetworks] = useState<SwitchNetworkMapType>({
-    [BTC_SWITCH]: BITCOIN,
-    [EVM_SWITCH]: SOLANA,
+    [NetworkSwitch.BTC]: Network.BITCOIN,
+    [NetworkSwitch.EVM]: Network.SOLANA,
   } as SwitchNetworkMapType);
 
   const setSwitchNetwork = useCallback(

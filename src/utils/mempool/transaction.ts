@@ -1,6 +1,5 @@
-import { Network } from '@/types/network';
+import { Network } from '@/constants/network';
 import mempoolJS from '@mempool/mempool.js';
-
 import { getMempoolConfig } from './config';
 
 export const getTxDetail = async (network: Network, txid: any) => {

@@ -1,13 +1,14 @@
-import { getProvider } from '@/constants/network';
-import type { Network } from '@/types/network';
+import { getProvider, Network } from '@/constants/network';
+import { formatConnectResult } from '@/utils/business/Common/network';
 import { notification } from 'antd';
 import { useCallback, useState } from 'react';
 
 export interface NetworkType<Provider = any> {
   network?: Network;
   provider?: Provider;
+  connectResult?: object | null;
   address?: string; // sign for login or not
-  error: any;
+  error?: any;
   onDisconnect?: () => void;
 }
 export type NetworkMapType = {
@@ -53,11 +54,12 @@ const NetworkModel = () => {
       }
       try {
         const result = await provider.connect();
+        const formatResult = formatConnectResult(network, result);
         addDisconnectEvent(network);
         setNetwork((networks) => ({
           ...networks,
           [network]: {
-            address: result.address,
+            address: formatResult.address,
             network,
             provider: provider,
           },
