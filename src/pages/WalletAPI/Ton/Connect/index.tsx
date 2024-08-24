@@ -1,4 +1,4 @@
-import ConnectSmart from '@/container/WalletAPI/BTC/ConnectSmart';
+import ConnectSmart from '@/container/WalletAPI/Ton/ConnectSmart';
 import { PageContainer } from '@ant-design/pro-components';
 
 const ConnectPage: React.FC = () => {

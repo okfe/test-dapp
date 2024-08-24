@@ -1,4 +1,4 @@
-import SignMessageSmart from '@/container/WalletAPI/BTC/signMessage';
+import SignMessageSmart from '@/container/WalletAPI/BTC/SignMessageSmart';
 import { PageContainer } from '@ant-design/pro-components';
 
 const SignMessagePage: React.FC = () => {
