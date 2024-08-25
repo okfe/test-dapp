@@ -10,6 +10,9 @@ export function formatConnectResult(
   network: Network,
   connectResult: any,
 ): { address: string } {
+  if (network === Network.TON) {
+    return { address: connectResult.payload.items[0].address };
+  }
   // default return address
   return { address: connectResult.address };
 }

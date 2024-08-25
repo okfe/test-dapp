@@ -1,0 +1,7 @@
+{
+  "url": "https://sherlockhomer.github.io/wallet-dapp-demo-release/home",
+  "name": "test DApp",
+  "iconUrl": "https://ton-connect.github.io/demo-dapp-with-wallet/apple-touch-icon.png",
+  "termsOfUseUrl": "https://ton-connect.github.io/demo-dapp-with-wallet/terms-of-use.txt",
+  "privacyPolicyUrl": "https://ton-connect.github.io/demo-dapp-with-wallet/privacy-policy.txt"
+}

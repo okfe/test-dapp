@@ -22,10 +22,23 @@ export const isProviderInOkxWallet = (network: any) => {
   return !providerNotInOkxWallet.includes(network);
 };
 
+/**
+ * get inject handle from window
+ * @param network
+ * @returns
+ */
 export const getProvider = (network: Network) => {
   return isProviderInOkxWallet(network)
     ? window.okxwallet[PROVIDER[network]]
     : (window as any)[PROVIDER[network]];
+};
+
+export const getAPIHandle = (network: Network) => {
+  const provider = getProvider(network);
+  if (network === Network.TON) {
+    return provider.tonconnect;
+  }
+  return provider;
 };
 
 export const getProviderCodeString = (network: Network) => {
@@ -38,6 +51,7 @@ export const getProviderCodeString = (network: Network) => {
 export enum NetworkSwitch {
   BTC = 'btc',
   EVM = 'evm',
+  TON = 'ton',
 }
 
 export const SWITCH_NETWORK_LIST = {
@@ -64,6 +78,12 @@ export const SWITCH_NETWORK_LIST = {
     {
       key: Network.SOLANA,
       label: Network.SOLANA,
+    },
+  ],
+  [NetworkSwitch.TON]: [
+    {
+      key: Network.TON,
+      label: Network.TON,
     },
   ],
 };

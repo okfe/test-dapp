@@ -1,4 +1,5 @@
 import btc from './btc';
+import ton from './ton';
 
 const router = [
   {
@@ -28,6 +29,6 @@ const router = [
   },
 ];
 router.push(btc);
-// router.push(ton);
+router.push(ton);
 
 export default router;

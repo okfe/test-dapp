@@ -1,4 +1,4 @@
-import { getProvider, NetworkSwitch } from '@/constants/network';
+import { getAPIHandle, NetworkSwitch } from '@/constants/network';
 import { SmileOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Button, Typography } from 'antd';
@@ -34,8 +34,8 @@ const APIButton: React.FC<APIButtonProps> = (props) => {
       return;
     }
     try {
-      const provider = getProvider(network);
-      const result = await provider[apiName](...params);
+      const apiHandle = getAPIHandle(network);
+      const result = await apiHandle[apiName](...params);
       if (Object.prototype.toString.call(result) === '[object Object]') {
         onCallback(result);
       } else {

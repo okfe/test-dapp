@@ -13,12 +13,13 @@ import React, { useCallback, useEffect, useMemo } from 'react';
 
 interface ConnectorProps {
   networkSwitch?: NetworkSwitch;
+  params?: any[];
   onError?: (err: any) => void;
 }
 
 type useNetworkModel = {
   network: NetworkType;
-  connect: (network: Network) => Promise<void>;
+  connect: (network: Network, params?: any[]) => Promise<void>;
 };
 
 /**
@@ -26,7 +27,7 @@ type useNetworkModel = {
  * And just has mainnet. Not enough for business.
  */
 const Connector: React.FC<ConnectorProps> = (props) => {
-  const { networkSwitch = NetworkSwitch.BTC, onError } = props;
+  const { networkSwitch = NetworkSwitch.BTC, params = [], onError } = props;
   const { switchNetworkName, setSwitchNetwork } = useModel(
     'SwitchNetworkModel',
     (model) => ({
@@ -54,7 +55,7 @@ const Connector: React.FC<ConnectorProps> = (props) => {
   // auto connect once
   useEffect(() => {
     setSwitchNetwork(networkSwitch, switchNetworkName);
-    connect(switchNetworkName);
+    connect(switchNetworkName, params);
   }, []);
 
   const connectedDetail = useMemo(() => {
@@ -77,7 +78,7 @@ const Connector: React.FC<ConnectorProps> = (props) => {
 
   const dropdownItem = SWITCH_NETWORK_LIST[networkSwitch];
   const onMenuClick: MenuProps['onClick'] = useCallback((e: any) => {
-    connect(e.key);
+    connect(e.key, params);
     setSwitchNetwork(networkSwitch, e.key);
   }, []);
 

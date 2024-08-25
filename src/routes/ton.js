@@ -5,7 +5,12 @@ const router = {
     {
       name: 'connect',
       path: '/wallet-ton-api/connect',
-      component: './WalletAPI/TON/Connect',
+      component: './WalletAPI/Ton/Connect',
+    },
+    {
+      name: 'TonConnect',
+      path: '/wallet-ton-api/tonconnect',
+      component: './WalletAPI/Ton/TonConnect',
     },
   ],
 };

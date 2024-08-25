@@ -15,6 +15,7 @@ const SwitchNetworkModel = () => {
   const [networkSwitches, setSwitchNetworks] = useState<SwitchNetworkMapType>({
     [NetworkSwitch.BTC]: Network.BITCOIN,
     [NetworkSwitch.EVM]: Network.SOLANA,
+    [NetworkSwitch.TON]: Network.TON,
   } as SwitchNetworkMapType);
 
   const setSwitchNetwork = useCallback(
