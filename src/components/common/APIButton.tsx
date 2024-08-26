@@ -42,6 +42,14 @@ const APIButton: React.FC<APIButtonProps> = (props) => {
         onCallback({ 'API method only returns': result });
       }
     } catch (error) {
+      if (error instanceof TypeError) {
+        const readableError = JSON.stringify(
+          error,
+          Object.getOwnPropertyNames(error),
+        );
+        onCallback({ error: readableError });
+        return;
+      }
       onCallback({ error });
     }
   }, [onCallback, onClick]);
