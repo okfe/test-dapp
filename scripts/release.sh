@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
-package_name="`date +%Y%m%d%H%M`-okxwallet-test-dapp"
+package_name="`date +%Y%m%d`-okxwallet-test-dapp"
+# build in ci branch
+git checkout ci
+git merge main
 
 # build in main and send to release branch
 echo "Start compile $package_name"
@@ -16,17 +19,6 @@ rm -rf docs/
 mv dist docs
 # cp -r dist/* docs/
 
-# cache docs
-git stash -u
-
-# Checkout to release branch
-git checkout release
-
-# delete old docs
-rm -rf docs/
-
-git stash pop
-
 git add .
 git commit -m "build: Deploy for $package_name"
 
@@ -36,4 +28,4 @@ git push
 git checkout main
 
 # clean
-rm -rf docs/
+# rm -rf docs/
