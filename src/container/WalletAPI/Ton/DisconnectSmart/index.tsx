@@ -11,18 +11,16 @@ import { manifestUrl } from '@/constants/Ton';
 import { Space } from 'antd';
 import { useMemo, useState } from 'react';
 
-export default function ConnectSmart() {
+export default function DisconnectSmart() {
   const [data, setData] = useState({});
+
   const onCallback = (result: object) => {
     setData(result);
   };
   const demo = useMemo(() => {
     return `
     try {
-      let res = await ${getProviderCodeString(Network.TON)}.tonconnect.connect(2,{
-        manifestUrl: '${manifestUrl}',
-        items: [{ name: 'ton_addr' }]
-      });
+      let res = await ${getProviderCodeString(Network.TON)}.tonconnect.disconnect();
       console.log(res)
     } catch (e) {
       console.log(e);
@@ -38,10 +36,9 @@ export default function ConnectSmart() {
           params={[2, { manifestUrl, items: [{ name: 'ton_addr' }] }]}
         />
         <APIButton
-          apiName="connect"
+          apiName="disconnect"
           networkSwitch={NetworkSwitch.TON}
           onCallback={onCallback}
-          params={[2, { manifestUrl, items: [{ name: 'ton_addr' }] }]}
         />
         <CodeBox text={demo} />
       </Space>

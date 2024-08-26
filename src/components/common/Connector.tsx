@@ -123,6 +123,7 @@ const Connector: React.FC<ConnectorProps> = (props) => {
           >
             <>Connect to {!address ? switchNetworkName : connectedDetail}</>
           </Button>
+          <br />
           {friendlyAddress ? (
             <Button
               icon={<OkxWalletColorful />}

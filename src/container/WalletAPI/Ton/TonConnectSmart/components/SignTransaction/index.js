@@ -1,7 +1,7 @@
 import { myTonAddress, tonBlackAddress } from '@/constants/mockAddress';
 import { Address, beginCell, toNano } from '@ton/ton';
 import { useTonAddress, useTonConnectUI } from '@tonconnect/ui-react';
-import { Button, Card, Space } from 'antd-mobile';
+import { Button, Card, Space } from 'antd';
 import TonWeb from 'tonweb';
 
 const tonweb = new TonWeb();

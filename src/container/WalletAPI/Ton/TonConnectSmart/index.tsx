@@ -1,8 +1,11 @@
+import BlackAddress from '@/components/BlackAddress';
 import CodeBox from '@/components/common/CodeBox';
-import Layout from '@/components/common/Layout';
+import PreviewLayout from '@/components/common/Layout/PreviewLayout';
+import { blackAddress, strongBlackAddress } from '@/constants/Ton/const';
 import { TonConnectButton, useTonWallet } from '@tonconnect/ui-react';
-import { Row, Space } from 'antd';
+import { Space } from 'antd';
 import { useMemo } from 'react';
+import SignTransaction from './components/SignTransaction';
 
 function Ton() {
   const wallet = useTonWallet();
@@ -15,18 +18,18 @@ function Ton() {
   }, []);
 
   return (
-    <Layout previewData={wallet || {}}>
+    <PreviewLayout previewData={wallet || {}}>
       <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
-        <Row>
-          <Space direction="vertical" style={{ width: '100%' }}>
-            <TonConnectButton />
-            {/* <SignTransaction /> */}
-            {/* <BlackAddress address={tonBlackAddress} /> */}
-          </Space>
-        </Row>
+        <TonConnectButton />
         <CodeBox text={demo} />
+        <SignTransaction />
+        <BlackAddress type={BlackAddress.typeMap.eoa} address={blackAddress} />
+        <BlackAddress
+          type={BlackAddress.typeMap.strongEoa}
+          address={strongBlackAddress}
+        />
       </Space>
-    </Layout>
+    </PreviewLayout>
   );
 }
 
