@@ -8,6 +8,7 @@ export interface NetworkType<Provider = any> {
   provider?: Provider;
   connectResult?: object | null;
   address?: string; // sign for login or not
+  friendlyAddress?: string;
   error?: any;
   onDisconnect?: () => void;
 }
@@ -35,6 +36,7 @@ const NetworkModel = () => {
         [network]: {
           ...[networks[network]],
           address: '',
+          friendlyAddress: '',
         },
       }));
       // window.okxwallet has not removeEventListener disconnect
@@ -65,6 +67,7 @@ const NetworkModel = () => {
           ...networks,
           [network]: {
             address: formatResult.address,
+            friendlyAddress: formatResult.friendlyAddress,
             network,
             provider: provider,
           },

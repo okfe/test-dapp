@@ -4,7 +4,7 @@ import Connector from '@/components/common/Connector';
 import PreviewLayout from '@/components/common/Layout/PreviewLayout';
 import { getProviderCodeString, NetworkSwitch } from '@/constants/network';
 import { useModel } from '@umijs/max';
-import { Row, Space } from 'antd';
+import { Space } from 'antd';
 import React, { useMemo, useState } from 'react';
 
 const GetBalanceSmart: React.FC = () => {
@@ -29,9 +29,7 @@ const GetBalanceSmart: React.FC = () => {
   return (
     <PreviewLayout previewData={data}>
       <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
-        <Row>
-          <Connector onError={onCallback} />
-        </Row>
+        <Connector onError={onCallback} />
         <APIButton apiName="getBalance" onCallback={onCallback} />
         <CodeBox text={demo} />
       </Space>

@@ -4,7 +4,7 @@ import Connector from '@/components/common/Connector';
 import PreviewLayout from '@/components/common/Layout/PreviewLayout';
 import { getProviderCodeString, NetworkSwitch } from '@/constants/network';
 import { useModel } from '@umijs/max';
-import { Input, Row, Space } from 'antd';
+import { Input, Space } from 'antd';
 import React, { useMemo, useState } from 'react';
 
 const PushTxSmart: React.FC = () => {
@@ -33,9 +33,7 @@ const PushTxSmart: React.FC = () => {
   return (
     <PreviewLayout previewData={result}>
       <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
-        <Row>
-          <Connector onError={onCallback} />
-        </Row>
+        <Connector onError={onCallback} />
         <Input value={rawTx} onChange={onChange} placeholder="填写 RawTx" />
         <APIButton apiName="pushTx" onCallback={onCallback} params={[rawTx]} />
         <CodeBox text={demo} />

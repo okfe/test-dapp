@@ -61,9 +61,7 @@ const SignPsbtsSmart: React.FC = () => {
   return (
     <PreviewLayout previewData={result}>
       <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
-        <Row>
-          <Connector onError={onCallback} />
-        </Row>
+        <Connector onError={onCallback} />
         <Row>
           <Button onClick={onAdd}>添加</Button>
           <Button onClick={onSub}>减少</Button>

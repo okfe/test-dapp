@@ -1,4 +1,6 @@
 import { Network } from '@/constants/network';
+import { toUserFriendlyAddress } from '@tonconnect/ui-react';
+
 /**
  * get instance from connectResult. ConnectResult is different for different chain, some is object, some is array.
  *
@@ -9,9 +11,15 @@ import { Network } from '@/constants/network';
 export function formatConnectResult(
   network: Network,
   connectResult: any,
-): { address: string } {
+): { address: string; friendlyAddress?: string } {
   if (network === Network.TON) {
-    return { address: connectResult.payload.items[0].address };
+    const friendlyAddress = toUserFriendlyAddress(
+      connectResult.payload.items[0].address,
+    );
+    return {
+      address: connectResult.payload.items[0].address,
+      friendlyAddress,
+    };
   }
   // default return address
   return { address: connectResult.address };

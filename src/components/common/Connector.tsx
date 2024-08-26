@@ -8,7 +8,7 @@ import { DownOutlined } from '@ant-design/icons';
 import { Address } from '@ant-design/web3';
 import { OkxWalletColorful } from '@ant-design/web3-icons';
 import { useModel } from '@umijs/max';
-import { Button, Dropdown, MenuProps, Space, Typography } from 'antd';
+import { Button, Dropdown, MenuProps, Typography } from 'antd';
 import React, { useCallback, useEffect, useMemo } from 'react';
 
 interface ConnectorProps {
@@ -44,7 +44,7 @@ const Connector: React.FC<ConnectorProps> = (props) => {
     }),
   );
 
-  const { address, error } = network;
+  const { address, friendlyAddress, error } = network;
 
   useEffect(() => {
     if (error) {
@@ -76,21 +76,67 @@ const Connector: React.FC<ConnectorProps> = (props) => {
     );
   }, [address, switchNetworkName]);
 
+  const friendlyAddressDetail = useMemo(() => {
+    return (
+      <Address
+        ellipsis
+        addressPrefix={false}
+        address={friendlyAddress}
+        tooltip={
+          <Typography.Paragraph style={{ color: '#fff' }} copyable>
+            {friendlyAddress}
+          </Typography.Paragraph>
+        }
+      />
+    );
+  }, [friendlyAddress]);
+
   const dropdownItem = SWITCH_NETWORK_LIST[networkSwitch];
   const onMenuClick: MenuProps['onClick'] = useCallback((e: any) => {
     connect(e.key, params);
     setSwitchNetwork(networkSwitch, e.key);
   }, []);
 
+  const onClickConnect = useCallback(() => {
+    connect(switchNetworkName, params);
+    setSwitchNetwork(networkSwitch, switchNetworkName);
+  }, []);
+
   return (
-    <Dropdown menu={{ items: dropdownItem, onClick: onMenuClick }}>
-      <Button icon={<OkxWalletColorful />} iconPosition={'start'}>
-        <Space>
-          Connect to{!address ? '' : connectedDetail}
-          <DownOutlined />
-        </Space>
-      </Button>
-    </Dropdown>
+    <>
+      {dropdownItem.length > 1 ? (
+        <Dropdown menu={{ items: dropdownItem, onClick: onMenuClick }}>
+          <Button icon={<OkxWalletColorful />} iconPosition={'start'}>
+            <>
+              Connect to {!address ? '' : connectedDetail}
+              <DownOutlined />
+            </>
+          </Button>
+        </Dropdown>
+      ) : null}
+      {dropdownItem.length === 1 ? (
+        <>
+          <Button
+            icon={<OkxWalletColorful />}
+            iconPosition={'start'}
+            onClick={onClickConnect}
+          >
+            <>Connect to {!address ? switchNetworkName : connectedDetail}</>
+          </Button>
+          {friendlyAddress ? (
+            <Button
+              icon={<OkxWalletColorful />}
+              iconPosition={'start'}
+              style={{ marginTop: 16 }}
+            >
+              <>
+                friendlyAddress: {!friendlyAddress ? '' : friendlyAddressDetail}
+              </>
+            </Button>
+          ) : null}
+        </>
+      ) : null}
+    </>
   );
 };
 

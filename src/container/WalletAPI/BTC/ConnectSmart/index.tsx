@@ -4,7 +4,6 @@ import Connector from '@/components/common/Connector';
 import PreviewLayout from '@/components/common/Layout/PreviewLayout';
 import { getProviderCodeString, NetworkSwitch } from '@/constants/network';
 import { useModel } from '@umijs/max';
-import { Row } from 'antd';
 import { Space } from 'antd/lib';
 import React, { useMemo, useState } from 'react';
 
@@ -30,9 +29,7 @@ const ConnectSmart: React.FC = () => {
   return (
     <PreviewLayout previewData={data}>
       <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
-        <Row>
-          <Connector onError={onCallback} />
-        </Row>
+        <Connector onError={onCallback} />
         <APIButton apiName="connect" onCallback={onCallback} />
         <CodeBox text={demo} />
       </Space>
