@@ -3,8 +3,8 @@ import router from './src/routes';
 
 // 目前静态 layout.xxx 配置只支持以下属性：title / formatMessage / locale ，其他 layout 组件的配置均需通过 src/app.ts 中 export const layout 运行时进行配置，配置项可参考 ProLayout
 export default defineConfig({
-  base: '/wallet-dapp-demo-release/',
-  publicPath: '/wallet-dapp-demo-release/',
+  base: '/test-dapp/',
+  publicPath: '/test-dapp/',
   antd: {},
   access: {},
   model: {},
