@@ -3,7 +3,7 @@
 package_name="`date +%Y%m%d`-okxwallet-test-dapp"
 # build in ci branch
 git checkout ci
-git merge main
+git merge main --no-edit
 
 # build in main and send to release branch
 echo "Start compile $package_name"
@@ -28,4 +28,4 @@ git push
 git checkout main
 
 # clean
-# rm -rf docs/
+rm -rf docs/
