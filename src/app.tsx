@@ -7,8 +7,8 @@ export async function getInitialState(): Promise<{
   avatar: string;
 }> {
   return {
-    name: 'Dev',
-    avatar: 'https://static.okx.com/cdn/assets/imgs/248/0125BBCCBD2DB8E0.png',
+    name: '',
+    avatar: '',
   };
 }
 
