@@ -7,20 +7,18 @@ export async function getInitialState(): Promise<{
 }> {
   return {
     name: 'Dev',
-    avatar: '',
-    // avatar: 'https://static.okx.com/cdn/assets/imgs/248/0125BBCCBD2DB8E0.png',
+    avatar: 'https://static.okx.com/cdn/assets/imgs/248/0125BBCCBD2DB8E0.png',
   };
 }
 
 export const layout = () => {
   return {
-    // logo: '',
-    // logo: 'https://static.okx.com/cdn/assets/imgs/248/0125BBCCBD2DB8E0.png',
+    logo: 'https://static.okx.com/cdn/assets/imgs/248/0125BBCCBD2DB8E0.png',
     menu: {
       locale: false,
       defaultOpenAll: true,
       autoClose: false,
     },
-    title: 'Extension Dapp demo',
+    title: 'OKXWallet Test Dapp',
   };
 };

@@ -9,9 +9,9 @@ export default defineConfig({
   initialState: {},
   request: {},
   layout: {
-    title: 'wallet-dapp-demo',
+    title: 'OKXWallet Test Dapp',
   },
-  // favicons: ['https://static.okx.com/cdn/assets/imgs/248/0125BBCCBD2DB8E0.png'],
+  favicons: ['https://static.okx.com/cdn/assets/imgs/248/0125BBCCBD2DB8E0.png'],
   jsMinifier: 'terser',
   routes: router,
   npmClient: 'pnpm',

@@ -1,1 +1,1 @@
-export const DEFAULT_NAME = 'Wallet DApp Demo';
+export const DEFAULT_NAME = 'OKXWallet Test Dapp';

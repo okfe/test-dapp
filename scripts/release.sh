@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-package_name="`date +%Y%m%d%H%M`-okxwallet-dapp-demo"
+package_name="`date +%Y%m%d%H%M`-okxwallet-test-dapp"
 
 # build in main and send to release branch
 echo "Start compile $package_name"
