@@ -1,10 +1,10 @@
 import APIButton from '@/components/common/APIButton';
 import CodeBox from '@/components/common/CodeBox';
 import Connector from '@/components/common/Connector';
-import PreviewBox from '@/components/common/PreviewBox';
+import PreviewLayout from '@/components/common/Layout/PreviewLayout';
 import { getProviderCodeString, NetworkSwitch } from '@/constants/network';
 import { useModel } from '@umijs/max';
-import { Col, Row } from 'antd';
+import { Row } from 'antd';
 import { Space } from 'antd/lib';
 import React, { useMemo, useState } from 'react';
 
@@ -28,20 +28,15 @@ const ConnectSmart: React.FC = () => {
   }, [network]);
 
   return (
-    <Row justify="space-between">
-      <Col span={10}>
-        <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
-          <Row>
-            <Connector onError={onCallback} />
-          </Row>
-          <APIButton apiName="connect" onCallback={onCallback} />
-          <CodeBox text={demo} />
-        </Space>
-      </Col>
-      <Col span={12}>
-        <PreviewBox value={data} />
-      </Col>
-    </Row>
+    <PreviewLayout previewData={data}>
+      <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
+        <Row>
+          <Connector onError={onCallback} />
+        </Row>
+        <APIButton apiName="connect" onCallback={onCallback} />
+        <CodeBox text={demo} />
+      </Space>
+    </PreviewLayout>
   );
 };
 

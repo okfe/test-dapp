@@ -1,10 +1,10 @@
 import APIButton from '@/components/common/APIButton';
 import CodeBox from '@/components/common/CodeBox';
 import Connector from '@/components/common/Connector';
-import PreviewBox from '@/components/common/PreviewBox';
+import PreviewLayout from '@/components/common/Layout/PreviewLayout';
 import { getProviderCodeString, NetworkSwitch } from '@/constants/network';
 import { useModel } from '@umijs/max';
-import { Col, Input, Row, Space } from 'antd';
+import { Input, Row, Space } from 'antd';
 import React, { useMemo, useState } from 'react';
 
 const PushTxSmart: React.FC = () => {
@@ -31,25 +31,16 @@ const PushTxSmart: React.FC = () => {
   }, [rawTx, network]);
 
   return (
-    <Row justify="space-between">
-      <Col span={10}>
-        <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
-          <Row>
-            <Connector onError={onCallback} />
-          </Row>
-          <Input value={rawTx} onChange={onChange} placeholder="填写 RawTx" />
-          <APIButton
-            apiName="pushTx"
-            onCallback={onCallback}
-            params={[rawTx]}
-          />
-          <CodeBox text={demo} />
-        </Space>
-      </Col>
-      <Col span={12}>
-        <PreviewBox value={result} />
-      </Col>
-    </Row>
+    <PreviewLayout previewData={result}>
+      <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
+        <Row>
+          <Connector onError={onCallback} />
+        </Row>
+        <Input value={rawTx} onChange={onChange} placeholder="填写 RawTx" />
+        <APIButton apiName="pushTx" onCallback={onCallback} params={[rawTx]} />
+        <CodeBox text={demo} />
+      </Space>
+    </PreviewLayout>
   );
 };
 

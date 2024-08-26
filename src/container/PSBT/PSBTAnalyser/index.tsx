@@ -1,7 +1,7 @@
 import Connector from '@/components/common/Connector';
-import PreviewBox from '@/components/common/PreviewBox';
+import PreviewLayout from '@/components/common/Layout/PreviewLayout';
 import { analyzePsbt } from '@/utils/business/BTC/psbt/analyzePsbt';
-import { Button, Col, Flex, Input, Row } from 'antd';
+import { Button, Flex, Input } from 'antd';
 import React, { useState } from 'react';
 import parsePsbt from '../../../utils/BTC/psbt/parsePsbt';
 import styles from './index.less';
@@ -29,28 +29,23 @@ const PSBTAnalyser: React.FC = () => {
   };
 
   return (
-    <Row justify="space-between">
-      <Col span={10}>
-        <Flex gap="large" vertical>
-          <Flex>
-            <Connector />
-          </Flex>
-          <Flex gap="middle" vertical>
-            <div className={styles.subTitle}>1. 输入PSBT (HEX)</div>
-            <Input.TextArea rows={18} value={psbt} onChange={onChange} />
-          </Flex>
-          <Flex gap="middle" vertical>
-            <div className={styles.subTitle}>2. 解析PSBT</div>
-            <Button type="primary" onClick={getPsbtData}>
-              解析
-            </Button>
-          </Flex>
+    <PreviewLayout previewData={previewData}>
+      <Flex gap="large" vertical>
+        <Flex>
+          <Connector />
         </Flex>
-      </Col>
-      <Col span={12}>
-        <PreviewBox value={previewData} />
-      </Col>
-    </Row>
+        <Flex gap="middle" vertical>
+          <div className={styles.subTitle}>1. 输入PSBT (HEX)</div>
+          <Input.TextArea rows={18} value={psbt} onChange={onChange} />
+        </Flex>
+        <Flex gap="middle" vertical>
+          <div className={styles.subTitle}>2. 解析PSBT</div>
+          <Button type="primary" onClick={getPsbtData}>
+            解析
+          </Button>
+        </Flex>
+      </Flex>
+    </PreviewLayout>
   );
 };
 

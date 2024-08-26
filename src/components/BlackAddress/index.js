@@ -1,5 +1,4 @@
-import { Typography } from 'antd';
-import { Card, Space } from 'antd-mobile';
+import { Card, Space, Typography } from 'antd';
 
 function BlackAddress({ address }) {
   if (!address) {

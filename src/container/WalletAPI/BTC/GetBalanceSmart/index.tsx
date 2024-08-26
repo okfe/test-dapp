@@ -1,10 +1,10 @@
 import APIButton from '@/components/common/APIButton';
 import CodeBox from '@/components/common/CodeBox';
 import Connector from '@/components/common/Connector';
-import PreviewBox from '@/components/common/PreviewBox';
+import PreviewLayout from '@/components/common/Layout/PreviewLayout';
 import { getProviderCodeString, NetworkSwitch } from '@/constants/network';
 import { useModel } from '@umijs/max';
-import { Col, Row, Space } from 'antd';
+import { Row, Space } from 'antd';
 import React, { useMemo, useState } from 'react';
 
 const GetBalanceSmart: React.FC = () => {
@@ -27,20 +27,15 @@ const GetBalanceSmart: React.FC = () => {
   }, [network]);
 
   return (
-    <Row justify="space-between">
-      <Col span={10}>
-        <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
-          <Row>
-            <Connector onError={onCallback} />
-          </Row>
-          <APIButton apiName="getBalance" onCallback={onCallback} />
-          <CodeBox text={demo} />
-        </Space>
-      </Col>
-      <Col span={12}>
-        <PreviewBox value={data} />
-      </Col>
-    </Row>
+    <PreviewLayout previewData={data}>
+      <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
+        <Row>
+          <Connector onError={onCallback} />
+        </Row>
+        <APIButton apiName="getBalance" onCallback={onCallback} />
+        <CodeBox text={demo} />
+      </Space>
+    </PreviewLayout>
   );
 };
 

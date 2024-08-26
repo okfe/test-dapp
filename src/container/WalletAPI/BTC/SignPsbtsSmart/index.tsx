@@ -1,10 +1,10 @@
 import APIButton from '@/components/common/APIButton';
 import CodeBox from '@/components/common/CodeBox';
 import Connector from '@/components/common/Connector';
-import PreviewBox from '@/components/common/PreviewBox';
+import PreviewLayout from '@/components/common/Layout/PreviewLayout';
 import { getProviderCodeString, NetworkSwitch } from '@/constants/network';
 import { useModel } from '@umijs/max';
-import { Button, Col, Input, Row, Space } from 'antd';
+import { Button, Input, Row, Space } from 'antd';
 import React, { useMemo, useState } from 'react';
 
 const PsbtItem = ({ index, onChange, psbts }) => {
@@ -59,38 +59,33 @@ const SignPsbtsSmart: React.FC = () => {
   }, [network, psbts]);
 
   return (
-    <Row justify="space-between">
-      <Col span={10}>
-        <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
-          <Row>
-            <Connector onError={onCallback} />
-          </Row>
-          <Row>
-            <Button onClick={onAdd}>添加</Button>
-            <Button onClick={onSub}>减少</Button>
-          </Row>
-          {psbts.map((_, index) => {
-            return (
-              <PsbtItem
-                key={index}
-                index={index}
-                onChange={onChange}
-                psbts={psbts}
-              />
-            );
-          })}
-          <APIButton
-            apiName="signPsbts"
-            onCallback={onCallback}
-            params={[psbts]}
-          />
-          <CodeBox text={demo} />
-        </Space>
-      </Col>
-      <Col span={12}>
-        <PreviewBox value={result} />
-      </Col>
-    </Row>
+    <PreviewLayout previewData={result}>
+      <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
+        <Row>
+          <Connector onError={onCallback} />
+        </Row>
+        <Row>
+          <Button onClick={onAdd}>添加</Button>
+          <Button onClick={onSub}>减少</Button>
+        </Row>
+        {psbts.map((_, index) => {
+          return (
+            <PsbtItem
+              key={index}
+              index={index}
+              onChange={onChange}
+              psbts={psbts}
+            />
+          );
+        })}
+        <APIButton
+          apiName="signPsbts"
+          onCallback={onCallback}
+          params={[psbts]}
+        />
+        <CodeBox text={demo} />
+      </Space>
+    </PreviewLayout>
   );
 };
 

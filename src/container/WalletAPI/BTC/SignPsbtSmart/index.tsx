@@ -1,10 +1,10 @@
 import APIButton from '@/components/common/APIButton';
 import CodeBox from '@/components/common/CodeBox';
 import Connector from '@/components/common/Connector';
-import PreviewBox from '@/components/common/PreviewBox';
+import PreviewLayout from '@/components/common/Layout/PreviewLayout';
 import { getProviderCodeString, NetworkSwitch } from '@/constants/network';
 import { useModel } from '@umijs/max';
-import { Col, Input, Row, Space } from 'antd';
+import { Input, Row, Space } from 'antd';
 import React, { useMemo, useState } from 'react';
 
 const SignPsbtSmart: React.FC = () => {
@@ -34,25 +34,16 @@ const SignPsbtSmart: React.FC = () => {
   }, [network, psbt]);
 
   return (
-    <Row justify="space-between">
-      <Col span={10}>
-        <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
-          <Row>
-            <Connector onError={onCallback} />
-          </Row>
-          <Input value={psbt} onChange={onChange} placeholder="填写PSBT" />
-          <APIButton
-            apiName="signPsbt"
-            onCallback={onCallback}
-            params={[psbt]}
-          />
-          <CodeBox text={demo} />
-        </Space>
-      </Col>
-      <Col span={12}>
-        <PreviewBox value={result} />
-      </Col>
-    </Row>
+    <PreviewLayout previewData={result}>
+      <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
+        <Row>
+          <Connector onError={onCallback} />
+        </Row>
+        <Input value={psbt} onChange={onChange} placeholder="填写PSBT" />
+        <APIButton apiName="signPsbt" onCallback={onCallback} params={[psbt]} />
+        <CodeBox text={demo} />
+      </Space>
+    </PreviewLayout>
   );
 };
 

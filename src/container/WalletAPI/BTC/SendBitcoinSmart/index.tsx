@@ -1,10 +1,10 @@
 import APIButton from '@/components/common/APIButton';
 import CodeBox from '@/components/common/CodeBox';
 import Connector from '@/components/common/Connector';
-import PreviewBox from '@/components/common/PreviewBox';
+import PreviewLayout from '@/components/common/Layout/PreviewLayout';
 import { getProviderCodeString, NetworkSwitch } from '@/constants/network';
 import { useModel } from '@umijs/max';
-import { Col, Flex, Input, InputNumber, Row } from 'antd';
+import { Flex, Input, InputNumber } from 'antd';
 import React, { useMemo, useState } from 'react';
 
 const SendBitcoinSmart: React.FC = () => {
@@ -54,45 +54,40 @@ const SendBitcoinSmart: React.FC = () => {
   }, [network, address, value, feeRate]);
 
   return (
-    <Row justify="space-between">
-      <Col span={10}>
-        <Flex vertical gap="middle">
-          <Flex>
-            <Connector onError={onCallback} />
-          </Flex>
-          <Input
-            value={address}
-            onChange={onChangeAddress}
-            placeholder="填写 address"
-          />
-          <InputNumber
-            style={{ width: '100%' }}
-            controls={false}
-            placeholder="填写 value"
-            onChange={onChangeValue}
-            value={value}
-          />
-          <InputNumber
-            style={{ width: '100%' }}
-            controls={false}
-            placeholder="填写 feeRate"
-            onChange={onChangeFeeRate}
-            value={feeRate}
-          />
-          <Flex>
-            <APIButton
-              apiName="sendBitcoin"
-              onCallback={onCallback}
-              params={curParams}
-            />
-          </Flex>
-          <CodeBox text={demo} />
+    <PreviewLayout previewData={result}>
+      <Flex vertical gap="middle">
+        <Flex>
+          <Connector onError={onCallback} />
         </Flex>
-      </Col>
-      <Col span={12}>
-        <PreviewBox value={result} />
-      </Col>
-    </Row>
+        <Input
+          value={address}
+          onChange={onChangeAddress}
+          placeholder="填写 address"
+        />
+        <InputNumber
+          style={{ width: '100%' }}
+          controls={false}
+          placeholder="填写 value"
+          onChange={onChangeValue}
+          value={value}
+        />
+        <InputNumber
+          style={{ width: '100%' }}
+          controls={false}
+          placeholder="填写 feeRate"
+          onChange={onChangeFeeRate}
+          value={feeRate}
+        />
+        <Flex>
+          <APIButton
+            apiName="sendBitcoin"
+            onCallback={onCallback}
+            params={curParams}
+          />
+        </Flex>
+        <CodeBox text={demo} />
+      </Flex>
+    </PreviewLayout>
   );
 };
 
