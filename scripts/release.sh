@@ -28,4 +28,4 @@ git push
 git checkout main
 
 # clean
-# rm -rf docs/
+rm -rf docs/
