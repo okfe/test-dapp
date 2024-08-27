@@ -23,7 +23,7 @@ const HomePage: React.FC = () => {
           </Typography.Title>
           <Typography.Title level={5}>
             Seamlessly integrate the OKX Wallet with ease—designed for
-            developers, product managers, and DApp creators.
+            developers、 product managers and DApp creators.
           </Typography.Title>
         </Flex>
         <Row justify="space-around" style={{ marginTop: 44 }} gutter={[0, 32]}>
