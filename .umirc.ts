@@ -8,7 +8,7 @@ export default defineConfig({
   antd: {
     dark: true,
   },
-  history: { type: 'hash' },
+  // history: { type: 'hash' }, // todo: got error when basename is not empty
   access: {},
   model: {},
   initialState: {},
