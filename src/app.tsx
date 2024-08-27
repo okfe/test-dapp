@@ -21,7 +21,8 @@ export const layout = () => {
       defaultOpenAll: true,
       autoClose: false,
     },
-    menuFooterRender: () => <GlobalTools />,
+    layout: 'mix',
+    rightContentRender: () => <GlobalTools />,
     title: 'OKXWallet Test Dapp',
   };
 };

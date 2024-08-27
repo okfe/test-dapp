@@ -4,7 +4,7 @@ import ton from './ton';
 const router = [
   {
     path: '/',
-    name: 'Home',
+    name: 'Intro',
     component: './Home',
   },
   {

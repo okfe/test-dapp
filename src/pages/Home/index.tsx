@@ -1,7 +1,12 @@
 import useIsDarkMode from '@/hooks/useIsDarkMode';
 import { PageContainer } from '@ant-design/pro-components';
+import {
+  BitcoinCircleColorful,
+  TonCircleColorful,
+} from '@ant-design/web3-icons';
 import { Link } from '@umijs/max';
 import { Card, Col, Flex, Row, Typography } from 'antd';
+import styles from './index.less';
 
 const HomePage: React.FC = () => {
   const isDarkMode = useIsDarkMode();
@@ -17,7 +22,8 @@ const HomePage: React.FC = () => {
             OKXWallet Test DApp
           </Typography.Title>
           <Typography.Title level={5}>
-            Help developers, product manager, DApp to test OKXWallet API easily.
+            Seamlessly integrate the OKX Wallet with ease—designed for
+            developers, product managers, and DApp creators.
           </Typography.Title>
         </Flex>
         <Row justify="space-around" style={{ marginTop: 44 }} gutter={[0, 32]}>
@@ -27,6 +33,7 @@ const HomePage: React.FC = () => {
                 title="PSBT Tools"
                 bordered={false}
                 hoverable
+                extra={<BitcoinCircleColorful className={styles.icon} />}
                 style={{ height: '100%' }}
               >
                 Build psbt, sign psbt, extract transaction and broadcast it.
@@ -39,6 +46,7 @@ const HomePage: React.FC = () => {
                 title="Wallet BTC API"
                 bordered={false}
                 hoverable
+                extra={<BitcoinCircleColorful className={styles.icon} />}
                 style={{ height: '100%' }}
               >
                 Support mainnet, testnet and signet.
@@ -53,6 +61,7 @@ const HomePage: React.FC = () => {
                 title="Wallet TON API"
                 bordered={false}
                 hoverable
+                extra={<TonCircleColorful className={styles.icon} />}
                 style={{ height: '100%' }}
               >
                 Support TON with OKXWallet and TONConnect.
