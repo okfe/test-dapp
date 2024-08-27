@@ -26,10 +26,10 @@ export default function GlobalTools() {
 
   return (
     <Flex justify="flex-end" gap="small">
-      <Button shape="circle" onClick={switchTheme} size="small">
+      <Button shape="circle" onClick={switchTheme}>
         {isDarkMode ? <SunOutlined /> : <MoonOutlined />}
       </Button>
-      <Button shape="circle" onClick={goToGithub} size="small">
+      <Button shape="circle" onClick={goToGithub}>
         <GithubOutlined />
       </Button>
     </Flex>
