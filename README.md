@@ -1,7 +1,5 @@
 # Release
 
-> build in ci branch for publicPath '/test-dapp/' `pnpm release`
+> Run npm script `release` in main branch then will build in ci branch for publicPath '/test-dapp/'
 
-# README
-
-`@umijs/max` 模板项目，更多功能参考 [Umi Max 简介](https://umijs.org/docs/max/introduce)
+`pnpm release`
