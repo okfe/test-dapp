@@ -1,5 +1,6 @@
 import useIsDarkMode from '@/hooks/useIsDarkMode';
 import { PageContainer } from '@ant-design/pro-components';
+import { Link } from '@umijs/max';
 import { Card, Col, Flex, Row, Typography } from 'antd';
 
 const HomePage: React.FC = () => {
@@ -21,7 +22,7 @@ const HomePage: React.FC = () => {
         </Flex>
         <Row justify="space-around" style={{ marginTop: 44 }} gutter={[0, 32]}>
           <Col span={7} xs={24} sm={24} md={7} lg={7} xl={7}>
-            <a href="/test-dapp/psbt/builder">
+            <Link to="./psbt/builder">
               <Card
                 title="PSBT Tools"
                 bordered={false}
@@ -30,10 +31,10 @@ const HomePage: React.FC = () => {
               >
                 Build psbt, sign psbt, extract transaction and broadcast it.
               </Card>
-            </a>
+            </Link>
           </Col>
           <Col span={7} xs={24} sm={24} md={7} lg={7} xl={7}>
-            <a href="test-dapp/wallet-btc-api/connect">
+            <Link to="./wallet-btc-api/connect">
               <Card
                 title="Wallet BTC API"
                 bordered={false}
@@ -44,10 +45,10 @@ const HomePage: React.FC = () => {
                 <br />
                 And support fractal mainnet soon.
               </Card>
-            </a>
+            </Link>
           </Col>
           <Col span={7} xs={24} sm={24} md={7} lg={7} xl={7}>
-            <a href="test-dapp/wallet-ton-api/connect">
+            <Link to="./wallet-ton-api/connect">
               <Card
                 title="Wallet TON API"
                 bordered={false}
@@ -56,7 +57,7 @@ const HomePage: React.FC = () => {
               >
                 Support TON with OKXWallet and TONConnect.
               </Card>
-            </a>
+            </Link>
           </Col>
         </Row>
       </Flex>
