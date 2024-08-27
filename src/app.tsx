@@ -1,3 +1,4 @@
+import SwitchTheme from './components/common/SwitchTheme';
 import './index.less';
 // 运行时配置
 
@@ -20,6 +21,7 @@ export const layout = () => {
       defaultOpenAll: true,
       autoClose: false,
     },
+    menuFooterRender: () => <SwitchTheme />,
     title: 'OKXWallet Test Dapp',
   };
 };
