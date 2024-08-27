@@ -1,3 +1,4 @@
+import GlobalTools from './components/common/GlobalTools';
 import './index.less';
 // 运行时配置
 
@@ -20,6 +21,7 @@ export const layout = () => {
       defaultOpenAll: true,
       autoClose: false,
     },
+    menuFooterRender: () => <GlobalTools />,
     title: 'OKXWallet Test Dapp',
   };
 };

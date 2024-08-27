@@ -1,9 +1,8 @@
+import useIsDarkMode from '@/hooks/useIsDarkMode';
 import { Typography } from 'antd';
 import { useCallback } from 'react';
 import type { OnCopyProps } from 'react-json-view';
 import JsonView from 'react-json-view';
-
-// import { monokaiTheme } from '@uiw/react-json-view/monokai';
 interface PreviewBoxProps {
   value: any;
   title?: string;
@@ -11,6 +10,7 @@ interface PreviewBoxProps {
 
 const PreviewBox: React.FC<PreviewBoxProps> = (props) => {
   const { title = '', value } = props;
+  const isDarkMode = useIsDarkMode();
 
   const onCopy = useCallback((copy: OnCopyProps) => {
     const copyText = copy.src;
@@ -21,8 +21,10 @@ const PreviewBox: React.FC<PreviewBoxProps> = (props) => {
 
   return (
     <>
-      <Typography.Title level={4}>{title || '预览区'}</Typography.Title>
+      <Typography.Title level={4}>{title || 'Preview Zone'}</Typography.Title>
       <JsonView
+        // summerfruit, pop, bright, codeschool with bg
+        theme={isDarkMode ? 'pop' : 'rjv-default'}
         style={{
           wordBreak: 'break-all',
         }}

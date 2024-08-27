@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[371],{26969:function(e,t,n){n.r(t),n.d(t,{default:function(){return s}});var l=n(62532),c="container___ulS8A",r=n(52676),s=function(){return(0,r.jsx)(l._z,{ghost:!0,children:(0,r.jsx)("div",{className:c,children:"☺️ Hi there. Welcome to Wallet OKXWallet Test Dapp."})})}}}]);

@@ -1,3 +1,4 @@
+import useIsDarkMode from '@/hooks/useIsDarkMode';
 import { CopyTwoTone } from '@ant-design/icons';
 import { Typography } from 'antd';
 import parserBabel from 'prettier/plugins/babel';
@@ -8,6 +9,7 @@ import {
   Prism as SyntaxHighlighter,
   SyntaxHighlighterProps,
 } from 'react-syntax-highlighter';
+import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import styles from './CodeBox.less';
 
 interface CodeBoxProps extends Partial<SyntaxHighlighterProps> {
@@ -18,6 +20,10 @@ interface CodeBoxProps extends Partial<SyntaxHighlighterProps> {
 const CodeBox: React.FC<CodeBoxProps> = (props) => {
   const { language = 'typescript', text = '' } = props;
   const [code, setCode] = useState('');
+
+  const isDarkMode = useIsDarkMode();
+  const codeStyle = isDarkMode ? oneDark : undefined;
+
   useEffect(() => {
     const formatCode = async () => {
       if (!text) {
@@ -40,7 +46,7 @@ const CodeBox: React.FC<CodeBoxProps> = (props) => {
   }, [text]);
   return (
     <div className={styles.relative}>
-      <SyntaxHighlighter language={language} wrapLines={true}>
+      <SyntaxHighlighter language={language} wrapLines={true} style={codeStyle}>
         {code}
       </SyntaxHighlighter>
 

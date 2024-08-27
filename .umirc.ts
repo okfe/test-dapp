@@ -5,7 +5,9 @@ import router from './src/routes';
 export default defineConfig({
   base: '/test-dapp/',
   publicPath: '/test-dapp/',
-  antd: {},
+  antd: {
+    dark: true,
+  },
   access: {},
   model: {},
   initialState: {},
