@@ -19,8 +19,8 @@ const HomePage: React.FC = () => {
             Help developers, product manager, DApp to test OKXWallet API easily.
           </Typography.Title>
         </Flex>
-        <Row justify="space-around" style={{ marginTop: 50 }}>
-          <Col span={7}>
+        <Row justify="space-around" style={{ marginTop: 44 }} gutter={[0, 32]}>
+          <Col span={7} xs={24} sm={24} md={7} lg={7} xl={7}>
             <a href="./psbt/builder">
               <Card
                 title="PSBT Tools"
@@ -32,7 +32,7 @@ const HomePage: React.FC = () => {
               </Card>
             </a>
           </Col>
-          <Col span={7}>
+          <Col span={7} xs={24} sm={24} md={7} lg={7} xl={7}>
             <a href="./wallet-btc-api/connect">
               <Card
                 title="Wallet BTC API"
@@ -42,11 +42,11 @@ const HomePage: React.FC = () => {
               >
                 Support mainnet, testnet and signet.
                 <br />
-                And support fractal soon.
+                And support fractal mainnet soon.
               </Card>
             </a>
           </Col>
-          <Col span={7}>
+          <Col span={7} xs={24} sm={24} md={7} lg={7} xl={7}>
             <a href="./wallet-ton-api/connect">
               <Card
                 title="Wallet TON API"
