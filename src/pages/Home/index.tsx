@@ -21,7 +21,7 @@ const HomePage: React.FC = () => {
         </Flex>
         <Row justify="space-around" style={{ marginTop: 44 }} gutter={[0, 32]}>
           <Col span={7} xs={24} sm={24} md={7} lg={7} xl={7}>
-            <a href="./psbt/builder">
+            <a href="/test-dapp/psbt/builder">
               <Card
                 title="PSBT Tools"
                 bordered={false}
@@ -33,7 +33,7 @@ const HomePage: React.FC = () => {
             </a>
           </Col>
           <Col span={7} xs={24} sm={24} md={7} lg={7} xl={7}>
-            <a href="./wallet-btc-api/connect">
+            <a href="test-dapp/wallet-btc-api/connect">
               <Card
                 title="Wallet BTC API"
                 bordered={false}
@@ -47,7 +47,7 @@ const HomePage: React.FC = () => {
             </a>
           </Col>
           <Col span={7} xs={24} sm={24} md={7} lg={7} xl={7}>
-            <a href="./wallet-ton-api/connect">
+            <a href="test-dapp/wallet-ton-api/connect">
               <Card
                 title="Wallet TON API"
                 bordered={false}
