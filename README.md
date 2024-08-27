@@ -1,11 +1,15 @@
-As a leading global Web3 wallet, OKX Wallet supports over 100 networks, including EVM series, UTXO series, Solana, Ton, and other popular networks. It also supports the latest ecosystems such as Ordinals.
+**OKX Wallet Test DApp**
 
-In a DApp, adding a "Connect OKX Wallet" button allows interaction with the OKX Wallet, such as obtaining addresses, prompting wallet signatures, and more.
+As a leading global Web3 wallet, **OKX Wallet** supports over 100 networks, including EVM series, UTXO series, Solana, TON, and other popular ecosystems like Ordinals.
 
-Here we are building seamlessly integrate the OKX Wallet with ease—designed for developers, product managers, and DApp creators.
+By integrating a "Connect OKX Wallet" button into your DApp, you unlock powerful features such as retrieving addresses, prompting wallet signatures, and facilitating seamless interaction with the OKX Wallet.
 
+<<<<<<< HEAD
 # Release
 
 > Run npm script `release` in main branch then will build in ci branch for publicPath '/test-dapp/'
 
 `pnpm release`
+=======
+Our platform is designed for developers, product managers, and DApp creators to easily and efficiently integrate the OKX Wallet into their applications.
+>>>>>>> main
