@@ -4,15 +4,11 @@ import ton from './ton';
 const router = [
   {
     path: '/',
-    redirect: '/home',
-  },
-  {
     name: 'Home',
-    path: '/home',
     component: './Home',
   },
   {
-    name: 'PSBT',
+    name: 'PSBT Tools',
     path: '/psbt',
     routes: [
       {

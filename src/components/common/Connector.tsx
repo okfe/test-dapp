@@ -4,9 +4,11 @@ import {
   SWITCH_NETWORK_LIST,
 } from '@/constants/network';
 import type { NetworkType } from '@/models/NetworkModel';
-import { DownOutlined } from '@ant-design/icons';
 import { Address } from '@ant-design/web3';
-import { OkxWalletColorful } from '@ant-design/web3-icons';
+import {
+  ChainlinkCircleColorful,
+  OkxWalletColorful,
+} from '@ant-design/web3-icons';
 import { useModel } from '@umijs/max';
 import { Button, Dropdown, MenuProps, Typography } from 'antd';
 import React, { useCallback, useEffect, useMemo } from 'react';
@@ -105,14 +107,18 @@ const Connector: React.FC<ConnectorProps> = (props) => {
   return (
     <>
       {dropdownItem.length > 1 ? (
-        <Dropdown menu={{ items: dropdownItem, onClick: onMenuClick }}>
-          <Button icon={<OkxWalletColorful />} iconPosition={'start'}>
-            <>
-              Connect to {!address ? '' : connectedDetail}
-              <DownOutlined />
-            </>
-          </Button>
-        </Dropdown>
+        <Dropdown.Button
+          menu={{ items: dropdownItem, onClick: onMenuClick }}
+          icon={
+            <ChainlinkCircleColorful
+              style={{
+                fontSize: 20,
+              }}
+            />
+          }
+        >
+          {!address ? 'Click icon to connect' : connectedDetail}
+        </Dropdown.Button>
       ) : null}
       {dropdownItem.length === 1 ? (
         <>
