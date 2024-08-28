@@ -6,6 +6,7 @@ import {
 } from '@ant-design/web3-icons';
 import { Link } from '@umijs/max';
 import { Card, Col, Flex, Row, Typography } from 'antd';
+import cx from 'classnames';
 import styles from './index.less';
 
 const HomePage: React.FC = () => {
@@ -16,17 +17,19 @@ const HomePage: React.FC = () => {
       <Flex gap="large" vertical>
         <Flex vertical align="center">
           <Typography.Title
+            className={cx(styles.title, styles.gradient)}
             level={1}
-            style={{ color: isDarkMode ? 'rgb(188, 255, 47)' : '' }}
           >
-            OKXWallet Test DApp
+            <span>OKXWallet</span>
+            <br />
+            <span>Test DApp</span>
           </Typography.Title>
-          <Typography.Title level={5}>
+          <Typography.Title level={5} className={styles.subtitle}>
             Seamlessly integrate the OKX Wallet with ease—designed for
             developers、 product managers and DApp creators.
           </Typography.Title>
         </Flex>
-        <Row justify="space-around" style={{ marginTop: 44 }} gutter={[0, 32]}>
+        <Row justify="space-around" gutter={[0, 32]}>
           <Col span={7} xs={24} sm={24} md={7} lg={7} xl={7}>
             <Link to="./psbt/builder">
               <Card
@@ -35,6 +38,10 @@ const HomePage: React.FC = () => {
                 hoverable
                 extra={<BitcoinCircleColorful className={styles.icon} />}
                 style={{ height: '100%' }}
+                className={cx(
+                  styles.importantCard,
+                  isDarkMode ? styles.isDark : '',
+                )}
               >
                 Build psbt, sign psbt, extract transaction and broadcast it.
               </Card>
