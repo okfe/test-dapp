@@ -5,7 +5,7 @@ import {
   TonCircleColorful,
 } from '@ant-design/web3-icons';
 import { Link } from '@umijs/max';
-import { Card, Col, Flex, Row, Typography } from 'antd';
+import { Card, Col, Flex, Row } from 'antd';
 import cx from 'classnames';
 import styles from './index.less';
 
@@ -16,18 +16,15 @@ const HomePage: React.FC = () => {
     <PageContainer ghost>
       <Flex gap="large" vertical>
         <Flex vertical align="center">
-          <Typography.Title
-            className={cx(styles.title, styles.gradient)}
-            level={1}
-          >
+          <h1 className={cx(styles.title, styles.gradient)}>
             <span>OKXWallet</span>
             <br />
             <span>Test DApp</span>
-          </Typography.Title>
-          <Typography.Title level={5} className={styles.subtitle}>
+          </h1>
+          <div className={cx(styles.subtitle, isDarkMode ? styles.isDark : '')}>
             Seamlessly integrate the OKX Wallet with ease—designed for
-            developers、 product managers and DApp creators.
-          </Typography.Title>
+            developers, product managers and DApp creators.
+          </div>
         </Flex>
         <Row justify="space-around" gutter={[0, 32]}>
           <Col span={7} xs={24} sm={24} md={7} lg={7} xl={7}>
