@@ -8,3 +8,40 @@
 .icon {
   font-size: 24px;
 }
+
+.title {
+  font-size: 76px !important;
+  line-height: 1.25 !important;
+  font-weight: 900 !important;
+  text-align: center;
+  margin-bottom: 24px !important;
+}
+
+.subtitle {
+  margin-bottom: 40px !important;
+}
+
+@media screen and (max-width: 768px) {
+  .title {
+    font-size: 56px !important;
+  }
+}
+
+.importantCard {
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(45deg, #42d392, #647eff) border-box;
+  border: 2px solid transparent;
+
+  &.isDark {
+    background:
+      linear-gradient(#141414, #141414) padding-box,
+      linear-gradient(45deg, #42d392, #647eff) border-box;
+  }
+}
+
+.gradient {
+  background: linear-gradient(315deg, #42d392 25%, #647eff);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
