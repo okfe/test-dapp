@@ -50,6 +50,7 @@ export const getProviderCodeString = (network: Network) => {
 // classify network for switch
 export enum NetworkSwitch {
   BTC = 'btc',
+  BTC_API_ALL = 'btc_api_all',
   EVM = 'evm',
   TON = 'ton',
 }
@@ -67,6 +68,17 @@ export const SWITCH_NETWORK_LIST = {
     {
       key: Network.BITCOINSIGNET,
       label: Network.BITCOINSIGNET,
+    },
+    {
+      key: Network.BITCOINFRACTAL,
+      label: Network.BITCOINFRACTAL + ' (coming soon)',
+      disabled: true,
+    },
+  ],
+  [NetworkSwitch.BTC_API_ALL]: [
+    {
+      key: Network.BITCOIN,
+      label: Network.BITCOIN,
     },
     {
       key: Network.BITCOINFRACTAL,
