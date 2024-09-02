@@ -55,7 +55,7 @@ const HomePage: React.FC = () => {
               >
                 Support mainnet, testnet and signet.
                 <br />
-                And support fractal mainnet soon.
+                And support fractal bitcoin soon.
               </Card>
             </Link>
           </Col>
