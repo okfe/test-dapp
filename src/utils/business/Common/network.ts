@@ -21,6 +21,9 @@ export function formatConnectResult(
       friendlyAddress,
     };
   }
+  if (!connectResult) {
+    throw { message: 'connect returns NULL OR EMPTY' };
+  }
   // default return address
   return { address: connectResult.address };
 }

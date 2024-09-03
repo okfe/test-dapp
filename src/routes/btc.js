@@ -42,6 +42,36 @@ const router = {
       path: '/wallet-btc-api/signPsbts',
       component: './WalletAPI/BTC/SignPsbts',
     },
+    {
+      name: 'getInscriptions',
+      path: '/wallet-btc-api/getInscriptions',
+      component: './WalletAPI/BTC/GetInscriptions',
+    },
+    {
+      name: 'sendInscription',
+      path: '/wallet-btc-api/sendInscription',
+      component: './WalletAPI/BTC/SendInscription',
+    },
+    {
+      name: 'inscribe',
+      path: '/wallet-btc-api/inscribe',
+      component: './WalletAPI/BTC/Inscribe',
+    },
+    {
+      name: 'mint',
+      path: '/wallet-btc-api/mint',
+      component: './WalletAPI/BTC/Mint',
+    },
+    {
+      name: 'splitUtxo',
+      path: '/wallet-btc-api/splitUtxo',
+      component: './WalletAPI/BTC/SplitUtxo',
+    },
+    {
+      name: 'transferNft',
+      path: '/wallet-btc-api/transferNft',
+      component: './WalletAPI/BTC/TransferNft',
+    },
   ],
 };
 export default router;

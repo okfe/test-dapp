@@ -16,7 +16,7 @@ export function getMempoolConfig(network: Network) {
         hostname: 'mempool.space',
         network: 'testnet',
       };
-    case Network.BITCOINFRACTAL:
+    case Network.FRACTALBITCOIN:
       return {
         hostname: 'mempool.fractalbitcoin.io',
       };

@@ -34,7 +34,7 @@ const NetworkModel = () => {
       setNetwork((networks) => ({
         ...networks,
         [network]: {
-          ...[networks[network]],
+          ...networks[network],
           address: '',
           friendlyAddress: '',
         },
@@ -45,7 +45,7 @@ const NetworkModel = () => {
     setNetwork((networks) => ({
       ...networks,
       [network]: {
-        ...[networks[network]],
+        ...networks[network],
         onDisconnect,
       },
     }));
@@ -76,7 +76,7 @@ const NetworkModel = () => {
         setNetwork((networks) => ({
           ...networks,
           [network]: {
-            ...[networks[network]],
+            ...networks[network],
             error,
           },
         }));

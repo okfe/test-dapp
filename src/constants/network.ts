@@ -1,8 +1,9 @@
+// sync with network-static inner
 export enum Network {
   BITCOIN = 'bitcoin',
   BITCOINTESTNET = 'bitcointestnet',
   BITCOINSIGNET = 'bitcoinsignet',
-  BITCOINFRACTAL = 'bitcoinfractal',
+  FRACTALBITCOIN = 'fractalbitcoin',
   SOLANA = 'solana',
   TON = 'ton',
 }
@@ -11,7 +12,7 @@ export const PROVIDER = {
   [Network.BITCOIN]: 'bitcoin',
   [Network.BITCOINTESTNET]: 'bitcoinTestnet',
   [Network.BITCOINSIGNET]: 'bitcoinSignet',
-  [Network.BITCOINFRACTAL]: 'bitcoinFractal',
+  [Network.FRACTALBITCOIN]: 'fractalBitcoin',
   [Network.SOLANA]: 'solana',
   [Network.TON]: 'okxTonWallet',
 };
@@ -50,6 +51,7 @@ export const getProviderCodeString = (network: Network) => {
 // classify network for switch
 export enum NetworkSwitch {
   BTC = 'btc',
+  BTC_API_ALL = 'btc_api_all',
   EVM = 'evm',
   TON = 'ton',
 }
@@ -69,8 +71,19 @@ export const SWITCH_NETWORK_LIST = {
       label: Network.BITCOINSIGNET,
     },
     {
-      key: Network.BITCOINFRACTAL,
-      label: Network.BITCOINFRACTAL + ' (coming soon)',
+      key: Network.FRACTALBITCOIN,
+      label: Network.FRACTALBITCOIN + ' (coming soon)',
+      disabled: true,
+    },
+  ],
+  [NetworkSwitch.BTC_API_ALL]: [
+    {
+      key: Network.BITCOIN,
+      label: Network.BITCOIN,
+    },
+    {
+      key: Network.FRACTALBITCOIN,
+      label: Network.FRACTALBITCOIN + ' (coming soon)',
       disabled: true,
     },
   ],

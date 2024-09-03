@@ -9,7 +9,7 @@ export function convertBTCLibNetwork(network: Network) {
       return bitcoin.networks.testnet;
     case Network.BITCOINSIGNET:
       return bitcoin.networks.testnet;
-    case Network.BITCOINFRACTAL:
+    case Network.FRACTALBITCOIN:
       return bitcoin.networks.bitcoin;
     default:
       return bitcoin.networks.bitcoin;
