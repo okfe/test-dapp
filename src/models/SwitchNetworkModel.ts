@@ -16,6 +16,7 @@ const SwitchNetworkModel = () => {
     [NetworkSwitch.BTC]: Network.BITCOIN,
     [NetworkSwitch.EVM]: Network.SOLANA,
     [NetworkSwitch.TON]: Network.TON,
+    [NetworkSwitch.BTC_API_ALL]: Network.BITCOIN,
   } as SwitchNetworkMapType);
 
   const setSwitchNetwork = useCallback(

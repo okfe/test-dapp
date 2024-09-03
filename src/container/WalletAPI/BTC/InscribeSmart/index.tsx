@@ -17,7 +17,7 @@ const InscribeSmart: React.FC = () => {
   };
 
   const { network } = useModel('SwitchNetworkModel', (model) => ({
-    network: model.networkSwitches[NetworkSwitch.BTC],
+    network: model.networkSwitches[NetworkSwitch.BTC_API_ALL],
   }));
 
   const curParams = useMemo(() => {
