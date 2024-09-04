@@ -12,18 +12,23 @@ export function formatConnectResult(
   network: Network,
   connectResult: any,
 ): { address: string; friendlyAddress?: string } {
-  if (network === Network.TON) {
-    const friendlyAddress = toUserFriendlyAddress(
-      connectResult.payload.items[0].address,
-    );
-    return {
-      address: connectResult.payload.items[0].address,
-      friendlyAddress,
-    };
-  }
   if (!connectResult) {
     throw { message: 'connect returns NULL OR EMPTY' };
   }
-  // default return address
-  return { address: connectResult.address };
+  try {
+    if (network === Network.TON) {
+      const friendlyAddress = toUserFriendlyAddress(
+        connectResult.payload.items[0].address,
+      );
+      return {
+        address: connectResult.payload.items[0].address,
+        friendlyAddress,
+      };
+    }
+    // default return address
+    return { address: connectResult.address };
+  } catch (error) {
+    // other situation, throw connectResult for debugging
+    throw connectResult;
+  }
 }
