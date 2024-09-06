@@ -4,12 +4,16 @@ As a leading global Web3 wallet, **OKX Wallet** supports over 100 networks, incl
 
 By integrating a "Connect OKX Wallet" button into your DApp, you unlock powerful features such as retrieving addresses, prompting wallet signatures, and facilitating seamless interaction with the OKX Wallet.
 
-<<<<<<< HEAD
-# Release
 
-> Run npm script `release` in main branch then will build in ci branch for publicPath '/test-dapp/'
+
+### Release
+
+> Run npm script `release` in main branch then will build in ci branch
 
 `pnpm release`
-=======
-Our platform is designed for developers, product managers, and DApp creators to easily and efficiently integrate the OKX Wallet into their applications.
->>>>>>> main
+
+### For Developer
+
+> Run npm script `dev` and remember input publicPath /test-dapp/ in your browser 
+
+`pnpm dev`
