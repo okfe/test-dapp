@@ -72,8 +72,7 @@ export const SWITCH_NETWORK_LIST = {
     },
     {
       key: Network.FRACTALBITCOIN,
-      label: Network.FRACTALBITCOIN + ' (coming soon)',
-      disabled: true,
+      label: Network.FRACTALBITCOIN,
     },
   ],
   [NetworkSwitch.BTC_API_ALL]: [
@@ -81,11 +80,10 @@ export const SWITCH_NETWORK_LIST = {
       key: Network.BITCOIN,
       label: Network.BITCOIN,
     },
-    {
-      key: Network.FRACTALBITCOIN,
-      label: Network.FRACTALBITCOIN + ' (coming soon)',
-      disabled: true,
-    },
+    // {
+    //   key: Network.FRACTALBITCOIN,
+    //   label: Network.FRACTALBITCOIN,
+    // },
   ],
   [NetworkSwitch.EVM]: [
     {
