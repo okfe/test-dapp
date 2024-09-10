@@ -4,7 +4,7 @@ import Connector from '@/components/common/Connector';
 import PreviewLayout from '@/components/common/Layout/PreviewLayout';
 import { getProviderCodeString, NetworkSwitch } from '@/constants/network';
 import { useModel } from '@umijs/max';
-import { Flex, Input, InputNumber } from 'antd';
+import { Flex, Input, InputNumber, Select } from 'antd';
 import { Button, Form } from 'antd/es';
 import React, { useMemo, useState } from 'react';
 
@@ -31,20 +31,19 @@ const MintSmart: React.FC = () => {
         {
           type: ${allFormValue?.type || 61},
           from: '${allFormValue?.from || 'bc1p4k9ghlrynzuum080a4zk6e2my8kjzfhptr5747afzrn7xmmdtj6sgrhd0m'}',
-          inscriptions: ${
-            allFormValue?.inscriptions?.length > 0
-              ? JSON.stringify(allFormValue?.inscriptions)
-              : JSON.stringify([
-                  {
-                    contentType: 'text/plain;charset=utf-8',
-                    body: 'hello',
-                  },
-                  {
-                    contentType: 'text/plain;charset=utf-8',
-                    body: 'world',
-                  },
-                ])
+          inscriptions: ${allFormValue?.inscriptions?.length > 0
+        ? JSON.stringify(allFormValue?.inscriptions)
+        : JSON.stringify([
+          {
+            contentType: 'text/plain;charset=utf-8',
+            body: 'hello',
           },
+          {
+            contentType: 'text/plain;charset=utf-8',
+            body: 'world',
+          },
+        ])
+      },
         }
       );
       console.log(txid);
@@ -64,7 +63,16 @@ const MintSmart: React.FC = () => {
         </Flex>
         <Form form={form}>
           <Form.Item name="type" label="type" rules={[{ required: true }]}>
-            <InputNumber controls={false} />
+            <Select
+              defaultValue={61}
+              options={[
+                { value: 60, label: '60 BRC-20 deploy 铭刻' },
+                { value: 50, label: '50 BRC-20 mint 铭刻' },
+                { value: 51, label: '51 BRC-20 transfer 铭刻' },
+                { value: 62	, label: '62 图片铭刻，需要将图片转换为图片字节流的 16 进制字符串表示'},
+                { value: 61, label: '61 纯文本' },
+              ]}
+            />
           </Form.Item>
           <Form.Item name="from" label="from" rules={[{ required: true }]}>
             <Input />
