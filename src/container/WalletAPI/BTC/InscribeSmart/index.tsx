@@ -60,6 +60,7 @@ const InscribeSmart: React.FC = () => {
             apiName="inscribe"
             onCallback={onCallback}
             params={curParams}
+            networkSwitch={NetworkSwitch.BTC_API_ALL}
           />
         </Flex>
         <CodeBox text={demo} />
