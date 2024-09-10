@@ -70,6 +70,7 @@ const GetInscriptionsSmart: React.FC = () => {
             apiName="getInscriptions"
             onCallback={onCallback}
             params={curParams}
+            networkSwitch={NetworkSwitch.BTC_API_ALL}
           />
         </Flex>
         <CodeBox text={demo} />

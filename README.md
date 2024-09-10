@@ -8,7 +8,7 @@ By integrating a "Connect OKX Wallet" button into your DApp, you unlock powerful
 
 ### Release
 
-> Run npm script `release` in main branch then will build in ci branch
+> Run npm script `release` then will build docs in ci branch
 
 `pnpm release`
 

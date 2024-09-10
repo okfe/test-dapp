@@ -72,6 +72,11 @@ const router = {
       path: '/wallet-btc-api/transferNft',
       component: './WalletAPI/BTC/TransferNft',
     },
+    {
+      name: 'watchAsset',
+      path: '/wallet-btc-api/watchAsset',
+      component: './WalletAPI/BTC/WatchAsset',
+    },
   ],
 };
 export default router;

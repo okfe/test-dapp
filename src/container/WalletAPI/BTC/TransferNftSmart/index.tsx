@@ -93,6 +93,7 @@ const TransferNftSmart: React.FC = () => {
             apiName="transferNft"
             onCallback={onCallback}
             params={curParams}
+            networkSwitch={NetworkSwitch.BTC_API_ALL}
           />
         </Flex>
         <CodeBox text={demo} />
