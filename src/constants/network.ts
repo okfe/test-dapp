@@ -80,10 +80,10 @@ export const SWITCH_NETWORK_LIST = {
       key: Network.BITCOIN,
       label: Network.BITCOIN,
     },
-    // {
-    //   key: Network.FRACTALBITCOIN,
-    //   label: Network.FRACTALBITCOIN,
-    // },
+    {
+      key: Network.FRACTALBITCOIN,
+      label: Network.FRACTALBITCOIN,
+    },
   ],
   [NetworkSwitch.EVM]: [
     {

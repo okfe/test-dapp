@@ -8,7 +8,7 @@ import { Flex, Input } from 'antd';
 import { Form } from 'antd/es';
 import React, { useMemo, useState } from 'react';
 
-const InscribeSmart: React.FC = () => {
+const WatchAssetSmart: React.FC = () => {
   const [result, setResult] = useState({});
   const [form] = Form.useForm();
   const allFormValue = Form.useWatch([], form);
@@ -26,10 +26,9 @@ const InscribeSmart: React.FC = () => {
 
   const demo = useMemo(() => {
     return `try {
-      const txid = await ${getProviderCodeString(network)}.inscribe(
+      const txid = await ${getProviderCodeString(network)}.watchAsset(
         {
-          from: '${allFormValue?.from || 'bc1pkrym02ck30phct287l0rktjjjnapavkl2qhsy78aeeeuk3qaaulqh90v6s'}',
-          tick: '${allFormValue?.tick || 'ordi'}',
+          name: '${allFormValue?.name || 'ordi'}',
         }
       );
       console.log(txid);
@@ -48,16 +47,13 @@ const InscribeSmart: React.FC = () => {
           />
         </Flex>
         <Form form={form}>
-          <Form.Item name="from" label="from" rules={[{ required: true }]}>
-            <Input />
-          </Form.Item>
-          <Form.Item name="tick" label="tick" rules={[{ required: true }]}>
+          <Form.Item name="name" label="name" rules={[{ required: true }]}>
             <Input />
           </Form.Item>
         </Form>
         <Flex>
           <APIButton
-            apiName="inscribe"
+            apiName="watchAsset"
             onCallback={onCallback}
             params={curParams}
             networkSwitch={NetworkSwitch.BTC_API_ALL}
@@ -69,4 +65,4 @@ const InscribeSmart: React.FC = () => {
   );
 };
 
-export default InscribeSmart;
+export default WatchAssetSmart;

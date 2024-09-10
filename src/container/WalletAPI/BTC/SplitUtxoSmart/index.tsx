@@ -60,6 +60,7 @@ const SplitUtxoSmart: React.FC = () => {
             apiName="splitUtxo"
             onCallback={onCallback}
             params={curParams}
+            networkSwitch={NetworkSwitch.BTC_API_ALL}
           />
         </Flex>
         <CodeBox text={demo} />

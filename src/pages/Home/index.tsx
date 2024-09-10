@@ -53,9 +53,7 @@ const HomePage: React.FC = () => {
                 extra={<BitcoinCircleColorful className={styles.icon} />}
                 style={{ height: '100%' }}
               >
-                Support mainnet, testnet and signet.
-                <br />
-                And support fractal bitcoin soon.
+                Support mainnet, testnet, signet and fractal bitcoin.
               </Card>
             </Link>
           </Col>
