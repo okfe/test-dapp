@@ -22,7 +22,18 @@ const MintSmart: React.FC = () => {
   }));
 
   const curParams = useMemo(() => {
-    return [allFormValue];
+    const curInscriptions = new Array(allFormValue?.inscription?.repeat || 0).fill({
+      contentType: allFormValue?.inscription?.contentType,
+      body: allFormValue?.inscription?.body,
+    });
+    const curParam = {
+      type: allFormValue?.type,
+      from: allFormValue?.from,
+      inscriptions: curInscriptions,
+      noBroadCast: allFormValue?.noBroadCast,
+    }
+    console.log(curParam);
+    return [curParam];
   }, [allFormValue]);
 
   const demo = useMemo(() => {
@@ -31,8 +42,8 @@ const MintSmart: React.FC = () => {
         {
           type: ${allFormValue?.type || 61},
           from: '${allFormValue?.from || 'bc1p4k9ghlrynzuum080a4zk6e2my8kjzfhptr5747afzrn7xmmdtj6sgrhd0m'}',
-          inscriptions: ${allFormValue?.inscriptions?.length > 0
-        ? JSON.stringify(allFormValue?.inscriptions)
+          inscriptions: ${curParams[0].inscriptions?.length > 0
+        ? JSON.stringify(curParams[0].inscriptions)
         : JSON.stringify([
           {
             contentType: 'text/plain;charset=utf-8',
@@ -44,6 +55,7 @@ const MintSmart: React.FC = () => {
           },
         ])
       },
+        noBroadCast: ${allFormValue?.noBroadCast || false},
         }
       );
       console.log(txid);
@@ -61,7 +73,13 @@ const MintSmart: React.FC = () => {
             networkSwitch={NetworkSwitch.BTC_API_ALL}
           />
         </Flex>
-        <Form form={form}>
+        <Form form={form} initialValues={{
+          type: 61,
+          inscription: {
+            contentType: 'text/plain;charset=utf-8',
+          },
+          noBroadCast: false,
+        }}>
           <Form.Item name="type" label="type" rules={[{ required: true }]}>
             <Select
               defaultValue={61}
@@ -69,7 +87,7 @@ const MintSmart: React.FC = () => {
                 { value: 60, label: '60 BRC-20 deploy 铭刻' },
                 { value: 50, label: '50 BRC-20 mint 铭刻' },
                 { value: 51, label: '51 BRC-20 transfer 铭刻' },
-                { value: 62	, label: '62 图片铭刻，需要将图片转换为图片字节流的 16 进制字符串表示'},
+                { value: 62, label: '62 图片铭刻，需要将图片转换为图片字节流的 16 进制字符串表示' },
                 { value: 61, label: '61 纯文本' },
               ]}
             />
@@ -77,38 +95,42 @@ const MintSmart: React.FC = () => {
           <Form.Item name="from" label="from" rules={[{ required: true }]}>
             <Input />
           </Form.Item>
-          <Form.List name="inscriptions">
-            {(fields, { add, remove }) => (
-              <>
-                {fields.map(({ key, name, ...restField }) => (
-                  <div key={key} style={{ display: 'flex', marginBottom: 8 }}>
-                    <Form.Item
-                      {...restField}
-                      name={[name, 'contentType']}
-                      rules={[{ required: true }]}
-                    >
-                      <Input placeholder="Input value" />
-                    </Form.Item>
-                    <Form.Item
-                      {...restField}
-                      name={[name, 'body']}
-                      rules={[{ required: true }]}
-                    >
-                      <Input placeholder="Input body" />
-                    </Form.Item>
-                    <Button type="link" onClick={() => remove(name)}>
-                      Delete
-                    </Button>
-                  </div>
-                ))}
-                <Form.Item>
-                  <Button type="dashed" onClick={() => add()} block>
-                    Add inscriptions
-                  </Button>
-                </Form.Item>
-              </>
-            )}
-          </Form.List>
+          <Form.Item name="inscription">
+            <Form.Item
+              name={['inscription', 'contentType']}
+              rules={[{ required: true }]}
+            >
+              <Select
+                defaultValue={'text/plain;charset=utf-8'}
+                options={[
+                  { value: 'image/png', label: 'image/png' },
+                  { value: 'image/jpeg', label: 'image/jpeg' },
+                  { value: 'text/plain;charset=utf-8', label: 'text/plain;charset=utf-8' },
+                ]}
+              />
+            </Form.Item>
+            <Form.Item
+              name={['inscription', 'body']}
+              rules={[{ required: true }]}
+            >
+              <Input placeholder="Input body" />
+            </Form.Item>
+            <Form.Item
+              name={['inscription', 'repeat']}
+              rules={[{ required: true }]}
+            >
+              <InputNumber placeholder="repeat num" style={{ width: '200px' }} min={1} />
+            </Form.Item>
+          </Form.Item>
+          <Form.Item name="noBroadCast" label="noBroadCast" rules={[{ required: true }]}>
+            <Select
+              defaultValue={false}
+              options={[
+                { value: false, label: 'false' },
+                { value: true, label: 'true' },
+              ]}
+            />
+          </Form.Item>
         </Form>
         <Flex>
           <APIButton
