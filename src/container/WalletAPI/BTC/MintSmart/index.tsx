@@ -5,8 +5,8 @@ import PreviewLayout from '@/components/common/Layout/PreviewLayout';
 import { getProviderCodeString, NetworkSwitch } from '@/constants/network';
 import { useModel } from '@umijs/max';
 import { Flex, Input, InputNumber, Select } from 'antd';
-import { Button, Form } from 'antd/es';
-import React, { useMemo, useState } from 'react';
+import { Form } from 'antd/es';
+import React, { useEffect, useMemo, useState } from 'react';
 
 const MintSmart: React.FC = () => {
   const [result, setResult] = useState({});
@@ -20,9 +20,32 @@ const MintSmart: React.FC = () => {
   const { network } = useModel('SwitchNetworkModel', (model) => ({
     network: model.networkSwitches[NetworkSwitch.BTC_API_ALL],
   }));
+  const { networkModel = {} } = useModel('NetworkModel', (model) => ({
+    networkModel: model.networks[network],
+  }));
+  console.log(networkModel);
+
+  useEffect(() => {
+    form.setFieldsValue({
+      from: networkModel.address,
+    });
+  }, [form, networkModel.address]);
 
   const curParams = useMemo(() => {
-    return [allFormValue];
+    const curInscriptions = new Array(
+      allFormValue?.inscription?.repeat || 0,
+    ).fill({
+      contentType: allFormValue?.inscription?.contentType,
+      body: allFormValue?.inscription?.body,
+    });
+    const curParam = {
+      type: allFormValue?.type,
+      from: allFormValue?.from,
+      inscriptions: curInscriptions,
+      noBroadCast: allFormValue?.noBroadCast,
+    };
+    console.log(curParam);
+    return [curParam];
   }, [allFormValue]);
 
   const demo = useMemo(() => {
@@ -30,20 +53,22 @@ const MintSmart: React.FC = () => {
       const txid = await ${getProviderCodeString(network)}.mint(
         {
           type: ${allFormValue?.type || 61},
-          from: '${allFormValue?.from || 'bc1p4k9ghlrynzuum080a4zk6e2my8kjzfhptr5747afzrn7xmmdtj6sgrhd0m'}',
-          inscriptions: ${allFormValue?.inscriptions?.length > 0
-        ? JSON.stringify(allFormValue?.inscriptions)
-        : JSON.stringify([
-          {
-            contentType: 'text/plain;charset=utf-8',
-            body: 'hello',
-          },
-          {
-            contentType: 'text/plain;charset=utf-8',
-            body: 'world',
-          },
-        ])
-      },
+          from: '${allFormValue?.from}',
+          noBroadCast: ${allFormValue?.noBroadCast || false},
+          inscriptions: ${
+            curParams[0].inscriptions?.length > 0
+              ? JSON.stringify(curParams[0].inscriptions)
+              : JSON.stringify([
+                  {
+                    contentType: 'text/plain;charset=utf-8',
+                    body: 'hello',
+                  },
+                  {
+                    contentType: 'text/plain;charset=utf-8',
+                    body: 'world',
+                  },
+                ])
+          }
         }
       );
       console.log(txid);
@@ -61,60 +86,95 @@ const MintSmart: React.FC = () => {
             networkSwitch={NetworkSwitch.BTC_API_ALL}
           />
         </Flex>
-        <Form form={form}>
-          <Form.Item name="type" label="type" rules={[{ required: true }]}>
+        <Form
+          form={form}
+          initialValues={{
+            type: 61,
+            inscription: {
+              contentType: 'text/plain;charset=utf-8',
+            },
+            noBroadCast: false,
+          }}
+          labelCol={{ span: 5, sm: 4, md: 7 }}
+          wrapperCol={{ span: 24 }}
+        >
+          <Form.Item
+            name="type"
+            label="type"
+            rules={[{ required: true }]}
+            labelAlign="left"
+          >
             <Select
-              defaultValue={61}
               options={[
                 { value: 60, label: '60 BRC-20 deploy 铭刻' },
                 { value: 50, label: '50 BRC-20 mint 铭刻' },
                 { value: 51, label: '51 BRC-20 transfer 铭刻' },
-                { value: 62	, label: '62 图片铭刻，需要将图片转换为图片字节流的 16 进制字符串表示'},
+                {
+                  value: 62,
+                  label:
+                    '62 图片铭刻，需要将图片转换为图片字节流的 16 进制字符串表示',
+                },
                 { value: 61, label: '61 纯文本' },
               ]}
             />
           </Form.Item>
-          <Form.Item name="from" label="from" rules={[{ required: true }]}>
-            <Input />
+          <Form.Item
+            name="from"
+            label="from"
+            rules={[{ required: true }]}
+            labelAlign="left"
+          >
+            <Input disabled />
           </Form.Item>
-          <Form.List name="inscriptions">
-            {(fields, { add, remove }) => (
-              <>
-                {fields.map(({ key, name, ...restField }) => (
-                  <div key={key} style={{ display: 'flex', marginBottom: 8 }}>
-                    <Form.Item
-                      {...restField}
-                      name={[name, 'contentType']}
-                      rules={[{ required: true }]}
-                    >
-                      <Input placeholder="Input value" />
-                    </Form.Item>
-                    <Form.Item
-                      {...restField}
-                      name={[name, 'body']}
-                      rules={[{ required: true }]}
-                    >
-                      <Input placeholder="Input body" />
-                    </Form.Item>
-                    <Button type="link" onClick={() => remove(name)}>
-                      Delete
-                    </Button>
-                  </div>
-                ))}
-                <Form.Item>
-                  <Button type="dashed" onClick={() => add()} block>
-                    Add inscriptions
-                  </Button>
-                </Form.Item>
-              </>
-            )}
-          </Form.List>
+          <Form.Item name="noBroadCast" label="noBroadCast" labelAlign="left">
+            <Select
+              options={[
+                { value: false, label: 'false' },
+                { value: true, label: 'true' },
+              ]}
+            />
+          </Form.Item>
+          <Form.Item name="inscription" label="inscription" labelAlign="left">
+            <Form.Item
+              name={['inscription', 'contentType']}
+              rules={[{ required: true }]}
+            >
+              <Select
+                options={[
+                  { value: 'image/png', label: 'image/png' },
+                  { value: 'image/jpeg', label: 'image/jpeg' },
+                  {
+                    value: 'text/plain;charset=utf-8',
+                    label: 'text/plain;charset=utf-8',
+                  },
+                ]}
+              />
+            </Form.Item>
+            <Form.Item
+              name={['inscription', 'body']}
+              rules={[{ required: true }]}
+            >
+              <Input placeholder="Input body" />
+            </Form.Item>
+            <Form.Item
+              name={['inscription', 'repeat']}
+              rules={[{ required: true }]}
+            >
+              <InputNumber
+                placeholder="Repeat times [1,1500]"
+                style={{ width: '100%' }}
+                min={1}
+                max={1500}
+              />
+            </Form.Item>
+          </Form.Item>
         </Form>
         <Flex>
           <APIButton
             apiName="mint"
             onCallback={onCallback}
             params={curParams}
+            networkSwitch={NetworkSwitch.BTC_API_ALL}
           />
         </Flex>
         <CodeBox text={demo} />
