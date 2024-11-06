@@ -38,9 +38,12 @@ const SignPsbtSmart: React.FC = () => {
 
   const computedParams = useMemo(()=>{
     if(optionJson) {
-      return [psbt, JSON.parse(optionJson)]
+      try {
+        return [psbt, JSON.parse(optionJson)]
+      } catch {
+        return [psbt]
+      }
     }
-    return [psbt]
   },[psbt, optionJson])
 
   return (
@@ -48,7 +51,7 @@ const SignPsbtSmart: React.FC = () => {
       <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
         <Connector onError={onCallback} />
         <Input value={psbt} onChange={onChange} placeholder="填写PSBT" />
-        <Input value={optionJson} onChange={onOptionChange} placeholder="填写Option(JSON字符串形式)" />
+        <Input.TextArea rows={6} value={optionJson} onChange={onOptionChange} placeholder="填写Option(JSON字符串形式)" />
         <APIButton apiName="signPsbt" onCallback={onCallback} params={computedParams} />
         <CodeBox text={demo} />
       </Space>
