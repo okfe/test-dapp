@@ -34,7 +34,7 @@ const SignPsbtSmart: React.FC = () => {
     } catch (e) {
         console.log(e);
     }`;
-  }, [network, psbt]);
+  }, [network, psbt, optionJson]);
 
   const computedParams = useMemo(()=>{
     if(optionJson) {
