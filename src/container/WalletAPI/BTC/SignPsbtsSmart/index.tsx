@@ -59,7 +59,7 @@ const SignPsbtsSmart: React.FC = () => {
     } catch (e) {
       console.log(e);
     }`;
-  }, [network, psbts]);
+  }, [network, psbts, optionJson]);
 
   const computedParams = useMemo(()=>{
     if(optionJson) {
