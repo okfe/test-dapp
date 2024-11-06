@@ -10,13 +10,16 @@ import React, { useMemo, useState } from 'react';
 const SignPsbtSmart: React.FC = () => {
   const [result, setResult] = useState({});
   const [psbt, setPsbt] = useState('');
+  const [optionJson, setOptionJson] = useState('');
   const onCallback = async (result: object) => {
     setResult(result);
   };
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPsbt(e.target.value);
   };
-
+  const onOptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setOptionJson(e.target.value);
+  };
   const { network } = useModel('SwitchNetworkModel', (model) => ({
     network: model.networkSwitches[NetworkSwitch.BTC],
   }));
@@ -25,7 +28,7 @@ const SignPsbtSmart: React.FC = () => {
     const needSignPsbt = psbt ? `${psbt}` : '70736274ff01007d....';
     return `try {
       let res = await ${getProviderCodeString(network)}.signPsbt(
-        '${needSignPsbt}'
+        '${needSignPsbt}', ${optionJson}
       );
       console.log(res)
     } catch (e) {
@@ -33,12 +36,20 @@ const SignPsbtSmart: React.FC = () => {
     }`;
   }, [network, psbt]);
 
+  const computedParams = useMemo(()=>{
+    if(optionJson) {
+      return [psbt, JSON.parse(optionJson)]
+    }
+    return [psbt]
+  },[psbt, optionJson])
+
   return (
     <PreviewLayout previewData={result}>
       <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
         <Connector onError={onCallback} />
         <Input value={psbt} onChange={onChange} placeholder="填写PSBT" />
-        <APIButton apiName="signPsbt" onCallback={onCallback} params={[psbt]} />
+        <Input value={optionJson} onChange={onOptionChange} placeholder="填写Option(JSON字符串形式)" />
+        <APIButton apiName="signPsbt" onCallback={onCallback} params={computedParams} />
         <CodeBox text={demo} />
       </Space>
     </PreviewLayout>

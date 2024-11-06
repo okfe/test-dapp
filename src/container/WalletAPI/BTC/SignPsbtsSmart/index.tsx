@@ -22,6 +22,7 @@ const PsbtItem = ({ index, onChange, psbts }) => {
 const SignPsbtsSmart: React.FC = () => {
   const [result, setResult] = useState({});
   const [psbts, setPsbts] = useState([]);
+  const [optionJson, setOptionJson] = useState('');
 
   const onCallback = async (result: object) => {
     setResult(result);
@@ -32,7 +33,9 @@ const SignPsbtsSmart: React.FC = () => {
     newPsbts[index] = e.target.value;
     setPsbts(newPsbts);
   };
-
+  const onOptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setOptionJson(e.target.value);
+  };
   const onAdd = () => {
     setPsbts([...psbts, '']);
   };
@@ -50,13 +53,20 @@ const SignPsbtsSmart: React.FC = () => {
       : ['70736274ff01007d...', '70736274ff01007d...'];
     return `try {
       let res = await ${getProviderCodeString(network)}.signPsbts(
-        ${JSON.stringify(needSignPsbts)}
+        ${JSON.stringify(needSignPsbts)}, ${optionJson}
       );
       console.log(res)
     } catch (e) {
       console.log(e);
     }`;
   }, [network, psbts]);
+
+  const computedParams = useMemo(()=>{
+    if(optionJson) {
+      return [psbts, JSON.parse(optionJson)]
+    }
+    return [psbts]
+  },[psbts, optionJson])
 
   return (
     <PreviewLayout previewData={result}>
@@ -76,10 +86,11 @@ const SignPsbtsSmart: React.FC = () => {
             />
           );
         })}
+        <Input value={optionJson} onChange={onOptionChange} placeholder="填写Option(JSON字符串形式)" />
         <APIButton
           apiName="signPsbts"
           onCallback={onCallback}
-          params={[psbts]}
+          params={computedParams}
         />
         <CodeBox text={demo} />
       </Space>
