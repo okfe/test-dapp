@@ -27,6 +27,7 @@ export const analyzePsbt = (psbt) => {
     const witnessScript = (psbt.data.inputs[index] || {}).witnessScript;
     const witnessUtxo = (psbt.data.inputs[index] || {}).witnessUtxo;
     const redeemScript = (psbt.data.inputs[index] || {}).redeemScript;
+    const tapLeafScript = (psbt.data.inputs[index] || {}).tapLeafScript;
     const sighashType = (psbt.data.inputs[index] || {}).sighashType;
     const bip32Derivation = (psbt.data.inputs[index] || {}).bip32Derivation;
 
@@ -65,6 +66,7 @@ export const analyzePsbt = (psbt) => {
       previousTxHex: previousTx ? previousTx.toString('hex') : '',
       utxo,
       script: finalScriptSig,
+      tapLeafScript,
       redeemScript,
       witnessScript,
       witness,

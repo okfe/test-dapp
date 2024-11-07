@@ -25,6 +25,7 @@
     "scriptpubkey",
     "scure",
     "secp",
+    "sighash",
     "solana",
     "summerfruit",
     "tanstack",
