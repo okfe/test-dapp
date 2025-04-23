@@ -67,11 +67,11 @@ export default function SignTransaction({ account, connection, wallet }) {
   const generateVersionedTx = withConnectionGenerateVersionedTx({ connection, wallet });
 
   const [signTransactionLoading, setSignTransactionLoading] = useState(false);
-  const signTransaction = async () => {
+  const signTransaction = async (provider = 'solana') => {
     try {
       setSignTransactionLoading(true);
       const tx = await generateTx();
-      const signedTx = await wallet.signTransaction(tx);
+      const signedTx = provider === 'svm' ? await window.svm.signTransaction(tx) : await wallet.signTransaction(tx);
       console.log('Current log: signedTx: ', signedTx);
       const ret = await connection.sendRawTransaction(signedTx.serialize());
       console.log(ret);
@@ -85,14 +85,14 @@ export default function SignTransaction({ account, connection, wallet }) {
   };
 
   const [signAllTransactionsLoading, setSignAllTransactionsLoading] = useState(false);
-  const signAllTransactions = async () => {
+  const signAllTransactions = async (provider = 'solana') => {
     try {
       setSignAllTransactionsLoading(true);
       const txs = [
         await generateTx(),
         await generateTx(),
       ];
-      const signedTxs = await wallet.signAllTransactions(txs);
+      const signedTxs = provider === 'svm' ? await window.svm.signAllTransactions(txs) : await wallet.signAllTransactions(txs);
 
       // eslint-disable-next-line no-plusplus
       for (let i = 0; i < signedTxs.length; i++) {
@@ -205,6 +205,16 @@ export default function SignTransaction({ account, connection, wallet }) {
               >
                 signTransaction
               </Button>
+              <Button
+                block
+                disabled={!account}
+                loading={signTransactionLoading}
+                onClick={() => {
+                  signTransaction('svm');
+                }}
+              >
+                signTransaction(svm)
+              </Button>
 
               <Button
                 block
@@ -213,6 +223,16 @@ export default function SignTransaction({ account, connection, wallet }) {
                 onClick={signAllTransactions}
               >
                 signAllTransactions
+              </Button>
+              <Button
+                block
+                disabled={!account}
+                loading={signAllTransactionsLoading}
+                onClick={() => {
+                  signAllTransactions('svm');
+                }}
+              >
+                signAllTransactions(svm)
               </Button>
 
               <Button
