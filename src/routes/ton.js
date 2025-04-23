@@ -1,5 +1,5 @@
 const router = {
-  name: 'Wallet TON API',
+  name: 'TON API',
   path: '/wallet-ton-api',
   routes: [
     {
