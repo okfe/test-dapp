@@ -1,5 +1,5 @@
 const router = {
-  name: 'Wallet BTC API',
+  name: 'BTC API',
   path: '/wallet-btc-api',
   routes: [
     {
