@@ -39,7 +39,7 @@ export default function GlobalTools() {
   }, [isDarkMode, setAntdConfig]);
 
   const goToGithub = useCallback(() => {
-    window.open('https://github.com/okxwallet/test-dapp', '_blank');
+    window.open('https://github.com/okfe/test-dapp', '_blank');
   }, []);
 
   return (

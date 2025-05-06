@@ -1,2 +1,2 @@
 export const manifestUrl =
-  'https://okxwallet.github.io/test-dapp/tonconnect-manifest.json';
+  'https://github.com/okfe/test-dapptonconnect-manifest.json';
