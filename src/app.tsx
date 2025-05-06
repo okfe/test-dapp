@@ -1,4 +1,5 @@
 import GlobalTools from './components/common/GlobalTools';
+import 'antd-mobile/es/global';
 import './index.less';
 // 运行时配置
 
