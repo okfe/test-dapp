@@ -2,7 +2,7 @@ import useIsDarkMode from '@/hooks/useIsDarkMode';
 import { GithubOutlined, MoonOutlined, SunOutlined } from '@ant-design/icons';
 import { useAntdConfigSetter } from '@umijs/max';
 import { Button, Flex, theme } from 'antd';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useLayoutEffect } from 'react';
 const { darkAlgorithm, defaultAlgorithm } = theme;
 
 export default function GlobalTools() {
@@ -34,9 +34,18 @@ export default function GlobalTools() {
         config.theme!.algorithm = [darkAlgorithm];
         localStorage.setItem('theme', 'dark');
       }
+
       return config;
     });
   }, [isDarkMode, setAntdConfig]);
+
+  // for ant design mobile
+  useLayoutEffect(() => {
+    document.documentElement.setAttribute(
+      'data-prefers-color-scheme',
+      isDarkMode ? 'dark' : 'light',
+    );
+  }, [isDarkMode]);
 
   const goToGithub = useCallback(() => {
     window.open('https://github.com/okfe/test-dapp', '_blank');

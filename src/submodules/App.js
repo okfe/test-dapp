@@ -27,7 +27,7 @@ export default function App() {
         }}
         style={{
           '--fixed-content': true,
-          '--content-padding': '15px',
+          '--content-padding': '15px 0',
         }}
       >
         {tabs.map((tab) => (
