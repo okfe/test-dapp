@@ -1,0 +1,13 @@
+include:
+  # sonarqube biz monorepo check
+  # - project: okfe/okt/ci-config
+  #   ref: master
+  #   file: jobs/sonar/monorepo-biz.yml
+  # biz monorepo build
+  - project: okfe/okt/ci-config
+    ref: master
+    file: jobs/build/monorepo-biz.yml
+stages:
+  - monorepo-build
+  # - sonarqube-check
+

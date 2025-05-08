@@ -1,3 +1,4 @@
 module.exports = {
-  extends: require.resolve('@umijs/max/stylelint'),
+  extends: '@ok/stylelint-config'
 };
+

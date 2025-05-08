@@ -11,7 +11,7 @@ import SignTransactionWithFakeParams from './components/SignTransactionWithFakeP
 function Ton() {
   return (
     <TonConnectUIProvider
-      manifestUrl="https://okfe.github.io/test-demo/tonconnect-manifest.json"
+      manifestUrl="https://fe.okg.com/assets/test-dapp/tonconnect-manifest.json"
     >
       <Space direction="vertical" style={{ width: '100%' }}>
         <TonConnectButton />

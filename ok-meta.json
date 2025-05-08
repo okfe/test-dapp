@@ -1,0 +1,23 @@
+{
+  "$schema": "https://fe.okg.com/api/gitlab/project/metadata/schema.json",
+  "projectName": "test-dapp",
+  "description": "test-dapp in dacs",
+  "maintainers": [
+    "shaowei.zhou@okg.com"
+  ],
+  "types": [
+    "npm"
+  ],
+  "scenes": [
+    "business"
+  ],
+  "businessSites": [
+    "okx"
+  ],
+  "execEnvs": [
+    "browser"
+  ],
+  "monorepo": {
+    "level": "workspace"
+  }
+}

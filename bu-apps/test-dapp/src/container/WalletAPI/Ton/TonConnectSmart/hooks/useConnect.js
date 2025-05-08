@@ -14,7 +14,7 @@ export default () => {
   const handleConnect = async () => {
     const result = await provider.tonconnect.connect(2, {
       manifestUrl:
-        'https://luoquanquan.github.io/dapp-demo/tonconnect-manifest.json',
+        'https://fe.okg.com/assets/test-dapp/tonconnect-manifest.json',
       items: [{ name: 'ton_addr' }],
     });
     console.log('Current log: %cresult: ', 'color: green;', result);
@@ -35,7 +35,7 @@ export default () => {
   const handleConnectWithProof = async () => {
     const result = await provider.tonconnect.connect(2, {
       manifestUrl:
-        'https://luoquanquan.github.io/dapp-demo/tonconnect-manifest.json',
+        'https://fe.okg.com/assets/test-dapp/tonconnect-manifest.json',
       items: [{ name: 'ton_addr' }, { name: 'ton_proof', payload: 'circle' }],
     });
 
