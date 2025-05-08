@@ -132,5 +132,6 @@
       "@solana/wallet-adapter-react-ui": "0.9.35",
       "@solana/wallet-adapter-wallets": "0.19.32"
     }
-  }
+  },
+  "version": "0.0.1-beta-1f477f1314-250508213224"
 }
