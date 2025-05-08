@@ -14,6 +14,6 @@ echo "End compile $package_name"
 rm -rf docs/
 # mkdir -p docs
 mv dist docs
-mv docs/index.html docs/404.html
+cp docs/index.html docs/404.html
 
 cp tonconnect-manifest.json docs/tonconnect-manifest.json
