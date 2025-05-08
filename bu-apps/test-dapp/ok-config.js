@@ -5,7 +5,7 @@ const config = {
   build: {},
   workflow: {
     npm: {
-      docResourcePath: './dist',
+      docResourcePath: './docs',
       docUploadTargetName: 'test-dapp',
     }
   },
