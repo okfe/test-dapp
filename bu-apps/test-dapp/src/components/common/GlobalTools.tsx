@@ -48,7 +48,7 @@ export default function GlobalTools() {
   }, [isDarkMode]);
 
   const goToGithub = useCallback(() => {
-    window.open('https://github.com/okfe/test-dapp', '_blank');
+    window.open('https://gitlab.okg.com/okfe/third-libs/test-dapp', '_blank');
   }, []);
 
   return (
